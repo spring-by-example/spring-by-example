@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.springbyexample</groupId>
+	<artifactId>sbe-web-parent</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+	<name>SBE Web</name>
+    <description>
+        Parent pom to aggregate web modules.
+    </description>
+
+    <modules>
+        <module>simple-tiles2-webapp</module>
+        <module>dynamic-tiles2-webapp</module>
+        <module>simple-form-annotation-config-webapp</module>
+        <module>simple-spring-security-webapp</module>
+        <module>simple-spring-webflow-webapp</module>
+        <module>spring-webflow-subflow-webapp</module>
+        <!-- <module>spring-bayeuex-gwt-chat-webapp</module> -->
+        <!-- <module>simple-gwt-webapp</module> -->
+        <!-- <module>spring-bayeuex-gwt-monitor-webapp</module> -->
+    </modules>
+	
+</project>
+

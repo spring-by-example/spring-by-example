@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+    <security:global-method-security secured-annotations="enabled" />
+    
+    <security:http auto-config="true">
+        <!-- Restrict URLs based on role -->
+        <security:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/logoutSuccess*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        
+        <security:intercept-url pattern="/css/main.css" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        
+        <security:intercept-url pattern="/**" access="ROLE_USER" />
+
+        <!-- Override default login and logout pages -->
+        <security:form-login login-page="/login.jsp" 
+                             login-processing-url="/loginProcess" 
+                             default-target-url="/index.jsp" 
+                             authentication-failure-url="/login.jsp?login_error=1" />
+        <security:logout logout-url="/logout" logout-success-url="/logoutSuccess.jsp" />
+    </security:http>
+
+    <security:authentication-provider>
+        <security:jdbc-user-service data-source-ref="dataSource" />
+    </security:authentication-provider>
+    
+</beans>

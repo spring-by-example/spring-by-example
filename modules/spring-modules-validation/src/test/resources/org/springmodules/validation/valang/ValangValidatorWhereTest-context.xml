@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="creditApprovalFunction" 
+          class="org.springmodules.validation.valang.CreditApprovalFunction"
+          scope="prototype">
+        <property name="creditRatingList">
+            <list>
+                <value>GOOD</value>
+                <value>EXCELLENT</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="personValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="className" value="org.springmodules.validation.valang.Person"/>
+        <property name="customFunctions">
+            <map>
+                <entry key="validLastName">
+                    <value>org.springmodules.validation.valang.ValidLastNameFunction</value>
+                </entry>
+                <entry key="creditApproval">
+                    <bean class="org.springmodules.validation.valang.functions.FunctionWrapper"
+                          scope="prototype">
+                        <aop:scoped-proxy/>
+                        
+                        <property name="function" ref="creditApprovalFunction" />
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <property name="valang">
+            <!-- 
+                Only perform validation if valid first name, credit status is failed or pending, 
+                and the credit rating is excellent.
+            -->
+            <value><![CDATA[
+              { lastName : validLastName(?) is true AND creditApproval(age, creditRating) is true
+                           WHERE firstName IN 'Joe', 'Jack', 'Jill', 'Jane' AND
+                                 creditStatus IN ['PENDING'], ['org.springmodules.validation.valang.CreditStatus.FAIL'] AND
+                                 creditRating EQUALS ['org.springmodules.validation.valang.Person$CreditRating.EXCELLENT'] : '' }
+            ]]></value>
+        </property>
+    </bean>
+   
+</beans>

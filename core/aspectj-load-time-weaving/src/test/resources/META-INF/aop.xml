@@ -1,0 +1,12 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver>
+        <!-- only weave classes in this package -->
+        <include within="org.springbyexample.aspectjLoadTimeWeaving.*" />
+    </weaver>
+    <aspects>
+        <!-- use only this aspect for weaving -->
+        <aspect name="org.springbyexample.aspectjLoadTimeWeaving.PerformanceAdvice" />
+    </aspects>
+</aspectj>

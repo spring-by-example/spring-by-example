@@ -1,0 +1,16 @@
+<module>
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.gwt.http.HTTP"/>
+
+    <!-- GWT locale -->
+    <extend-property name="locale" values="en_US" />
+
+    <!-- Specify the app entry point class.                   -->
+    <entry-point class='org.springbyexample.web.gwt.monitor.client.App'/>
+
+    <servlet path='/service.do' class='org.springbyexample.web.gwt.monitor.server.ServiceImpl'/>
+  
+</module>

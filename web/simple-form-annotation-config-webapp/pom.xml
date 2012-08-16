@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springbyexample</groupId>
+        <artifactId>proto-pom-example-web</artifactId>
+        <version>2.0</version>
+        <relativePath>../../proto-pom/example-web</relativePath>
+    </parent>
+    
+	<groupId>org.springbyexample.web</groupId>
+	<artifactId>simple-form-annotation-config-webapp</artifactId>
+	<version>1.1.1</version>
+	<packaging>war</packaging>
+	<name>Simple Spring MVC Form Annotation Configuration Webapp</name>
+	<description>
+		This is an example showing how to use Spring MVC annotations to make a CRUD webapp.  
+        Tiles, Hibernate, and internationalized messages are also used.
+	</description>
+    	
+    <dependencies>
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-dynamic-tiles2</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+        <finalName>simple-form</finalName>
+	</build>
+	
+	
+</project>
+

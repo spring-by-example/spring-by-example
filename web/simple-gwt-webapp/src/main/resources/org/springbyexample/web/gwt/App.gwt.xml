@@ -1,0 +1,13 @@
+<module>
+
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.gwt.http.HTTP"/>
+
+    <!-- Specify the app entry point class.                   -->
+    <entry-point class='org.springbyexample.web.gwt.client.App'/>
+
+    <servlet path='/service.do' class='org.springbyexample.web.gwt.server.ServiceImpl'/>
+  
+</module>

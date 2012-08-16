@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="jetty-context.xml"/>
+
+    <context:component-scan base-package="org.springbyexample.ws.client" />
+    
+    <context:property-placeholder location="org/springbyexample/ws/client/ws.properties"/>
+
+    <bean id="personWsTemplate" class="org.springframework.ws.client.core.WebServiceTemplate"
+    	  p:defaultUri="http://${ws.host}:${ws.port}/${ws.context.path}/personService/"
+    	  p:marshaller-ref="marshaller"
+    	  p:unmarshaller-ref="marshaller" />
+
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"
+          p:contextPath="org.springbyexample.person.schema.beans" />
+
+</beans>

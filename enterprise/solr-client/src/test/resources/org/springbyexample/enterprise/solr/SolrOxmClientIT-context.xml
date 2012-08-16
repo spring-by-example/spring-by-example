@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+    <!-- Loads CatalogItemMarshaller -->
+    <context:component-scan base-package="org.springbyexample.enterprise.solr" />
+    
+    <context:property-placeholder location="org/springbyexample/enterprise/solr/solr.properties"/>
+
+    <!-- Just used for debugging -->
+    <bean id="selectUrl" class="java.lang.String">
+        <constructor-arg value="http://${solr.host}:${solr.port}/solr/select" />
+    </bean>
+                  
+    <bean id="solrOxmClient" class="org.springbyexample.httpclient.solr.SolrOxmClient"
+          p:baseUrl="http://${solr.host}:${solr.port}/solr"
+          p:marshaller-ref="catalogItemMarshaller" 
+          p:unmarshaller-ref="catalogItemMarshaller" />
+
+</beans>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springbyexample</groupId>
+        <artifactId>proto-pom</artifactId>
+        <version>2.0</version>
+        <relativePath>./proto-pom</relativePath>
+    </parent>
+    
+	<groupId>org.springbyexample</groupId>
+	<artifactId>sbe-parent</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+	<name>Spring by Example</name>
+    <description>
+        Parent pom to aggregate modules.
+    </description>
+	
+	<inceptionYear>2008</inceptionYear>
+
+	<organization>
+		<name>Spring by Example</name>
+		<url>http://www.springbyexample.org</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>dwinterfeldt</id>
+			<name>David Winterfeldt</name>
+			<email>dwinterfeldt at springbyexample.org</email>
+			<organization>Spring by Example</organization>
+			<organizationUrl>
+				http://www.springbyexample.org
+			</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+
+    <modules>
+        <module>proto-pom</module>
+        <module>modules</module>
+        <module>core</module>
+        <module>persistence</module>
+        <module>enterprise</module>
+        <module>flex/simple-flex-webapp</module>
+        <module>web</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <comments>
+Copyright 2007-2012 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+            </comments>
+        </license>
+    </licenses>
+	
+</project>
+

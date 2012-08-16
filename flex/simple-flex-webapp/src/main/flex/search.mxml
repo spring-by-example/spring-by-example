@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+                xmlns:controller="org.springbyexample.web.flex.controller.*" 
+                layout="horizontal"
+                initialize="initializeHandler()"
+                addedToStage="addedToStageHandler()">
+
+    <!--
+        To use other locales besides en_US, the en_US locale must be copied in the sdk.
+    
+            ex: /Applications/Adobe\ Flex\ Builder\ 3\ Plug-in/sdks/3.2.0/bin/copylocale en_US es_ES
+    -->
+    <mx:Metadata>
+        [ResourceBundle("messages")]
+    </mx:Metadata>
+    
+    <controller:ResourceController/>
+    <controller:PersonController/>
+
+    <mx:Script>
+        <![CDATA[
+            import org.springbyexample.web.flex.log.LogWindow;
+            import mx.logging.Log;
+            import mx.logging.ILogger;
+
+            import org.springbyexample.web.flex.event.LocaleChangeEvent;
+            import org.springbyexample.web.flex.event.PersonSearchEvent;
+            import org.springbyexample.web.flex.log.StringBufferTarget;
+            import org.springbyexample.web.flex.model.PersonSearchModelLocator;
+
+            private const logger:ILogger = Log.getLogger("search.mxml");
+            private var logTarget:StringBufferTarget = new StringBufferTarget();
+            private var logWindow:LogWindow;
+            
+            /**
+             * Initialize component.
+             */
+            private function initializeHandler():void {
+                Log.addTarget(logTarget);
+                
+                logWindow = new LogWindow()
+                logWindow.logTarget = logTarget;
+                
+                var lce:LocaleChangeEvent = new LocaleChangeEvent(resourceManager);
+                lce.dispatch();
+
+                var psml:PersonSearchModelLocator = PersonSearchModelLocator.getInstance();
+                searchDataGrid.dataProvider = psml.personData;
+                
+                var pse:PersonSearchEvent = new PersonSearchEvent();
+                pse.dispatch();
+            }
+
+            /**
+             * Handles the 'addedToStage' event.
+             */
+            private function addedToStageHandler():void {
+                stage.addEventListener(KeyboardEvent.KEY_DOWN, keydownHandler);
+            }
+            
+            /**
+             * Handles key down event.  Toggles showing the log text area 
+             * if 'ctrl + shift + up' is pressed.
+             */
+            private function keydownHandler(event:KeyboardEvent):void {
+                if (event.ctrlKey && event.shiftKey && event.keyCode == Keyboard.UP) {
+                    if (logWindow.active) {
+                        logWindow.hide();
+                     } else {
+                        logWindow.open(this);
+                     }
+                }
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:DataGrid id="searchDataGrid">
+        <mx:columns>
+            <mx:DataGridColumn headerText="{resourceManager.getString('messages', 'person.form.firstName')}" dataField="firstName"/>
+            <mx:DataGridColumn headerText="{resourceManager.getString('messages', 'person.form.lastName')}" dataField="lastName"/>
+            <mx:DataGridColumn width="150" editable="false">
+                <mx:itemRenderer>
+                    <mx:Component>
+                        <mx:HBox>
+                            <mx:Script>
+                                <![CDATA[
+                                    import org.springbyexample.web.flex.event.PersonDeleteEvent;
+                                    import org.springbyexample.web.jpa.bean.Person;
+                                ]]>
+                            </mx:Script>
+                            <mx:Button label="{resourceManager.getString('messages', 'button.edit')}" 
+                                       click="navigateToURL(new URLRequest('../person/form.html?id=' + data.id), '_self');"/>
+                            <mx:Button label="{resourceManager.getString('messages', 'button.delete')}" 
+                                       click="new PersonDeleteEvent((data as Person).id).dispatch();"/>
+                        </mx:HBox>
+                    </mx:Component>
+                </mx:itemRenderer>
+            </mx:DataGridColumn>    
+        </mx:columns>
+    </mx:DataGrid>
+    
+</mx:Application>

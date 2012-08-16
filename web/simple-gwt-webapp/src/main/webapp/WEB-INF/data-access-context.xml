@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource"
+          class="org.springbyexample.jdbc.datasource.HsqldbInitializingDriverManagerDataSource">
+        <property name="sqlScriptProcessor">
+            <bean class="org.springbyexample.jdbc.core.SqlScriptProcessor">
+                <property name="charset" value="UTF-8" />
+                <property name="sqlScripts">
+                    <list>
+                        <value>classpath:/security_schema.sql</value>
+                        <value>classpath:/schema.sql</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+        	<list>
+        		<value>org.springbyexample.orm.hibernate3.annotation.bean.Person</value>
+        		<value>org.springbyexample.orm.hibernate3.annotation.bean.Address</value>
+        	</list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.format_sql=true
+                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+            </value>
+        </property>
+    </bean>
+    
+    <bean id="personDao" class="org.springbyexample.orm.hibernate3.annotation.dao.PersonDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+
+</beans>

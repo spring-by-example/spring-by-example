@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.springbyexample</groupId>
+        <artifactId>proto-pom-example-web</artifactId>
+        <version>2.0</version>
+        <relativePath>../../proto-pom/example-web</relativePath>
+    </parent>
+
+	<groupId>org.springbyexample</groupId>
+	<artifactId>swf-subflow</artifactId>
+	<version>1.1.1</version>
+	<packaging>war</packaging>
+	<name>Spring Web Flow Subflow Webapp</name>
+	<description>
+		Spring Web Flow Subflow Webapp.
+	</description>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-dynamic-tiles2</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-js</artifactId>
+        </dependency>   
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-webflow</artifactId>
+        </dependency>
+	</dependencies>
+
+    <build>
+        <finalName>swf-subflow</finalName>
+    </build>
+
+</project>
+

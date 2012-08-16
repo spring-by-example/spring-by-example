@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.springmodules.org/validation/bean"
+           xmlns:vld="http://www.springmodules.org/validation/bean">
+
+    <!-- Basic Structure Element Definitions -->
+
+    <xs:element name="validation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="vld:class" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="package" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="class">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="vld:validator" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="vld:validator-bean" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="vld:global" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="vld:property" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="vld:method" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+            <xs:anyAttribute namespace="##any" processContents="skip"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="global">
+        <xs:complexType>
+            <xs:group ref="vld:globalRules"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:group ref="vld:propertyRules"/>
+            <xs:attribute name="name" use="required"/>
+            <xs:attribute name="cascade" use="optional" type="vld:true-false-type"/>
+            <xs:attribute name="cascade-condition" use="optional" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="method">
+        <xs:complexType>
+            <xs:attribute name="name" use="required"/>
+            <xs:attribute name="for-property" use="optional"/>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="true-false-type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:group name="globalRules">
+        <xs:sequence>
+            <xs:element ref="vld:expression" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="propertyRules">
+        <xs:sequence>
+            <xs:element ref="vld:not-null" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:in-future" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:in-past" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:email" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:length" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:not-blank" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:not-empty" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:range" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:regexp" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:size" minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="vld:expression" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="vld:spring-condition" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any processContents="skip" namespace="##local" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+
+
+    <!-- Validation Rule Elements -->
+
+    <xs:attributeGroup name="common-rule-attributes">
+        <xs:attribute name="code" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    The error code that is associated with this validation rule. Usually this code will be
+                    resolved to a real message using a resource bundle
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="message" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>A default error message to be used when the error code cannot be resolved</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="args" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>A comma-separated list of arguments to be used along with the error code</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="apply-if" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>A condition expression that determines when/whether this rule should be applied on the bean.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="contexts" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>A comma-separated list of validation context tokens this rule is associated with</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:element name="expression">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="condition" use="required" type="xs:string"/>
+            <xs:attribute name="scope" use="optional" type="vld:expression-scope"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="expression-scope">
+        <xs:annotation>
+            <xs:documentation>
+                The scope of a expression. Can be either
+                <i>global</i>
+                or
+                <i>property</i>
+                .
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="global"/>
+            <xs:enumeration value="property"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="in-future">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="in-past">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="email">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="length">
+        <xs:annotation>
+            <xs:documentation>
+                A validation rule that checks that the length of a String property is between specific bounds.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="min" use="optional" type="xs:integer"/>
+            <xs:attribute name="max" use="optional" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="not-blank">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="not-empty">
+        <xs:annotation>
+            <xs:documentation>
+                A validation rule that checks that a collection or an array property is not empty.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="not-null">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="range">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="min" use="optional" type="xs:integer"/>
+            <xs:attribute name="max" use="optional" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="regexp">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="expression" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="size">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="min" use="optional" type="xs:integer"/>
+            <xs:attribute name="max" use="optional" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="condition-ref">
+        <xs:complexType>
+            <xs:attributeGroup ref="vld:common-rule-attributes"/>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="validator">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies a org.springframework.validation.Validator class to be used in the validation process
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="class" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="validator-ref">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies the name of the org.springframework.validation.Validator bean by which it's deployed in
+                the spring application context
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean class="org.springmodules.validation.valang.functions.FunctionDefinition"
+          p:name="validLastName"
+          p:className="org.springmodules.validation.valang.ValidLastNameFunction"/>
+
+    <!-- Uses bean name for function name if not explicitly set on the wrapper -->
+    <bean id="creditApproval" 
+          class="org.springmodules.validation.valang.functions.FunctionWrapper"
+          scope="prototype">
+        <aop:scoped-proxy/>
+        
+        <property name="function">
+            <bean id="creditApprovalFunction" 
+                  class="org.springmodules.validation.valang.CreditApprovalFunction"
+                  scope="prototype">
+                <property name="creditRatingList">
+                    <list>
+                        <value>GOOD</value>
+                        <value>EXCELLENT</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="personValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="className" value="org.springmodules.validation.valang.Person"/>
+        <!--
+            Final validation tests that the aop:scoped-proxy is working since if the same instance 
+            of CreditApprovalFunction is used it will be set to a failing value for both sides of the or.
+            While if two instances are made the first condition should pass while the second will fail.
+        -->
+        <property name="valang">
+            <value><![CDATA[
+              { lastName : validLastName(?) is true : '' }
+              { lastName : creditApproval(age, creditRating) is true : '' }
+              { lastName : validLastName(?) is true AND creditApproval(age, creditRating) is true : '' }
+              { lastName : validLastName(?) is true AND 
+                           (creditApproval(age, creditRating) is true OR 
+                            creditApproval(age, ['org.springmodules.validation.valang.Person$CreditRating.FAIR']) is true) : '' }
+            ]]></value>
+        </property>
+    </bean>
+   
+</beans>

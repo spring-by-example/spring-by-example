@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors" ref="localeChangeInterceptor"/>
+    </bean>
+
+	<!-- Enables annotated POJO @Controllers -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+	<!-- Enables plain Controllers -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- URL to flow mapping rules -->
+	<bean id="flowMappings"
+	      class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	    <property name="mappings">
+	        <value>
+	            /person.htm=personFlowHandler
+	        </value>
+	    </property>
+	    <property name="order" value="0" />
+	</bean>
+
+	<!-- Enables convention-based request URL mapping to @Controllers (ex: /person/* maps to PersonController) -->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="1"/>
+    </bean> 
+
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles-defs/templates.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="tilesViewResolver" 
+          class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">  
+        <property name="viewClass" value="org.springbyexample.web.servlet.view.tiles2.FlowAjaxDynamicTilesView" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <value>messages</value>
+        </property>
+    </bean>
+    
+    <!-- Declare the Interceptor -->
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="locale"/>
+    </bean>
+    
+    <!-- Declare the Resolver -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+</beans>

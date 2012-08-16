@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="org.springbyexample.ws.embedded.service" />
+
+    <bean id="person" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition"
+          p:portTypeName="Person"
+          p:locationUri="/personService/"
+          p:requestSuffix="-request"
+          p:responseSuffix="-response">
+        <property name="schema">
+            <bean class="org.springframework.xml.xsd.SimpleXsdSchema"
+                  p:xsd="classpath:/person.xsd" />
+        </property>        
+    </bean>
+
+    <bean class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping">
+        <description>An endpoint mapping strategy that looks for @Endpoint and @PayloadRoot annotations.</description>
+    </bean>
+
+    <bean class="org.springframework.ws.server.endpoint.adapter.MarshallingMethodEndpointAdapter">
+        <description>Enables the MessageDispatchServlet to invoke methods requiring OXM marshalling.</description>
+        <constructor-arg ref="marshaller"/>
+    </bean>
+
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller"
+          p:contextPath="org.springbyexample.person.schema.beans" />
+
+</beans>

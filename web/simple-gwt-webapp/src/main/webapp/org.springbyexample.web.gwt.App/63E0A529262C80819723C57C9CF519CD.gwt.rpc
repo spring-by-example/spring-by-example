@@ -1,0 +1,17 @@
+com.google.gwt.i18n.client.impl.DateRecord, true
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true
+java.lang.Exception, false
+java.lang.Integer, true
+java.lang.Number, false
+java.lang.RuntimeException, false
+java.lang.String, true
+java.lang.Throwable, false
+java.sql.Date, true
+java.sql.Time, true
+java.sql.Timestamp, true
+java.util.Date, true
+java.util.HashSet, true
+java.util.LinkedHashSet, true
+org.springbyexample.web.gwt.client.bean.Address, true
+org.springbyexample.web.gwt.client.bean.Person, true
+[Lorg.springbyexample.web.gwt.client.bean.Person;, true

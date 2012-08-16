@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="org.springbyexample.orm.hibernate3.bean" default-access="field">
+
+    <class name="Person" table="PERSON">
+        <id name="id" column="ID">
+            <generator class="native"/>
+        </id>
+
+        <property name="firstName" column="FIRST_NAME" />
+        <property name="lastName" column="LAST_NAME" />
+		<set name="addresses" lazy="false" inverse="false">
+		    <key column="PERSON_ID"/>
+		    <one-to-many class="Address"/>
+		</set>
+        <property name="created" column="CREATED" />
+    </class>
+    
+</hibernate-mapping>
