@@ -1,0 +1,22 @@
+<xsd:schema xmlns="http://www.springbyexample.org/schema/beans"
+            targetNamespace="http://www.springbyexample.org/schema/beans"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="Persons">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="person" type="Person"
+                             minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Person">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:int" />
+            <xsd:element name="first-name" type="xsd:string" />
+            <xsd:element name="last-name" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER" />
+
+    <input name="id" />
+
+    <decision-state id="createOrEdit">
+        <if test="id == null" then="create" else="edit" />
+    </decision-state>
+
+    <action-state id="create">
+        <evaluate expression="personBean" result="flowScope.person" />
+        <transition to="personForm" />
+    </action-state>
+
+    <action-state id="edit">
+        <evaluate expression="personDao.findPersonById(id)"
+            result="flowScope.person" />
+        <transition to="personForm" />
+    </action-state>
+
+    <view-state id="personForm" model="person" view="/person/form">
+        <transition on="save" to="save">
+            <evaluate expression="personDao.save(person)" />
+
+            <evaluate expression="personDao.findPersons()"
+                      result="flowScope.persons" />
+        </transition>
+        <transition on="cancel" to="cancel" bind="false">
+            <evaluate expression="personDao.findPersons()"
+                      result="flowScope.persons" />
+        </transition>
+    </view-state>
+
+    <end-state id="save"/>
+
+    <end-state id="cancel"/>
+
+</flow>

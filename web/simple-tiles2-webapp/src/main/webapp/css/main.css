@@ -1,0 +1,66 @@
+body {
+	color: black;
+	background-color: white;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-size: 71%; /* Enables font size scaling in MSIE */
+	margin: 0;
+	padding: 0;
+}
+
+#header {
+	color: white;
+	background-color: #488214;
+}
+
+#headerTitle {
+  font-size: 337%;
+  font-weight: normal;
+  position: relative;
+  margin: 0 0 0 4mm;
+  padding: 0.25ex 0;
+}
+
+#menu {
+	width: 15em;
+	float: left;
+	clear: left;
+	border-right: 1px solid rgb(153, 153, 153);
+	background-color: rgb(206, 243, 164);
+	padding: 2mm 2mm 2mm 2mm;
+}
+
+#menu div {
+  border-bottom: 1px solid rgb(153,153,153);
+}
+
+#footer {
+	color: white;
+	background-color: #488214;
+	font-size: 91%;
+	margin: 0;
+	padding: 1em 2.5mm 2.5ex 2.5mm;
+	clear: both;
+}
+
+#content {
+  color: black;
+  background-color: white;
+  text-align: justify;
+  line-height: 1.5em;
+  margin: 0 0 0 15em;
+  padding: 2mm 5mm 5mm 5mm;
+}
+
+#content p {
+  margin: 1em 1ex 2em 1ex;
+  padding: 0;
+}
+
+#content h1 {
+  color: white;
+  background-color: #488214;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 0 0;
+  padding: 0.5ex 0 0.5ex 1ex;
+}

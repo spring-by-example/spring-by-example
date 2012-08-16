@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.springmodules.org/validation/bean/validator"
+           xmlns:validator="http://www.springmodules.org/validation/bean/validator"
+           xmlns:spring="http://www.springframework.org/schema/beans"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                               http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator-2.0.xsd">
+
+    <xs:import namespace="http://www.springframework.org/schema/beans"/>
+
+    <!-- Basic Structure Element Definitions -->
+
+    <xs:element name="annotation-based-validator">
+        <xs:annotation>
+            <xs:documentation>
+                A validator that picks up the validation configuration from the annotations on the various bean
+                classes.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="validator:validator-type">
+                    <xs:sequence>
+                        <xs:element ref="validator:annotation-handlers" minOccurs="0" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="xml-based-validator">
+        <xs:annotation>
+            <xs:documentation>
+                A validator that picks up the validation configuration from the external validation configuration
+                files. These configuration files are expected to be validation xml documents as defined by the
+                &lt;validation&gt; element in this namespace.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="validator:validator-type">
+                    <xs:sequence>
+                        <xs:element ref="validator:element-handlers" minOccurs="0" maxOccurs="1"/>
+                        <xs:choice minOccurs="1" maxOccurs="unbounded">
+                            <xs:element ref="validator:resource" minOccurs="1" maxOccurs="unbounded"/>
+                            <xs:element ref="validator:resources" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="element-handlers">
+        <xs:annotation>
+            <xs:documentation>
+                Holds registrations of property and class element handlers.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="validator:handler" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="annotation-handlers">
+        <xs:annotation>
+            <xs:documentation>
+                Holds registrations of property and class annotation handlers.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="validator:handler" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="handler">
+        <xs:annotation>
+            <xs:documentation>
+                Represents a handler (class or property) that can handle an annotation or element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="class" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="resource">
+        <xs:annotation>
+            <xs:documentation>
+                Indicates a single resource that should be loaded
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="id" use="optional" type="xs:string"/>
+            <xs:attribute name="location" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The location of the resource. This path follows the spring resource description rules (i.e.
+                        file,
+                        http, classpath, and classpath* are supported.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="resources">
+        <xs:complexType>
+            <xs:attribute name="dir" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates the directory path where the resources should be loaded from
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="pattern" use="optional" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Ant-like pattern that indicates what files should be loaded from the specified directory. Only
+                        file with names that match the set pattern will be loaded.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="valang-condition-parser">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="validator:function" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="validator:date-parser" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="optional" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="function">
+        <xs:complexType>
+            <xs:attribute name="name" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the function as it will be used in the valang expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="class" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The fully qualified class name of the function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="date-parser">
+        <xs:complexType>
+            <xs:attribute name="regexp" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The regular expression to be match with the date expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="pattern" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The date pattern (i.e. SimpleDateFormat style) that represents the date expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Types -->
+
+    <xs:complexType name="validator-type" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="spring:identifiedType">
+                <xs:attribute name="errorCodeConverter" use="optional" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>

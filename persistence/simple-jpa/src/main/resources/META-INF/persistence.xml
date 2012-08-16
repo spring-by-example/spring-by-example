@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                                 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+
+    <!-- Used by the JpaTemplate example -->
+    <persistence-unit name="simple-jpa-template" transaction-type="RESOURCE_LOCAL">
+        <class>org.springbyexample.orm.jpa.bean.Person</class>
+        <class>org.springbyexample.orm.jpa.bean.Address</class>
+        
+        <exclude-unlisted-classes/>
+
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+        </properties>        
+    </persistence-unit>
+
+    <persistence-unit name="simple-jpa">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <class>org.springbyexample.orm.jpa.bean.Person</class>
+        <class>org.springbyexample.orm.jpa.bean.Address</class>
+        
+        <exclude-unlisted-classes/>
+        
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="inheritance-jpa">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <class>org.springbyexample.orm.jpa.inheritance.bean.Student</class>
+        <class>org.springbyexample.orm.jpa.inheritance.bean.Professional</class>
+        <class>org.springbyexample.orm.jpa.inheritance.bean.Address</class>
+        
+        <exclude-unlisted-classes/>
+         
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+        </properties>
+    </persistence-unit>
+    
+</persistence>

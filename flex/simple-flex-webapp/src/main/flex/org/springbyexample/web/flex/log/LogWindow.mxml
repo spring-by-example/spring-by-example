@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+			    layout="vertical" 
+			    width="600" height="400"
+			    showCloseButton="true"
+			    close="hide(event)">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+
+			import org.springbyexample.web.flex.log.StringBufferTarget;
+
+            [Bindable]
+            public var logTarget:StringBufferTarget;
+			
+			private var _active : Boolean = false;
+
+	        /**
+	         * Whether or not the log window is active.
+	         */
+	        public function get active():Boolean {
+	        	return _active;
+	        }
+            
+            /**
+             * Handles open event
+             */
+            public function open(parent:DisplayObject) : void {
+                if (!_active) {
+                    _active = true;
+
+                    PopUpManager.addPopUp(this, parent, false);
+                }
+            }
+            
+            /**
+             * Handles close event.
+             */
+            public function hide(event:Event=null):void {
+                PopUpManager.removePopUp(this);
+
+                _active = false;
+            }
+		]]>
+	</mx:Script>
+	
+	<mx:TextArea id="logTextArea" width="600" height="400" text="{logTarget.buffer}"/>
+	
+</mx:TitleWindow>

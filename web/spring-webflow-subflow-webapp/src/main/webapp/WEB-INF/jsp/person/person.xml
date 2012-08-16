@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER" />
+    
+    <input name="id" />
+    
+    <decision-state id="createOrEdit">
+        <if test="id == null" then="create" else="edit" />
+    </decision-state>
+
+    <action-state id="create">
+        <evaluate expression="personBean" result="flowScope.person" />
+        <transition to="personForm" />
+    </action-state>
+
+    <action-state id="edit">
+        <evaluate expression="personDao.findPersonById(id)" result="flowScope.person" />
+        <transition to="personForm" />
+    </action-state>
+    
+    <view-state id="personForm" model="person" view="/person/form">
+        <transition on="addAddress" to="address" bind="false">
+            <set name="flashScope.addressId" value="''" />
+        </transition>
+        <transition on="editAddress" to="address">
+            <set name="flashScope.addressId" value="requestParameters.addressId" />
+        </transition>
+        <transition on="deleteAddress" to="personForm">
+            <evaluate expression="personDao.deleteAddress(id, requestParameters.addressId)" result="flowScope.person" />
+        </transition>
+        
+        <transition on="save" to="personForm">
+            <evaluate expression="personDao.save(person)" result="flowScope.person" />
+            
+            <set name="flowScope.id" value="person.id" />
+            
+            <set name="flashScope.statusMessageKey" value="'person.form.msg.success'" />
+            
+            <render fragments="content" />
+        </transition>
+        <transition on="cancel" to="cancel" bind="false">
+            <evaluate expression="personDao.findPersons()" result="flowScope.persons" />
+        </transition>
+    </view-state>
+
+    <subflow-state id="address" subflow="address"> 
+        <input name="id" value="addressId"/>
+        <input name="person" value="person"/>
+        
+        <output name="address" />
+        
+        <transition on="saveAddress" to="personForm">
+            <evaluate expression="personDao.saveAddress(id, address)" result="flowScope.person" />
+            
+            <set name="flashScope.statusMessageKey" value="'address.form.msg.success'" />
+        </transition>
+        <transition on="cancelAddress" to="personForm" />
+    </subflow-state>
+    
+    <end-state id="personConfirmed" />
+
+    <end-state id="cancel" />
+    
+</flow>

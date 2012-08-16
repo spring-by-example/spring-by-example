@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="testString" 
+          class="java.lang.String"
+          scope="servletContext">
+        <constructor-arg value="spring"/>
+    </bean>
+    
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="servletContext">
+                    <bean class="org.springbyexample.web.context.ServletContextScope">
+                        <property name="servletContext">
+                            <bean class="org.springframework.mock.web.MockServletContext" />
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

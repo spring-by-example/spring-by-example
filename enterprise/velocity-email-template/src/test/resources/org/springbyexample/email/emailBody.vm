@@ -1,0 +1,7 @@
+<html>
+<body>
+<h1>Spring by Example</h1>
+<p>Welcome ${firstName} ${lastName}.</p>
+<p>Thank you for joining the site.</p>
+</body>
+</html>

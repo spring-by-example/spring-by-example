@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/task 
+                           http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <bean id="threadCounter" 
+          class="org.springbyexample.bean.scope.thread.Counter" 
+          scope="thread" />
+
+    <bean id="disposableThreadCounter" 
+          class="org.springbyexample.bean.scope.thread.DisposableCounter" 
+          scope="thread" />
+
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="thread">
+                    <bean class="org.springbyexample.bean.scope.thread.ThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <task:executor id="taskExecutor" 
+                   pool-size="5-10"
+                   queue-capacity="10" />
+
+    <bean id="executorService"
+        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="queueCapacity" value="10" />
+        <property name="threadFactory">
+           <bean class="org.springframework.scheduling.concurrent.CustomizableThreadFactory">
+                <property name="threadNamePrefix" value="executorService-" />
+           </bean>
+        </property>
+    </bean>
+
+</beans>

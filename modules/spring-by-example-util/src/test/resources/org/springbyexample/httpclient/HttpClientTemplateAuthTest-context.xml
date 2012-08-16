@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="httpClient" class="org.springbyexample.httpclient.HttpClientTemplate">
+        <property name="defaultUri">
+            <value><![CDATA[http://localhost:8093/admin/test]]></value>
+        </property>
+        <property name="credentials">
+            <list>
+                <bean class="org.springbyexample.httpclient.auth.Credentials">
+                    <property name="authScopeHost" value="localhost" />
+                    <property name="authScopePort" value="8093" />
+                    <property name="userName" value="jsmith" />
+                    <property name="password" value="password" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 
+        This bean will be available for injection in the child context 
+        that the Web Service is in. 
+    -->
+    <bean class="org.springbyexample.person.schema.beans.Person"
+          p:id="1" p:firstName="Joe" p:lastName="Smith" />
+
+    <context:property-placeholder location="org/springbyexample/ws/embedded/ws.properties"/>
+    
+    <!-- Manually start server after setting parent context. (init-method="start") -->
+    <bean id="jettyServer"
+          class="org.mortbay.jetty.Server"
+          destroy-method="stop">
+        <property name="threadPool">
+            <bean id="ThreadPool"
+                  class="org.mortbay.thread.concurrent.ThreadPool">
+                <constructor-arg value="0" />
+            </bean>
+        </property>
+        <property name="connectors">
+            <list>
+                <bean id="Connector"
+                      class="org.mortbay.jetty.nio.SelectChannelConnector"
+                      p:port="${ws.port}"
+                      p:maxIdleTime="30000"
+                      p:acceptors="2"
+                      p:confidentialPort="8443" />
+            </list>
+        </property>
+        <property name="handlers">
+            <list>
+                <bean class="org.mortbay.jetty.servlet.Context"
+                      p:contextPath="/${ws.context.path}">
+                    <property name="sessionHandler">
+                        <bean class="org.mortbay.jetty.servlet.SessionHandler" />
+                    </property>
+                    <property name="servletHandler">
+                        <bean class="org.mortbay.jetty.servlet.ServletHandler">
+                            <property name="servlets">
+                                <list>
+                                    <bean class="org.mortbay.jetty.servlet.ServletHolder"
+                                          p:name="spring-ws">
+                                        <property name="servlet">
+                                            <bean class="org.springframework.ws.transport.http.MessageDispatcherServlet" />
+                                        </property>
+                                        <property name="initParameters">
+                                            <map>
+                                                <entry key="contextConfigLocation" value="classpath:/spring-ws-embedded-context.xml" />
+                                            </map>
+                                        </property>
+                                    </bean>
+                                </list>
+                            </property>
+                            <property name="servletMappings">
+                                <list>
+                                    <bean class="org.mortbay.jetty.servlet.ServletMapping"
+                                          p:servletName="spring-ws"
+                                          p:pathSpec="/*" />
+                                </list>
+                            </property>
+                        </bean>
+                    </property>
+                </bean>
+                <bean class="org.mortbay.jetty.handler.DefaultHandler" />
+                <bean class="org.mortbay.jetty.handler.RequestLogHandler" />
+            </list>
+        </property>
+    </bean>
+
+</beans>

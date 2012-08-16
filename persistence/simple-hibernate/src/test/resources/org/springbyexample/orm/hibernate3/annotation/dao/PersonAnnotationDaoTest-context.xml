@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:org/springbyexample/orm/hibernate3/shared-context.xml"/>
+    
+    <!-- Override xml session factory imported from shared-context.xml -->
+    <bean id="sessionFactory" 
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+          p:dataSource-ref="dataSource">
+        <property name="annotatedClasses">
+        	<list>
+        		<value>org.springbyexample.orm.hibernate3.annotation.bean.Person</value>
+        		<value>org.springbyexample.orm.hibernate3.annotation.bean.Address</value>
+        	</list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.format_sql=true
+                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+            </value>
+        </property>
+    </bean>
+    
+    <bean id="personDao" 
+          class="org.springbyexample.orm.hibernate3.annotation.dao.PersonDaoImpl"
+          p:sessionFactory-ref="sessionFactory" />
+
+</beans>

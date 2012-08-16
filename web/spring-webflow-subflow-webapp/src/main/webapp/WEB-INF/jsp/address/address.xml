@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_USER" />
+    
+    <input name="id" />
+    <input name="person" />
+
+    <decision-state id="createOrEdit">
+        <if test="id == ''" then="createAddress" else="editAddress" />
+    </decision-state>
+    
+    <action-state id="createAddress">
+        <evaluate expression="addressBean" result="flowScope.address" />
+        <transition to="addressForm" />
+    </action-state>
+
+    <action-state id="editAddress">
+        <evaluate expression="person.findAddressById(id)" result="flowScope.address" />
+        <transition to="addressForm" />
+    </action-state>
+            
+    <view-state id="addressForm" model="address" view="/address/form">
+        <transition on="save" to="saveAddress" />
+        <transition on="cancel" to="cancelAddress" bind="false" />
+    </view-state>
+    
+    <end-state id="saveAddress">
+        <output name="address" value="address"/>
+    </end-state>
+
+    <end-state id="cancelAddress" />
+    
+</flow>

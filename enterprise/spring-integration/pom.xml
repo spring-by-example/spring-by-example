@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springbyexample</groupId>
+        <artifactId>proto-pom-example</artifactId>
+        <version>2.0</version>
+        <relativePath>../../proto-pom/example</relativePath>
+    </parent>
+    
+    <groupId>org.springbyexample.enterprise</groupId>
+    <artifactId>simple-spring-integration</artifactId>
+    <version>1.0.2</version>
+    <name>Simple Spring Integration</name>
+    <description> 
+        Simple Spring Integration.
+    </description>
+    
+    <properties>
+<!--         <spring.integration.version>1.0.3.RELEASE</spring.integration.version> -->
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-stream</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

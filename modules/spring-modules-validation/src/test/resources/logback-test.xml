@@ -1,0 +1,21 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{MMM dd yyyy HH:mm:ss,SSS} %-5p %c - %msg%n</Pattern>
+        </layout>  
+    </appender>  
+    
+    <logger name="org.springmodules.validation.valang" additivity="false">
+        <level value="DEBUG" />
+        
+        <appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <root>
+        <level value="INFO" />
+          
+        <appender-ref ref="CONSOLE" />  
+    </root> 
+    
+</configuration>

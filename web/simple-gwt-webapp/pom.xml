@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.springbyexample</groupId>
+	<artifactId>simple-gwt</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>Simple GWT Webapp</name>
+	<description>
+		Simple GWT integration in a Spring Webapp.
+	</description>
+
+	<properties>
+		<spring.version>2.5.5</spring.version>
+        <spring.security.version>2.0.2</spring.security.version>
+        <spring.webflow.version>2.0.2.RELEASE</spring.webflow.version>
+        <spring.modules.version>0.8</spring.modules.version>
+        <gwt.version>1.5-RC1</gwt.version>
+        <aspectj.version>1.5.3</aspectj.version>
+		<slf4j.version>1.4.3</slf4j.version>
+		<tiles.version>2.0.5</tiles.version>
+		<jstl.version>1.1.2</jstl.version>
+	</properties>
+	
+	<inceptionYear>2008</inceptionYear>
+
+	<organization>
+		<name>Spring by Example</name>
+		<url>http://www.springbyexample.org</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>dwinterfeldt</id>
+			<name>David Winterfeldt</name>
+			<email>dwinterfeldt at springbyexample.org</email>
+			<organization>Spring by Example</organization>
+			<organizationUrl>
+				http://www.springbyexample.org
+			</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>spring-by-example-jdbc</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>dynamic-tiles2</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- dependencies bringing in spring-security-acl and spring-security-core -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core-tiger</artifactId>
+            <version>${spring.security.version}</version>
+            <!-- Bringing in Spring 2.0.8 -->     
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
+            <!-- Bringing in Spring 2.0.8 -->     
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>org.springframework.binding</artifactId>
+            <version>${spring.webflow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>org.springframework.js</artifactId>
+            <version>${spring.webflow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>org.springframework.webflow</artifactId>
+            <version>${spring.webflow.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.el</groupId>
+            <artifactId>jboss-el</artifactId>
+            <version>2.0.1.GA</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.el</groupId>
+                    <artifactId>el-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>aspectj</groupId>
+          <artifactId>aspectjrt</artifactId>
+          <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>${aspectj.version}</version>
+        </dependency>
+                   
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate</artifactId>
+          <version>3.2.6.ga</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-annotations</artifactId>
+        	<version>3.3.0.ga</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-commons-annotations</artifactId>
+        	<version>3.3.0.ga</version>
+        </dependency>
+        <dependency>
+        	<groupId>javax.persistence</groupId>
+        	<artifactId>persistence-api</artifactId>
+        	<version>1.0</version>
+        </dependency>
+        <dependency>
+          <groupId>hsqldb</groupId>
+          <artifactId>hsqldb</artifactId>
+          <version>1.8.0.7</version>
+        </dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+		</dependency>
+        <dependency>
+          <groupId>commons-dbcp</groupId>
+          <artifactId>commons-dbcp</artifactId>
+          <version>1.2</version>
+        </dependency>
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-api</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>${tiles.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl104-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- No Commons Logging - http://day-to-day-stuff.blogspot.com/2007/07/no-more-commons-logging.html -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>99.0-does-not-exist</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
+            <version>99.0-does-not-exist</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.13</version>
+        </dependency>
+	</dependencies>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<comments>
+				Copyright 2002-2006 the original author or authors.
+
+				Licensed under the Apache License, Version 2.0 (the
+				"License"); you may not use this file except in
+				compliance with the License. You may obtain a copy of
+				the License at
+
+				http://www.apache.org/licenses/LICENSE-2.0
+
+				Unless required by applicable law or agreed to in
+				writing, software distributed under the License is
+				distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+				CONDITIONS OF ANY KIND, either express or implied. See
+				the License for the specific language governing
+				permissions and limitations under the License.
+			</comments>
+		</license>
+	</licenses>
+	<profiles>
+	    <profile>
+	        <id>gwt-1.5.0-windows</id>
+	        <activation>
+	            <os>
+	                <family>windows</family>
+	            </os>
+	        </activation>
+	        <properties>
+	            <google.webtoolkit.home>
+	                ${env.GWT_HOME}
+	            </google.webtoolkit.home>
+	        </properties>
+	        <dependencies>
+	            <dependency>
+	                <groupId>com.google.gwt</groupId>
+	                <artifactId>gwt-dev-windows</artifactId>
+	                <version>1.5-RC1</version>
+	                <scope>system</scope>
+	                <systemPath>
+	                    ${google.webtoolkit.home}/gwt-dev-windows.jar
+	                </systemPath>
+	            </dependency>
+	        </dependencies>
+	    </profile>
+	    <profile>
+	        <id>gwt-1.5.0-mac</id>
+	        <activation>
+	            <os>
+	                <family>mac</family>
+	            </os>
+	        </activation>
+	        <properties>
+	            <google.webtoolkit.home>
+	                ${env.GWT_HOME}
+	            </google.webtoolkit.home>
+	        </properties>
+	        <dependencies>
+	            <dependency>
+	                <groupId>com.google.gwt</groupId>
+	                <artifactId>gwt-dev-mac</artifactId>
+	                <version>1.5-RC1</version>
+	                <scope>system</scope>
+	                <systemPath>
+	                    ${google.webtoolkit.home}/gwt-dev-mac.jar
+	                </systemPath>
+	            </dependency>
+	        </dependencies>
+	    </profile>
+        <profile>
+            <id>gwt-1.5.0-linux</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+            <properties>
+                <google.webtoolkit.home>
+                    ${env.GWT_HOME}
+                </google.webtoolkit.home>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.google.gwt</groupId>
+                    <artifactId>gwt-dev-linux</artifactId>
+                    <version>1.5-RC1</version>
+                    <scope>system</scope>
+                    <systemPath>
+                        ${google.webtoolkit.home}/gwt-dev-linux.jar
+                    </systemPath>
+                </dependency>
+            </dependencies>
+        </profile>
+	</profiles>
+	<build>
+	    <plugins>
+	        <plugin>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.5</source>
+	                <target>1.5</target>
+                    <encoding>UTF-8</encoding>                    
+	            </configuration>
+	        </plugin>
+	        <plugin>
+	            <groupId>com.totsp.gwt</groupId>
+	            <artifactId>maven-googlewebtoolkit2-plugin</artifactId>
+	            <version>2.0-beta20</version>
+	            <configuration>
+	                <logLevel>INFO</logLevel>
+                    <runTarget>org.springbyexample.web.gwt.App/App.html</runTarget>
+	                <compileTargets>
+	                    <value>org.springbyexample.web.gwt.App</value>
+	                </compileTargets>
+	                <extraJvmArgs>-Xmx256M -Xms64M</extraJvmArgs>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <!-- <goal>mergewebxml</goal> -->
+	                        <goal>compile</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+	        <plugin>
+	            <groupId>org.mortbay.jetty</groupId>
+	            <artifactId>maven-jetty-plugin</artifactId>
+	            <configuration>
+	                <scanIntervalSeconds>10</scanIntervalSeconds>
+	                <contextPath>/simple-gwt</contextPath>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>springbyexample.org</id>
+			<name>Spring by Example</name>
+			<url>http://www.springbyexample.org/maven/repo</url>
+		</repository>
+        <!-- for javax.transaction dependency for hibernate -->
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Maven 2 Repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <name>The JBoss Maven Repository</name>
+            <url>http://repository.jboss.com/maven2/</url>
+        </repository>
+        <repository>
+            <id>no-commons-logging</id>
+            <name>No-commons-logging Maven Repository</name>
+            <layout>default</layout>
+            <url>http://no-commons-logging.zapto.org/mvn2</url>
+        </repository>
+	</repositories>
+	<pluginRepositories>
+	    <pluginRepository>
+	        <id>gwt-maven</id>
+	        <url>
+	            http://gwt-maven.googlecode.com/svn/trunk/mavenrepo
+	        </url>
+	    </pluginRepository>
+	</pluginRepositories>
+
+</project>
+

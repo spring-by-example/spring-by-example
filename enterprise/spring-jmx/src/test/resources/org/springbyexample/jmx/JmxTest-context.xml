@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+    <context:component-scan base-package="org.springbyexample.jmx" />
+    
+    <context:mbean-export/>
+
+    <!-- Expose JMX over JMXMP -->
+    <bean id="serverConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean" />
+
+    <!-- Client connector to JMX over JMXMP -->
+    <bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean"
+          p:serviceUrl="service:jmx:jmxmp://localhost:9875" />
+
+    <!-- Client ServerManager proxy to JMX over JMXMP -->
+    <bean id="serverManagerProxy" class="org.springframework.jmx.access.MBeanProxyFactoryBean"
+          p:objectName="org.springbyexample.jmx:name=ServerManager"
+          p:proxyInterface="org.springbyexample.jmx.ServerManager"
+          p:server-ref="clientConnector" />
+
+</beans>

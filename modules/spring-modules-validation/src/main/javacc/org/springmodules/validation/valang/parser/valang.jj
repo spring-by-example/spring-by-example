@@ -1,0 +1,712 @@
+options {
+	STATIC = false;
+	DEBUG_PARSER = false;
+}
+PARSER_BEGIN(ValangParser)
+/*
+ * Copyright 2004-2009 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.springmodules.validation.valang.parser;
+
+import java.lang.reflect.Constructor;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.io.StringReader;
+
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.functors.AndPredicate;
+import org.apache.commons.collections.functors.NotPredicate;
+import org.apache.commons.collections.functors.OrPredicate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.Assert;
+import org.springmodules.validation.util.date.DateParseException;
+import org.springmodules.validation.util.date.DefaultDateParser;
+import org.springmodules.validation.valang.functions.AddFunction;
+import org.springmodules.validation.valang.functions.ConfigurableFunction;
+import org.springmodules.validation.valang.functions.DateLiteralFunction;
+import org.springmodules.validation.valang.functions.DivideFunction;
+import org.springmodules.validation.valang.functions.EnumLiteralFunction;
+import org.springmodules.validation.valang.functions.Function;
+import org.springmodules.validation.valang.functions.FunctionWrapper;
+import org.springmodules.validation.valang.functions.LiteralFunction;
+import org.springmodules.validation.valang.functions.ModuloFunction;
+import org.springmodules.validation.valang.functions.MultiplyFunction;
+import org.springmodules.validation.valang.functions.SubtractFunction;
+import org.springmodules.validation.valang.functions.TargetBeanFunction;
+import org.springmodules.validation.valang.predicates.BasicValidationRule;
+import org.springmodules.validation.valang.predicates.Operator;
+import org.springmodules.validation.valang.predicates.ValidationRule;
+
+
+public class ValangParser {
+
+    final Logger logger = LoggerFactory.getLogger(ValangParser.class);
+
+    private DefaultVisitor visitor = new DefaultVisitor();
+    private String className = null;
+
+    /**
+     * Constructor
+     */
+	public ValangParser(String expression) {
+	    this(new StringReader(expression));
+	}
+
+    /**
+     * Constructor
+     */
+    public ValangParser(String expression, Map<String, Object> customFunctions, Map dateParsers) {
+	    this(new StringReader(expression));
+	    setDateParsersByRegexp(dateParsers);
+	    setFunctionsByName(customFunctions);
+	}
+
+    /**
+     * Constructor
+     */
+    public ValangParser(String expression, String className, 
+                        Map<String, Object> customFunctions, Map dateParsers) {
+        this(new StringReader(expression));
+        this.className = className;
+        setDateParsersByRegexp(dateParsers);
+        setFunctionsByName(customFunctions);        
+    }
+
+    /**
+     * Gets visitor used for processing parsed expressions.
+     */
+	public DefaultVisitor getVisitor() {
+	   if (this.visitor == null) {
+	       throw new IllegalStateException("Visistor is not set on parser");
+	   }
+	   return this.visitor;
+	}
+	
+    /**
+     * Sets visitor used for processing parsed expressions.
+     */
+	public void setVisitor(DefaultVisitor visitor) {
+	    Assert.notNull(visitor, "ValangParser cannot accept a 'null' visitor");
+		this.visitor = visitor;
+	}
+
+	public void setDateParsersByRegexp(Map dateParsersByRegexp) {
+	    if (dateParsersByRegexp == null) {
+            return;
+        }
+        for (Iterator iter = dateParsersByRegexp.keySet().iterator(); iter.hasNext();) {
+            String regexp = (String)iter.next();
+            Object value = dateParsersByRegexp.get(regexp);
+
+            if (value instanceof String) {
+                getVisitor().getDateParser().register(regexp, (String)value);
+            } else if (value instanceof DefaultDateParser.DateModifier) {
+                getVisitor().getDateParser().register(regexp, (DefaultDateParser.DateModifier)value);
+            } else {
+                throw new ClassCastException("Could not register instance [" + value + "] with date parser!");
+            }
+        }
+	}
+
+    /**
+     * Sets functions by name.
+     */
+    public void setFunctionsByName(Map<String, Object> hFunctions) {
+        if (hFunctions == null) {
+            return;
+        }
+
+        final Map<String, FunctionWrapper> hFunctionWrappers = new HashMap<String, FunctionWrapper>();
+        final Map<String, Constructor<?>> hConstructors = new HashMap<String, Constructor<?>>();
+
+        for (String functionName : hFunctions.keySet()) {
+            Object value = hFunctions.get(functionName);
+
+            if (value instanceof FunctionWrapper) {
+                hFunctionWrappers.put(functionName, (FunctionWrapper)value);
+            } else if (value instanceof String) {
+                final String functionClassName = (String) value;
+                Class<Function> functionClass = loadClass(functionClassName);
+
+                if (!(Function.class.isAssignableFrom(functionClass))) {
+                    throw new IllegalArgumentException("Custom function '" + functionClassName + "' " +
+                                                       "must implement org.springmodules.validation.valang.functions.Function.");
+                }
+
+                Constructor<?> constructor = null;
+
+                try {
+                    constructor = functionClass.getConstructor(new Class[] { Function[].class, int.class, int.class });
+                } catch (NoSuchMethodException e) {
+                    throw new IllegalArgumentException("Class '" + functionClassName + "' has no constructor matching (Function, int, int).");
+                }
+
+                hConstructors.put(functionName, constructor);
+            } else {
+                throw new IllegalArgumentException("Custom function must either be a FunctionWrapper or the class name of a function.");
+            }
+        }
+
+        getVisitor().setVisitor(new ValangVisitor() {
+            public Function getFunction(String name, Function[] functions, int line, int column) {
+                Function result = null;
+                
+                if (hFunctionWrappers.containsKey(name)) {
+                    Function function = hFunctionWrappers.get(name).getFunction();
+                    
+                    if (function instanceof ConfigurableFunction) {
+                        ConfigurableFunction cf = (ConfigurableFunction) function;
+                        
+                        cf.setArguments(cf.getExpectedNumberOfArguments(), functions, line, column);
+                    }
+                    
+                    result = function;
+                } else if (hConstructors.containsKey(name)) {
+                    Constructor<?> functionConstructor = hConstructors.get(name);
+
+                    result = (Function) BeanUtils.instantiateClass(functionConstructor, 
+                                                                     new Object[] { functions, line, column });
+                }
+
+                return result;
+            }
+        });
+    }
+
+	/**
+	 * Loads class based on class name passed in.
+	 */
+	private Class<Function> loadClass(String className) {
+        try {
+            return (Class<Function>) ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
+        } catch (ClassNotFoundException cnfe) {
+            logger.error("Could not load class '" + className + "'", cnfe);
+            throw new IllegalArgumentException("Could not load class '" + className + "'");
+        }
+    }
+
+	private String replace(String s) {
+		String tmpS = s;
+		
+		tmpS = StringUtils.replace(tmpS, "\\'", "'");
+		tmpS = StringUtils.replace(tmpS, "\\n", "\n");
+		tmpS = StringUtils.replace(tmpS, "\\r", "\r");
+		tmpS = StringUtils.replace(tmpS, "\\t", "\t");
+		tmpS = StringUtils.replace(tmpS, "\\b", "\b");
+		tmpS = StringUtils.replace(tmpS, "\\f", "\f");		
+		tmpS = StringUtils.replace(tmpS, "\\\\", "\\");		
+		
+		return tmpS;
+	}
+
+
+}
+
+PARSER_END(ValangParser)
+
+SKIP :
+{
+	" "
+|	"\t"
+|	"\n"
+|	"\r"
+}
+
+TOKEN [IGNORE_CASE] :
+{
+	< AND : "AND" >
+|	< OR : "OR" >
+|	< NOT : "NOT" >
+|	< BETWEEN : "BETWEEN" | "IS BETWEEN" >
+|	< NOT_BETWEEN: "NOT BETWEEN" | "IS NOT BETWEEN" >
+|	< IN : "IN" | "IS IN">
+|	< NOT_IN : "NOT IN" | "IS NOT IN">
+|	< IS_NULL : "IS NULL" | "NULL" >
+|	< IS_NOT_NULL : "IS NOT NULL" | "NOT NULL" >
+|	< HAS_TEXT : "HAS TEXT" >
+|	< HAS_NO_TEXT : "HAS NO TEXT" >
+|	< HAS_LENGTH : "HAS LENGTH" >
+|	< HAS_NO_LENGTH : "HAS NO LENGTH" >
+|	< IS_BLANK : "IS BLANK" >
+|	< IS_NOT_BLANK : "IS NOT BLANK" >
+|	< IS_UPPER_CASE : "IS UPPERCASE" | "IS UPPER CASE" | "IS UPPER" >
+|	< IS_NOT_UPPER_CASE : "IS NOT UPPERCASE" | "IS NOT UPPER CASE" | "IS NOT UPPER" >
+|	< IS_LOWER_CASE : "IS LOWERCASE" | "IS LOWER CASE" | "IS LOWER" >
+|	< IS_NOT_LOWER_CASE : "IS NOT LOWERCASE" | "IS NOT LOWER CASE" | "IS NOT LOWER" >
+|	< IS_WORD : "IS WORD" >
+|	< IS_NOT_WORD : "IS NOT WORD" >
+|	< TRUE : "TRUE" | "YES" >
+|	< FALSE : "FALSE" | "NO" >
+|	< GREATER_THAN_OR_EQUAL : ">=" | "=>" | "IS GREATER THAN OR EQUALS" | "GREATER THAN OR EQUALS">
+|	< GREATER_THAN : ">" | "IS GREATER THAN" | "GREATER THAN">
+|	< LESS_THAN_OR_EQUAL : "<=" | "=<" | "IS LESS THAN OR EQUALS" | "LESS THAN OR EQUALS" >
+|	< LESS_THAN : "<" | "IS LESS THAN" | "LESS THAN">
+|	< NOT_EQUAL : "!=" | "<>" | "><" | "IS NOT" | "NOT EQUALS" >
+|	< EQUALS : "=" | "==" | "IS" | "EQUALS" >
+|	< ADD : "+" >
+|	< SUBTRACT : "-" >
+|	< MULTIPLY : "*" >
+|	< DIVIDE : "/" | "div" >
+|	< MOD : "%" | "mod" >
+|   < WHERE : "WHERE" >
+}
+
+TOKEN :
+{
+	< NUM : ("-")?(["0"-"9"])+ | ("-")?(["0"-"9"])+"." (["0"-"9"])* >
+|	< STRING : "'" ( ~["'", "\\", "\n", "\r"] | ( "\\" ( "'" | "\\" | "\n" | "\r" | "\t" | "\b" | "\f" ) ) )* "'" >
+|	< #DOT : "." >
+|   < #UNDERSCORE : "_" >
+|	< #DIGIT : ["0"-"9"] >
+|   < #POSITIVE_INTEGER : "0" | ["1"-"9"] (["0"-"9"])* >
+|	< #LOWERLETTER : ["a"-"z"] >
+|	< #UPPERLETTER : ["A"-"Z"] >
+|   < #PLAIN_PATH_ELEMENT : ( <LOWERLETTER> | <UNDERSCORE> ) ( <LOWERLETTER> | <UPPERLETTER> | <DIGIT> | <UNDERSCORE> )* >
+|	< #INDEXED_PATH_ELEMENT : "[" ( ~[ "]" ] )+ "]" >
+|	< FUNCTION_NAME : <PLAIN_PATH_ELEMENT> >
+|	< PATH : <PLAIN_PATH_ELEMENT> ( ( <DOT> <PLAIN_PATH_ELEMENT> ) | <INDEXED_PATH_ELEMENT> )* >
+|   < ENUM : "['" ( <LOWERLETTER> | <UPPERLETTER> | <DIGIT> | <UNDERSCORE> )+  ( (<DOT> | "$") ( <LOWERLETTER> | <UPPERLETTER> | <DIGIT> | <UNDERSCORE> )+ )* "']" >
+|   < DATE : "[" (~["[", "]"])* "]" >
+}
+
+Predicate parseExpression() :
+{
+	Predicate predicate = null;
+	Function targetBeanFunction = new TargetBeanFunction();
+}
+{
+	predicate = predicates(targetBeanFunction) <EOF> { return predicate; }
+}
+
+Collection<ValidationRule> parseValidation() :
+{
+	Predicate predicate = null;
+	Predicate wherePredicate = null;
+	Collection<ValidationRule> rules = new ArrayList<ValidationRule>();
+	String message = null;
+	String field = null;
+	String errorKey = null;
+	Collection errorArgs = null;
+	Function function = null;
+	Function fieldFunction = null;
+}
+{
+	(
+		( 
+			"{" 
+			( <FUNCTION_NAME> | <PATH> )
+			{ 
+				field = token.image;
+				fieldFunction = getVisitor().getFunction(className, field);
+
+				/* MOD-26: re-initiliaze error key and arguments to null for every rule.
+				   kudos to Cesar Ordinana for reporting this bug. */
+				errorKey = null; 
+				errorArgs = new ArrayList(); 
+			}
+			":"
+			predicate = predicates(fieldFunction)
+			[
+			    <WHERE>
+			    wherePredicate = predicates(fieldFunction)
+			]
+			":" 
+			<STRING> { message = token.image.substring(1, token.image.length() - 1); } 
+			[
+				":"
+				<STRING> { errorKey = token.image.substring(1, token.image.length() - 1); }
+				[
+					":"
+					(
+						LOOKAHEAD(2)
+						function = function(fieldFunction) { errorArgs.add(function); }
+						","
+					)*
+					function = function(fieldFunction) { errorArgs.add(function); } 
+				]
+			]
+			"}"
+		)
+		{
+			/* take into account error key and error args for localization */
+			rules.add(new BasicValidationRule(field, predicate, wherePredicate, errorKey, message, errorArgs));
+		}
+	)+
+	<EOF>
+	{
+		return rules;
+	}
+}
+
+Predicate not(Function fieldFunction) :
+{
+	Predicate predicate = null;
+}
+{
+	<NOT> predicate = expression(fieldFunction) { return NotPredicate.getInstance(predicate); }
+}
+
+Predicate predicates(Function fieldFunction) :
+{
+	Predicate predicate1 = null;
+	Predicate predicate2 = null;
+	boolean andTest = false;
+	boolean orTest = false;
+}
+{
+	(
+		predicate1 = expression(fieldFunction)			
+		(
+			(
+				<AND>	{ andTest = true; }
+			|	<OR>	{ orTest = true; }
+			)
+			predicate2 = expression(fieldFunction)
+			{
+				if (andTest) {
+					predicate1 = AndPredicate.getInstance(predicate1, predicate2);
+					andTest = false;
+				} else if (orTest) {
+					predicate1 = OrPredicate.getInstance(predicate1, predicate2);
+					orTest = false;
+				}
+			}
+		)*
+	)
+	{
+		return predicate1;
+	}
+}
+
+Predicate expression(Function fieldFunction) :
+{
+	Predicate predicate = null;
+}
+{
+	(
+		LOOKAHEAD("(" predicates(fieldFunction) ")")
+		"(" predicate = predicates(fieldFunction) ")"
+	|	predicate = not(fieldFunction)
+	|	predicate = predicate(fieldFunction)
+	)
+	{
+		return predicate;
+	}
+}
+
+
+Predicate predicate(Function fieldFunction) :
+{
+	Function leftFunction = null;
+	Function rightFunction1 = null;
+	Function rightFunction2 = null;
+	Function tmpFunction = null;
+	Operator operator = null;
+	boolean notBetween = false;
+	boolean notIn = false;
+	Collection<Function> functions = new ArrayList<Function>();
+	java.util.Set<String> lComparisonValues = new java.util.HashSet<String>();
+	boolean collectionProperty = false;
+}
+{
+	(
+		leftFunction = additiveExpr(fieldFunction)
+		(
+			(
+	    		operator = binaryOperator() rightFunction1 = additiveExpr(fieldFunction)
+			|	operator = unaryOperator()
+	    	)
+	    	{
+	    		return getVisitor().getPredicate(leftFunction, operator, rightFunction1, 0, 0);
+	    	}
+	    |	(
+				( <BETWEEN> | <NOT_BETWEEN> { notBetween = true; } )
+				(
+					rightFunction1 = additiveExpr(fieldFunction)
+					<AND>
+					rightFunction2 = additiveExpr(fieldFunction)
+				)
+				{
+					if (notBetween) {
+						return getVisitor().getPredicate(leftFunction, Operator.NOT_BETWEEN, new LiteralFunction(new Function[] { rightFunction1, rightFunction2 }), 0, 0);
+					} else {
+						return getVisitor().getPredicate(leftFunction, Operator.BETWEEN, new LiteralFunction(new Function[] { rightFunction1, rightFunction2 }), 0, 0);
+					}
+				}
+	    	)
+	    |	(
+				( <IN> | <NOT_IN> { notIn = true; } )
+				(
+					(
+					    LOOKAHEAD(2)
+						tmpFunction = 
+						    additiveExpr(fieldFunction) { 
+					            functions.add(tmpFunction);
+                                if (tmpFunction instanceof LiteralFunction && tmpFunction.getResult(null) instanceof String) {
+                                    lComparisonValues.add((String)tmpFunction.getResult(null));
+                                }
+					        }
+						","
+					)*
+					tmpFunction = 
+					    additiveExpr(fieldFunction) { 
+					        functions.add(tmpFunction); 
+                            if (tmpFunction instanceof LiteralFunction && tmpFunction.getResult(null) instanceof String) {
+                                lComparisonValues.add((String)tmpFunction.getResult(null));
+                                
+                                collectionProperty = true;
+                            }
+					    }
+				|	"@" tmpFunction = beanProperty(fieldFunction) { collectionProperty = true; }
+				) 
+				{
+				    // if the functions size and comparison Set match sizes, 
+				    // values were all Strings so Set.contains(value) can be used in GenericTestPredicate
+				    if (functions.size() == lComparisonValues.size()) {
+				        tmpFunction = new LiteralFunction(lComparisonValues);
+				    }
+				    
+					if (!collectionProperty) {
+						tmpFunction = new LiteralFunction(functions);
+					}
+					if (notIn) {
+						return getVisitor().getPredicate(leftFunction, Operator.NOT_IN, tmpFunction, 0, 0);
+					} else {
+						return getVisitor().getPredicate(leftFunction, Operator.IN, tmpFunction, 0, 0);
+					}
+				}
+	    	)
+		)
+	)
+}
+
+Function function(Function fieldFunction) :
+{
+    String function = null;
+    Function leftFunction = null;
+    Function rightFunction = null;
+    int line = 0;
+    int column = 0;
+    Collection functionArguments = new ArrayList();
+}
+{
+    (
+        LOOKAHEAD(2)
+        ( "!" | <FUNCTION_NAME> ) 
+        { function = token.image; line = token.beginLine; column = token.beginColumn; } 
+        "(" 
+        	leftFunction = function(fieldFunction) { functionArguments.add(leftFunction); }
+        	(
+        		"," 
+        		leftFunction = function(fieldFunction) { functionArguments.add(leftFunction); }
+        	)*
+        ")" 
+        { leftFunction = getVisitor().getFunction(function, (Function[])functionArguments.toArray(new Function[functionArguments.size()]), line, column); }
+    |   leftFunction = beanPropertyOrLiteral(fieldFunction)
+    |	"?" { leftFunction = fieldFunction; }
+    |	"(" leftFunction = additiveExpr(fieldFunction) ")"
+    )
+    {
+    	return leftFunction;
+    }
+}
+
+Function additiveExpr(Function fieldFunction) :
+{
+	Function leftFunction = null;
+	Function rightFunction = null;
+	int line = 0;
+	int column = 0;
+}
+{
+	leftFunction = subtractiveExpr(fieldFunction)
+	( 
+		<ADD> { line = token.beginLine; column = token.beginColumn; } rightFunction = subtractiveExpr(fieldFunction) { leftFunction = new AddFunction(leftFunction, rightFunction, line, column); }
+	)*
+	{
+		return leftFunction;
+	}
+}
+
+Function subtractiveExpr(Function fieldFunction) :
+{
+	Function leftFunction = null;
+	Function rightFunction = null;
+	int line = 0;
+	int column = 0;
+}
+{
+	leftFunction = multiplicativeExpr(fieldFunction)
+	( 
+		<SUBTRACT> { line = token.beginLine; column = token.beginColumn; } rightFunction = multiplicativeExpr(fieldFunction) { leftFunction = new SubtractFunction(leftFunction, rightFunction, line, column); }
+	)*
+	{
+		return leftFunction;
+	}
+}
+
+Function multiplicativeExpr(Function fieldFunction) :
+{
+	Function leftFunction = null;
+	Function rightFunction = null;
+	int line = 0;
+	int column = 0;
+}
+{
+	leftFunction = function(fieldFunction)
+	(
+		<MULTIPLY> { line = token.beginLine; column = token.beginColumn; } rightFunction = function(fieldFunction) { leftFunction = new MultiplyFunction(leftFunction, rightFunction, line, column); }
+	|	<DIVIDE> { line = token.beginLine; column = token.beginColumn; } rightFunction = function(fieldFunction) { leftFunction = new DivideFunction(leftFunction, rightFunction, line, column); }
+	|	<MOD> { line = token.beginLine; column = token.beginColumn; } rightFunction = function(fieldFunction) { leftFunction = new ModuloFunction(leftFunction, rightFunction, line, column); }
+	)*
+	{
+		return leftFunction;
+	}
+}
+
+Function beanPropertyOrLiteral(Function fieldFunction) :
+{
+	Function function = null;
+}
+{
+    (
+		function = literal() { return function; }
+    |   function = beanProperty(fieldFunction) { return function; }
+    )
+}
+
+Function literal() :
+{}
+{
+    (
+        <TRUE>      { return new LiteralFunction(Boolean.TRUE); }
+    |   <FALSE>     { return new LiteralFunction(Boolean.FALSE); }
+    |   <STRING>    { return new LiteralFunction(replace(token.image.substring(1, token.image.length() - 1))); }
+    |   <NUM>       { return new LiteralFunction(new BigDecimal(token.image)); }
+    |   <ENUM>      {
+                        Function result = null;
+                        String enumName = replace(token.image.substring(2, token.image.length() - 2));
+                        
+                        // if '.', should be a full path of an enum
+                        if (enumName.indexOf(".") > -1) {
+                            try {
+                                int lastIndex = enumName.lastIndexOf(".");
+                                String className = enumName.substring(0, lastIndex);
+                                String value  = enumName.substring((lastIndex + 1), enumName.length());
+                                
+                                Class<?> enumClass = ClassUtils.forName(className);
+                                Enum<?> convertedEnumValue = (Enum<?>) enumClass.getField(value).get(null);
+    
+                                result = new LiteralFunction(convertedEnumValue);
+                            } catch (Exception e) {
+                                logger.debug("Could not load class '{}', assuming it's not a full path to an Enum.", className);
+                                
+                                throw new IllegalArgumentException("Could not load enum class '" + className + "'");
+                            }
+                        }
+    
+                        if (result == null) {
+                            result = new EnumLiteralFunction(enumName);
+                        }
+                        
+                        return result;
+                    }
+    |	<DATE>		{
+    					try {
+							getVisitor().getDateParser().parse(token.image.substring(1, token.image.length() - 1));    					
+    					} catch (DateParseException e) {
+    						throw new ParseException("Could not parse date [" + token.image.substring(1, token.image.length() - 1) + "] at line " + token.beginLine + ", column " + token.beginColumn + ".");
+    					} 
+    					return new DateLiteralFunction(token.image.substring(1, token.image.length() - 1), getVisitor().getDateParser(), token.beginLine, token.beginColumn); 
+    				}
+    )
+}
+
+Function beanProperty(Function fieldFunction) :
+{
+	Function function = null;
+}
+{
+	function = path() { return function; }
+}	
+
+Function path() :
+{
+	String path = null;
+}
+{
+	(
+		<PATH>							{ path = token.image; }
+	|	<FUNCTION_NAME>		{ path = token.image; }
+	)
+	{ 
+		return getVisitor().getFunction(className, path);
+	}
+}
+
+Operator binaryOperator() :
+{
+	Operator operator = null;
+}
+{
+	(
+		<NOT_EQUAL>		{ operator = Operator.NOT_EQUAL; }
+	|	<GREATER_THAN_OR_EQUAL>	{ operator = Operator.GREATER_THAN_OR_EQUAL; }
+	|	<GREATER_THAN>		{ operator = Operator.GREATER_THAN; }
+	|	<LESS_THAN_OR_EQUAL>	{ operator = Operator.LESS_THAN_OR_EQUAL; }
+	|	<LESS_THAN>		{ operator = Operator.LESS_THAN; }
+	|	<EQUALS>		{ operator = Operator.EQUAL; }
+	)
+	{
+		return operator;	
+	}
+}
+
+Operator unaryOperator() :
+{
+	Operator operator = null;
+}
+{
+	(
+		<IS_NULL>		{ operator = Operator.NULL; }
+	|	<IS_NOT_NULL>		{ operator = Operator.NOT_NULL; }
+	|	<HAS_TEXT>		{ operator = Operator.HAS_TEXT; }
+	|	<HAS_NO_TEXT>		{ operator = Operator.HAS_NO_TEXT; }
+	|	<HAS_LENGTH>		{ operator = Operator.HAS_LENGTH; }
+	|	<HAS_NO_LENGTH>		{ operator = Operator.HAS_NO_LENGTH; }
+	|	<IS_BLANK>		{ operator = Operator.IS_BLANK; }
+	|	<IS_NOT_BLANK>	{ operator = Operator.IS_NOT_BLANK; }
+	|	<IS_WORD>		{ operator = Operator.IS_WORD; }
+	|	<IS_NOT_WORD>	{ operator = Operator.IS_NOT_WORD; }
+	|	<IS_UPPER_CASE>		{ operator = Operator.IS_UPPERCASE; }
+	|	<IS_NOT_UPPER_CASE>		{ operator = Operator.IS_NOT_UPPERCASE; }
+	|	<IS_LOWER_CASE>		{ operator = Operator.IS_LOWERCASE; }
+	|	<IS_NOT_LOWER_CASE>		{ operator = Operator.IS_NOT_LOWERCASE; }
+	)
+	{
+		return operator;
+	}
+}
+
+
