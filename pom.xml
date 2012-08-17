@@ -4,13 +4,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springbyexample</groupId>
-        <artifactId>proto-pom</artifactId>
-        <version>2.0</version>
-        <relativePath>./proto-pom</relativePath>
-    </parent>
-    
 	<groupId>org.springbyexample</groupId>
 	<artifactId>sbe-parent</artifactId>
 	<version>2.0</version>
