@@ -20,9 +20,6 @@
         <module>simple-spring-security-webapp</module>
         <module>simple-spring-webflow-webapp</module>
         <module>spring-webflow-subflow-webapp</module>
-        <!-- <module>spring-bayeuex-gwt-chat-webapp</module> -->
-        <!-- <module>simple-gwt-webapp</module> -->
-        <!-- <module>spring-bayeuex-gwt-monitor-webapp</module> -->
     </modules>
 	
 </project>

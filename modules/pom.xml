@@ -14,13 +14,13 @@
     </description>
 
     <modules>
-        <module>custom-servlet-context-scope</module>
-        <module>custom-thread-scope</module>
-        <module>dynamic-tiles2</module>
-        <module>spring-by-example-jcr</module>
-        <module>spring-by-example-util</module>
-        <module>spring-by-example-web</module>
-        <module>spring-modules-validation</module>
+        <module>sbe-servlet-context-scope</module>
+        <module>sbe-thread-scope</module>
+        <module>sbe-dynamic-tiles2</module>
+        <module>sbe-jcr</module>
+        <module>sbe-util</module>
+        <module>sbe-web</module>
+        <module>sbe-validation</module>
     </modules>
 	
 </project>

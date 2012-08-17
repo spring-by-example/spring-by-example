@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="personValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="className" value="org.springmodules.validation.valang.Person"/>
+        <property name="valang">
+            <!-- 
+                Third to last validation shifts '2008-12-30<y' to '2008-01-01 00:00:00'
+                Second to last validation shifts '2005-04-09 23:30:00<M+10d+8H' to '2005-04-11 08:00:00'.
+                Last shifts '2009-02-06 00:00:00<M+20y' to '2029-02-01 00:00:00'.
+            -->
+            <value><![CDATA[            
+              { lastUpdated : ? > [20081230] : '' }
+              { lastUpdated : ? > [2008-12-30] : '' }
+              { lastUpdated : ? > [2008-12-30 12:20:31] : '' }
+              { lastUpdated : ? > [20081230 122031] : '' }
+              { lastUpdated : ? > [20081230 12:20:31] : '' }
+              { lastUpdated : ? > [2008-12-30 122031] : '' }
+              
+              { lastUpdated : ? BETWEEN [20081230] AND [2009-02-06 00:00:00<M+20y] : '' }
+              
+              { lastUpdated : ? > [2008-12-30<y] : '' }
+              { lastUpdated : ? > [2005-04-09 23:30:00<M+10d+8H] : '' }
+              { lastUpdated : ? < [2009-02-06 00:00:00<M+20y] : '' }
+            ]]></value>
+        </property>
+    </bean>
+   
+</beans>

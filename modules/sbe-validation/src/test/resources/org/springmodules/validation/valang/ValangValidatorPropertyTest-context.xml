@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/util 
+                        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="expression" class="java.lang.String">
+        <constructor-arg>
+            <value><![CDATA[
+              { lastName : ? IS NOT BLANK : '' }
+              { addresses[0].address : ? IS NOT BLANK : '' } 
+              { addresses[0].city : ? IS NOT BLANK : '' } 
+            ]]></value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="personValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang" ref="expression" />
+    </bean>
+    
+    <bean id="bytecodePersonValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="className" value="org.springmodules.validation.valang.Person"/>
+        <property name="valang" ref="expression" />
+    </bean>
+
+    <bean class="org.springmodules.validation.valang.functions.FunctionDefinition"
+          p:name="validLastName"
+          p:className="org.springmodules.validation.valang.ValidLastNameFunction"/>
+
+    <!-- Uses bean name for function name if not explicitly set on the wrapper -->
+    <bean id="creditApproval" 
+          class="org.springmodules.validation.valang.functions.FunctionWrapper"
+          scope="prototype">
+        <aop:scoped-proxy/>
+        
+        <property name="function">
+            <bean id="creditApprovalFunction" 
+                  class="org.springmodules.validation.valang.CreditApprovalFunction"
+                  scope="prototype">
+                <property name="creditRatingList">
+                    <list>
+                        <value>GOOD</value>
+                        <value>EXCELLENT</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <util:list id="personList">
+        <value>Joe</value>
+        <value>Smith</value>
+        <bean class="java.lang.Integer">
+            <constructor-arg value="21" />
+        </bean>
+        <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" 
+              p:staticField="org.springmodules.validation.valang.CreditStatus.PENDING" />
+        <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" 
+              p:staticField="org.springmodules.validation.valang.Person$CreditRating.EXCELLENT"/>
+    </util:list>
+
+    <util:map id="personMap">
+        <entry key="firstName" value="Joe"/>
+        <entry key="lastName" value="Smith"/>
+        <entry key="age">
+            <bean class="java.lang.Integer">
+                <constructor-arg value="21" />
+            </bean>
+        </entry>
+        <entry key="creditStatus">
+            <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" 
+                  p:staticField="org.springmodules.validation.valang.CreditStatus.PENDING" />
+        </entry>
+        <entry key="creditRating">
+            <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" 
+                  p:staticField="org.springmodules.validation.valang.Person$CreditRating.EXCELLENT"/>
+        </entry>
+    </util:map>
+
+    <bean id="messageValidator" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="className" value="org.springmodules.validation.valang.BeanWrapper"/>
+        <property name="valang">
+            <value><![CDATA[            
+              { listVars[1] : validLastName(?) is true AND creditApproval(listVars[2], listVars[4]) is true
+                                     WHERE listVars[0] IN 'Joe', 'Jack', 'Jill', 'Jane' AND
+                                         listVars[3] IN ['org.springmodules.validation.valang.CreditStatus.PENDING'], ['org.springmodules.validation.valang.CreditStatus.FAIL'] AND
+                                         listVars[4] EQUALS ['org.springmodules.validation.valang.Person$CreditRating.EXCELLENT'] AND
+                                         listVars[2] > 18 : '' } 
+
+              { mapVars[lastName] : validLastName(?) is true AND creditApproval(mapVars[age], mapVars[creditRating]) is true
+                                    WHERE mapVars[firstName] IN 'Joe', 'Jack', 'Jill', 'Jane' AND
+                                        mapVars[creditStatus] IN ['org.springmodules.validation.valang.CreditStatus.PENDING'], ['org.springmodules.validation.valang.CreditStatus.FAIL'] AND
+                                        mapVars[creditRating] EQUALS ['org.springmodules.validation.valang.Person$CreditRating.EXCELLENT'] AND
+                                        mapVars[age] > 18 : '' } 
+
+              { vars[1] : validLastName(?) is true AND creditApproval(vars[2], vars[4]) is true
+                          WHERE vars[0] IN 'Joe', 'Jack', 'Jill', 'Jane' AND
+                              vars[3] IN ['org.springmodules.validation.valang.CreditStatus.PENDING'], ['org.springmodules.validation.valang.CreditStatus.FAIL'] AND
+                              vars[4] EQUALS ['org.springmodules.validation.valang.Person$CreditRating.EXCELLENT'] AND
+                              vars[2] > 18 : '' } 
+            ]]></value>
+        </property>
+    </bean>
+   
+</beans>

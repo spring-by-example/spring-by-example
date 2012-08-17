@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="testCustomFunctions" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="customFunctions">
+            <map>
+                <entry key="tupper" value="org.springmodules.validation.valang.functions.UpperCaseFunction"/>
+            </map>
+        </property>
+        <property name="valang">
+            <value>
+                <![CDATA[
+                    { firstName : length(tupper(?)) == 'FN' : 'First name is empty' }
+			    ]]>
+            </value>
+        </property>
+    </bean>
+
+    <bean class="org.springmodules.validation.valang.functions.FunctionDefinition">
+        <property name="name" value="tupper"/>
+        <property name="className" value="org.springmodules.validation.valang.functions.UpperCaseFunction"/>
+    </bean>
+
+    <bean id="equal" class="org.springmodules.validation.valang.EqualsFunction" scope="prototype"/>
+
+    <bean id="testFunctionFromApplicationContext" class="org.springmodules.validation.valang.ValangValidator">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                    { firstName : equal(firstName, lastName) == true : 'First name must be the same as the last name' }
+			    ]]>
+            </value>
+        </property>
+    </bean>
+
+    <bean class="java.util.Date"/>
+
+    <bean id="pattern" class="java.util.regex.Pattern" factory-method="compile">
+        <constructor-arg value="foo|bar"/>
+    </bean>
+
+    <bean id="personValidator" class="org.springmodules.validation.valang.ValangValidator" lazy-init="true">
+        <property name="valang">
+            <value>
+                <![CDATA[
+                    { form[name] : ? is not null : 'the form name should not be null' : 'not.null' }
+                    { form[name] : length(?) BETWEEN 4 AND 30 : 'name must be between 4 and 30' }
+                    { form[passwd] : length(?) BETWEEN 5 AND 20 : 'password must be between 5 and 20' }
+			    ]]>
+            </value>
+        </property>
+    </bean>
+
+
+</beans>
