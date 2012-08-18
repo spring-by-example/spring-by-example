@@ -14,6 +14,11 @@
     </description>
 
 	<properties>
+        <!-- 
+            can't use dot notation because this is used for site generation 
+        -->
+        <sbe-site-version>1.2</sbe-site-version>
+        
         <java.version>1.6</java.version>
 
         <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
