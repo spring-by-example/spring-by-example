@@ -1,4 +1,4 @@
-Spring by Example Utilities
+Spring by Example Utils
 
 Note: The Maven JAXB plugin was used to generate the JAXB mappings used for testing, but 
 so they wouldn't be included in the dist that part of the build was commented out and the 
