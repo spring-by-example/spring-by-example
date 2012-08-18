@@ -17,4 +17,8 @@
         Hibernate tests.
     </description>
     
+    <properties>
+        <hibernate.version>3.6.10.Final</hibernate.version>
+    </properties>
+
 </project>
