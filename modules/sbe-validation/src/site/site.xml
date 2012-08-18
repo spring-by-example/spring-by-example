@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+    <bannerLeft>
+        <name>Spring by Example Validation</name>
+        <href>http://springbyexample.org/</href>
+    </bannerLeft>
+    <body>
+        <links>
+            <item name="Spring by Example" href="http://springbyexample.org/" />
+        </links>
+
+        <menu ref="reports"/>
+    </body>
+</project>
+

@@ -12,9 +12,9 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-jcr</artifactId>
     <version>1.0.2</version>
-    <name>JCR Utilities</name>
+    <name>JCR Utils</name>
     <description>
-        JCR Utilites are made using Spring Modules JCR (Java Content Repository) module. 
+        JCR Utils are made using Spring Modules JCR (Java Content Repository) module. 
         Currently the utilities provide a way to recurse through the repositories nodes using 
         JcrTemplate and a custom node callback for each matching node found while recursing the 
         repository. This example uses Apache Jackrabbit for the Java Content Repository 
