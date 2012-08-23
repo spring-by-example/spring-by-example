@@ -17,7 +17,7 @@ package org.springbyexample.orm.repository;
 
 import java.util.List;
 
-import org.springbyexample.orm.entity.Person;
+import org.springbyexample.orm.entity.person.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

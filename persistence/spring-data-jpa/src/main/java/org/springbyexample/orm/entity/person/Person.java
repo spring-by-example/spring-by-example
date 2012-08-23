@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.orm.entity;
+package org.springbyexample.orm.entity.person;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,13 +22,12 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.springbyexample.orm.entity.AbstractAuditableEntity;
 
 
 /**
@@ -41,32 +38,17 @@ import javax.persistence.OneToMany;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE", discriminatorType=DiscriminatorType.INTEGER)
-public class Person implements Serializable {
+public class Person extends AbstractAuditableEntity {
 
     private static final long serialVersionUID = -2175150694352541150L;
 
-    private Integer id = null;
     private String firstName = null;
     private String lastName = null;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="PERSON_ID", nullable=false)
     private Set<Address> addresses = null;
-    private Date created = null;
-
-    /**
-     * Gets id (primary key).
-     */
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Sets id (primary key).
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    
     /**
      * Gets first name.
      */
@@ -98,8 +80,6 @@ public class Person implements Serializable {
     /**
      * Gets list of <code>Address</code>es.
      */
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="PERSON_ID", nullable=false)
     public Set<Address> getAddresses() {
         return addresses;
     }
@@ -112,19 +92,8 @@ public class Person implements Serializable {
     }
 
     /**
-     * Gets date created.
+     * Find an address by it's primary key.
      */
-    public Date getCreated() {
-        return created;
-    }
-
-    /**
-     * Sets date created.
-     */
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public Address findAddressById(Integer id) {
         Address result = null;
 
@@ -149,7 +118,7 @@ public class Person implements Serializable {
         StringBuilder sb = new StringBuilder();
 
         sb.append(this.getClass().getName() + "-");
-        sb.append("  id=" + id);
+        sb.append("  id=" + getId());
         sb.append("  firstName=" + firstName);
         sb.append("  lastName=" + lastName);
 
@@ -163,49 +132,12 @@ public class Person implements Serializable {
 
         sb.append("]");
 
-        sb.append("  created=" + created);
+        sb.append("  lastUpdated=" + getLastModifiedDate());
+        sb.append("  lastUpdateBy=" + getLastModifiedBy());
+        sb.append("  created=" + getCreatedDate());
+        sb.append("  createdBy=" + getCreatedBy());
 
         return sb.toString();
-    }
-
-    /**
-     * Returns a hash code value for the object.
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-
-        return result;
-    }
-
-    /**
-     * Indicates whether some other object is equal to this one.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Person other = (Person) obj;
-
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-
-        return true;
     }
 
 }

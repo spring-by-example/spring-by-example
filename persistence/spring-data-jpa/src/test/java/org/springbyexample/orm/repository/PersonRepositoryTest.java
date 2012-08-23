@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,10 +29,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.orm.entity.Address;
-import org.springbyexample.orm.entity.Person;
-import org.springbyexample.orm.entity.Professional;
-import org.springbyexample.orm.entity.Student;
+import org.springbyexample.orm.entity.AbstractAuditableEntity;
+import org.springbyexample.orm.entity.person.Address;
+import org.springbyexample.orm.entity.person.Person;
+import org.springbyexample.orm.entity.person.Professional;
+import org.springbyexample.orm.entity.person.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -268,8 +268,6 @@ public class PersonRepositoryTest {
         person.setCompanyName(companyName);
         person.setAddresses(addresses);
         
-        person.setCreated(new Date());
-        
         Person result = personRepository.saveAndFlush(person);
         
         return result;
@@ -353,8 +351,22 @@ public class PersonRepositoryTest {
                 assertEquals("address.state", state, address.getState());
                 assertEquals("address.zipPostal" + zipPostal + "'.", zipPostal, address.getZipPostal());
                 assertEquals("address.country", COUNTRY, address.getCountry());
+                
+                testAuditable(address);
             }
         }
+        
+        testAuditable(person);
     }
-    
- }
+
+    /**
+     * Tests person.
+     */
+    private void testAuditable(AbstractAuditableEntity auditRecord) {
+        assertNotNull("lastUpdated", auditRecord.getLastModifiedDate());
+        assertNotNull("lastUpdatedBy", auditRecord.getLastModifiedBy());
+        assertNotNull("created", auditRecord.getCreatedDate());
+        assertNotNull("createdBy", auditRecord.getCreatedBy());
+    }
+ 
+}

@@ -15,37 +15,21 @@
  */
 package org.springbyexample.orm.entity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import org.springframework.data.domain.AuditorAware;
 
 
 /**
- * Annotation configured person student bean.
+ * <code>AuditorAware</code> implementation.
  * 
  * @author David Winterfeldt
  */
-@Entity
-@Table(name="PERSON_STUDENT")
-@DiscriminatorValue("1")
-public class Student extends Person {
+public class AuditorAwareImpl implements AuditorAware<String> {
 
-    private static final long serialVersionUID = -8933409594928827120L;
-
-    private String schoolName = null;
-
-    /**
-     * Gets school name.
-     */
-    public String getSchoolName() {
-        return schoolName;
+    @Override
+    public String getCurrentAuditor() {
+        return "SYSTEM";
     }
 
-    /**
-     * Sets school name.
-     */
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
-    }
-    
+
 }
