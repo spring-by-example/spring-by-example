@@ -100,9 +100,7 @@ public class PersonInheritanceDaoTest {
                 	assertEquals("Address state should be '" + state + "'.", state, address.getState());
                 	assertEquals("Address zip/postal should be '" + zipPostal + "'.", zipPostal, address.getZipPostal());
                 }
-            }
-
-            if (secondId.equals(person.getId())) {                
+            } else if (secondId.equals(person.getId())) {                
                 String firstName = "John";
                 String lastName = "Wilson";
                 String companyName = "Spring Pizza";

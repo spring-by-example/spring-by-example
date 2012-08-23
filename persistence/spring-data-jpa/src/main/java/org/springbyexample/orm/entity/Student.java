@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springbyexample.orm.jpa.inheritance.bean;
+package org.springbyexample.orm.entity;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,31 +21,31 @@ import javax.persistence.Table;
 
 
 /**
- * Annotation configured person professional bean.
+ * Annotation configured person student bean.
  * 
  * @author David Winterfeldt
  */
 @Entity
-@Table(name="PERSON_PROFESSIONAL")
-@DiscriminatorValue("2")
-public class Professional extends Person {
+@Table(name="PERSON_STUDENT")
+@DiscriminatorValue("1")
+public class Student extends Person {
 
-    private static final long serialVersionUID = 8199967229715812072L;
+    private static final long serialVersionUID = -8933409594928827120L;
 
-    private String companyName = null;
+    private String schoolName = null;
 
     /**
-     * Gets company name.
+     * Gets school name.
      */
-    public String getCompanyName() {
-        return companyName;
+    public String getSchoolName() {
+        return schoolName;
     }
 
     /**
-     * Sets company name.
+     * Sets school name.
      */
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
     
 }

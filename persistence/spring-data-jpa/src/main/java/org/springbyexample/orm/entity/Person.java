@@ -13,34 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springbyexample.orm.jpa.inheritance.bean;
+package org.springbyexample.orm.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 
 /**
- * Annotation configured address bean.
+ * Annotation configured person bean.
  * 
  * @author David Winterfeldt
  */
 @Entity
-public class Address implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="TYPE", discriminatorType=DiscriminatorType.INTEGER)
+public class Person implements Serializable {
 
-    private static final long serialVersionUID = 7851794269407495684L;
+    private static final long serialVersionUID = -2175150694352541150L;
 
     private Integer id = null;
-    private String address = null;
-    private String city = null;
-    private String state = null;
-    private String zipPostal = null;
-    private String country = null;
+    private String firstName = null;
+    private String lastName = null;
+    private Set<Address> addresses = null;
     private Date created = null;
 
     /**
@@ -60,73 +68,47 @@ public class Address implements Serializable {
     }
 
     /**
-     * Gets address.
+     * Gets first name.
      */
-    public String getAddress() {
-        return address;
+    public String getFirstName() {
+        return firstName;
     }
 
     /**
-     * Sets address.
+     * Sets first name.
      */
-    public void setAddress(String address) {
-        this.address = address;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     /**
-     * Gets city.
+     * Gets last name.
      */
-    public String getCity() {
-        return city;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
-     * Sets city.
+     * Sets last name.
      */
-    public void setCity(String city) {
-        this.city = city;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
-     * Gets state.
+     * Gets list of <code>Address</code>es.
      */
-    public String getState() {
-        return state;
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="PERSON_ID", nullable=false)
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
     /**
-     * Sets state.
+     * Sets list of <code>Address</code>es.
      */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * Gets zip or postal code.
-     */
-    public String getZipPostal() {
-        return zipPostal;
-    }
-
-    /**
-     * Sets zip or postal code.
-     */
-    public void setZipPostal(String zipPostal) {
-        this.zipPostal = zipPostal;
-    }
-
-    /**
-     * Gets country.
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    /**
-     * Sets country.
-     */
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     /**
@@ -143,6 +125,22 @@ public class Address implements Serializable {
         this.created = created;
     }
 
+    public Address findAddressById(Integer id) {
+        Address result = null;
+
+        if (addresses != null) {
+            for (Address address : addresses) {
+                if (address.getId().equals(id)) {
+                    result = address;
+
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
     /**
      * Returns a string representation of the object.
      */
@@ -152,11 +150,19 @@ public class Address implements Serializable {
 
         sb.append(this.getClass().getName() + "-");
         sb.append("  id=" + id);
-        sb.append("  addresss=" + address);
-        sb.append("  city=" + city);
-        sb.append("  state=" + state);
-        sb.append("  zipPostal=" + zipPostal);
-        sb.append("  country=" + country);
+        sb.append("  firstName=" + firstName);
+        sb.append("  lastName=" + lastName);
+
+        sb.append("  addresses=[");
+
+        if (addresses != null) {
+            for (Address address : addresses) {
+                sb.append(address.toString());
+            }
+        }
+
+        sb.append("]");
+
         sb.append("  created=" + created);
 
         return sb.toString();
@@ -189,12 +195,12 @@ public class Address implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-
-        final Address other = (Address) obj;
+        final Person other = (Person) obj;
 
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
+            }
         } else if (!id.equals(other.id)) {
             return false;
         }
