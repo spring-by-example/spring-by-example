@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springbyexample.orm.jpa.inheritance.bean;
+package org.springbyexample.orm.entity;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
