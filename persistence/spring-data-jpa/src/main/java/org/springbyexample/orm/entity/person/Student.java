@@ -13,17 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.orm.repository;
+package org.springbyexample.orm.entity.person;
 
-import org.springbyexample.orm.entity.person.Professional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 /**
- * Professional repository.
+ * Annotation configured person student bean.
  * 
  * @author David Winterfeldt
  */
-public interface ProfessionalRepository extends JpaRepository<Professional, Integer> {
+@Entity
+@Table(name="PERSON_STUDENT")
+@DiscriminatorValue("1")
+public class Student extends Person {
+
+    private static final long serialVersionUID = -8933409594928827120L;
+
+    private String schoolName = null;
+
+    /**
+     * Gets school name.
+     */
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    /**
+     * Sets school name.
+     */
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
     
 }
