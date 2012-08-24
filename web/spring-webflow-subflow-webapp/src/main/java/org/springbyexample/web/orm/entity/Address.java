@@ -21,7 +21,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -165,4 +168,30 @@ public class Address extends AbstractPersistable<Integer> {
         return sb.toString();
     }
 
+    /**
+     * Validates 'addressForm' view state after binding to address.
+     * Spring Web Flow activated validation ('validate' + ${state}).
+     */
+    public void validateAddressForm(MessageContext context) {
+        if (!StringUtils.hasText(address)) {
+            context.addMessage(new MessageBuilder().error().source("address").code("address.form.address.error").build());
+        }
+        
+        if (!StringUtils.hasText(city)) {
+            context.addMessage(new MessageBuilder().error().source("city").code("address.form.city.error").build());
+        }
+        
+        if (!StringUtils.hasText(state)) {
+            context.addMessage(new MessageBuilder().error().source("state").code("address.form.state.error").build());
+        }
+        
+        if (!StringUtils.hasText(zipPostal)) {
+            context.addMessage(new MessageBuilder().error().source("zipPostal").code("address.form.zipPostal.error").build());
+        }
+        
+        if (!StringUtils.hasText(country)) {
+            context.addMessage(new MessageBuilder().error().source("country").code("address.form.country.error").build());
+        }
+    }
+    
 }
