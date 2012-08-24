@@ -32,9 +32,9 @@
           class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
           p:definitions="/WEB-INF/tiles-defs/templates.xml" />
  
-    <bean id="tilesViewResolver" 
-          class="org.springframework.js.ajax.AjaxUrlBasedViewResolver"  
-          p:viewClass="org.springbyexample.web.servlet.view.tiles2.FlowAjaxDynamicTilesView"
+    <bean id="tilesViewResolver"
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+          p:viewClass="org.springbyexample.web.servlet.view.tiles2.DynamicTilesView"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
