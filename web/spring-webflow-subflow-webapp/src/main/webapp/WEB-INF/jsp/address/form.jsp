@@ -48,8 +48,7 @@
         </div>       
         <div class="form-buttons">
             <div class="button">
-                <input type="submit" id="save" name="_eventId_save" value="<fmt:message key="button.save"/>" 
-                    onclick="Spring.remoting.submitForm('save', 'person', {fragments:'content'}); return false;"/>&#160;
+                <input type="submit" id="save" name="_eventId_save" value="<fmt:message key="button.save"/>"/>&#160;
                 <input type="submit" name="_eventId_cancel" value="<fmt:message key="button.cancel"/>"/>&#160;   
             </div>    
         </div>
