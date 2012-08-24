@@ -15,7 +15,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/spring/web-application-context.xml
+            /WEB-INF/spring/*-context.xml
         </param-value>
     </context-param>
 
@@ -49,7 +49,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring/flex-servlet-context.xml</param-value>
+            <param-value>/WEB-INF/spring/flex/flex-servlet-context.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
