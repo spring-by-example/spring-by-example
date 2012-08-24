@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/webflow-config
-                           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd">
+                           http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.3.xsd">
 
     <!-- Enables FlowHandlers -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter"
@@ -39,7 +39,7 @@
 
     <!-- Used in 'create' action-state of Person Flow -->
     <bean id="personBean" 
-          class="org.springbyexample.web.jpa.bean.Person" 
+          class="org.springbyexample.web.orm.entity.Person" 
           scope="prototype" />
 
 </beans>

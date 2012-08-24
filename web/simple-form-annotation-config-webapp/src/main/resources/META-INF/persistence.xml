@@ -5,13 +5,8 @@
                                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="simple-jpa">
+    <persistence-unit name="hsql">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-
-        <class>org.springbyexample.web.jpa.bean.Person</class>
-        <class>org.springbyexample.web.jpa.bean.Address</class>
-        
-        <exclude-unlisted-classes/>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
@@ -21,5 +16,5 @@
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
         </properties>
     </persistence-unit>
-
+    
 </persistence>

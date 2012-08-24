@@ -11,6 +11,8 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <context:component-scan base-package="org.springbyexample.web.servlet.mvc" />
+
     <!-- URL to flow mapping rules -->
     <bean id="flowMappings"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"

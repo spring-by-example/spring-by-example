@@ -18,20 +18,20 @@
     </action-state>
 
     <action-state id="edit">
-        <evaluate expression="personDao.findPersonById(id)"
+        <evaluate expression="personService.findById(id)"
             result="flowScope.person" />
         <transition to="personForm" />
     </action-state>
 
     <view-state id="personForm" model="person" view="/person/form">
         <transition on="save" to="save">
-            <evaluate expression="personDao.save(person)" />
+            <evaluate expression="personService.save(person)" />
 
-            <evaluate expression="personDao.findPersons()"
+            <evaluate expression="personService.find()"
                       result="flowScope.persons" />
         </transition>
         <transition on="cancel" to="cancel" bind="false">
-            <evaluate expression="personDao.findPersons()"
+            <evaluate expression="personService.find()"
                       result="flowScope.persons" />
         </transition>
     </view-state>
