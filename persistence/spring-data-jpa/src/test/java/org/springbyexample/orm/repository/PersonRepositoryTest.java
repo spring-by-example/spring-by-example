@@ -360,7 +360,7 @@ public class PersonRepositoryTest {
     }
 
     /**
-     * Tests person.
+     * Tests auditable entity.
      */
     private void testAuditable(AbstractAuditableEntity auditRecord) {
         assertNotNull("lastUpdated", auditRecord.getLastModifiedDate());
