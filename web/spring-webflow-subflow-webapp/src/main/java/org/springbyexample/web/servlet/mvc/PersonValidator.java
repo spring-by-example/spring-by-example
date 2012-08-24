@@ -16,7 +16,7 @@
 
 package org.springbyexample.web.servlet.mvc;
 
-import org.springbyexample.web.jpa.bean.Person;
+import org.springbyexample.web.orm.entity.Person;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Component;

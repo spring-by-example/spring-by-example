@@ -216,18 +216,6 @@
         <developerConnection>scm:git:</developerConnection>
         <url>https://github.com/spring-by-example/spring-by-example/tree/master/modules</url>
     </scm>
-    
-    <distributionManagement>
-        <repository>
-            <id>springbyexample.org</id>
-            <name>Spring by Example</name>
-            <url>${mvn.repository.url}</url>
-        </repository>
-        <site>
-            <id>springbyexample.org</id>
-            <url>${mvn.site.url}/${project.artifactId}/${project.version}</url>
-        </site>
-    </distributionManagement>
 
 </project>
 

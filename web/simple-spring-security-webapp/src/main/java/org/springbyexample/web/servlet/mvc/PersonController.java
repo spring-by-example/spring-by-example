@@ -19,8 +19,10 @@ package org.springbyexample.web.servlet.mvc;
 import java.util.Collection;
 import java.util.Date;
 
-import org.springbyexample.web.jpa.bean.Person;
-import org.springbyexample.web.jpa.dao.PersonDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springbyexample.web.orm.entity.Person;
+import org.springbyexample.web.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,11 +40,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PersonController {
 
+    final Logger logger = LoggerFactory.getLogger(getClass());
+    
+    private static final String DELETE_PATH_KEY = "/person/delete";
+    private static final String SEARCH_VIEW_PATH_KEY = "/person/search";
+    
     private static final String SEARCH_VIEW_KEY = "redirect:search.html";
     private static final String SEARCH_MODEL_KEY = "persons";
 
+    private final PersonService service;
+
     @Autowired
-    protected PersonDao personDao = null;
+    public PersonController(PersonService service) {
+        this.service = service;
+    }
 
     /**
      * For every request for this controller, this will 
@@ -50,7 +61,7 @@ public class PersonController {
      */
     @ModelAttribute
     public Person newRequest(@RequestParam(required=false) Integer id) {
-        return (id != null ? personDao.findPersonById(id) : new Person());
+        return (id != null ? service.findById(id) : new Person());
     }
 
     /**
@@ -67,19 +78,16 @@ public class PersonController {
      * <p>Expected HTTP POST and request '/person/form'.</p>
      */
     @RequestMapping(value="/person/form", method=RequestMethod.POST)
-    public void form(Person person, Model model) {
+    public Person form(Person person, Model model) {
         if (person.getCreated() == null) {
             person.setCreated(new Date());
         }
 
-        Person result = personDao.save(person);
+        Person result = service.save(person);
         
-        // set id from create
-        if (person.getId() == null) {
-            person.setId(result.getId());
-        }
-
         model.addAttribute("statusMessageKey", "person.form.msg.success");
+        
+        return result;
     }
 
     /**
@@ -87,9 +95,11 @@ public class PersonController {
      * 
      * <p>Expected HTTP POST and request '/person/delete'.</p>
      */
-    @RequestMapping(value="/person/delete", method=RequestMethod.POST)
-    public String delete(Person person) {
-        personDao.delete(person);
+    @RequestMapping(value=DELETE_PATH_KEY, method=RequestMethod.POST)
+    public String delete(@RequestParam("id") Integer id) {
+        logger.info("'{}'  id={}", DELETE_PATH_KEY, id);
+        
+        service.delete(id);
 
         return SEARCH_VIEW_KEY;
     }
@@ -100,9 +110,9 @@ public class PersonController {
      * 
      * <p>Expected HTTP GET and request '/person/search'.</p>
      */
-    @RequestMapping(value="/person/search", method=RequestMethod.GET)
+    @RequestMapping(value=SEARCH_VIEW_PATH_KEY, method=RequestMethod.GET)
     public @ModelAttribute(SEARCH_MODEL_KEY) Collection<Person> search() {
-        return personDao.findPersons();
+        return service.find();
     }
 
 }

@@ -13,7 +13,7 @@
 
 	<groupId>org.springbyexample</groupId>
 	<artifactId>swf-subflow</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<packaging>war</packaging>
 	<name>Spring Web Flow Subflow Webapp</name>
 	<description>

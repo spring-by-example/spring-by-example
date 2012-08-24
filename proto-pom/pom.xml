@@ -789,6 +789,18 @@ limitations under the License.
         </license>
     </licenses>
 
+    <distributionManagement>
+        <repository>
+            <id>springbyexample.org</id>
+            <name>Spring by Example</name>
+            <url>${mvn.repository.url}</url>
+        </repository>
+        <site>
+            <id>springbyexample.org</id>
+            <url>${mvn.site.url}/${project.artifactId}/${project.version}</url>
+        </site>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>springbyexample.org</id>

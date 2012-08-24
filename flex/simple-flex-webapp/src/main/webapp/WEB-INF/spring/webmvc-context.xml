@@ -12,7 +12,7 @@
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:annotation-driven />
-    
+
     <mvc:view-controller path="/index.html" />
     <mvc:view-controller path="/flex/search.html" />
 

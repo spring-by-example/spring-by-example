@@ -18,7 +18,7 @@
     </action-state>
 
     <action-state id="edit">
-        <evaluate expression="personDao.findPersonById(id)" result="flowScope.person" />
+        <evaluate expression="personService.findById(id)" result="flowScope.person" />
         <transition to="personForm" />
     </action-state>
     
@@ -30,11 +30,11 @@
             <set name="flashScope.addressId" value="requestParameters.addressId" />
         </transition>
         <transition on="deleteAddress" to="personForm">
-            <evaluate expression="personDao.deleteAddress(id, requestParameters.addressId)" result="flowScope.person" />
+            <evaluate expression="personService.deleteAddress(id, requestParameters.addressId)" result="flowScope.person" />
         </transition>
         
         <transition on="save" to="personForm">
-            <evaluate expression="personDao.save(person)" result="flowScope.person" />
+            <evaluate expression="personService.save(person)" result="flowScope.person" />
             
             <set name="flowScope.id" value="person.id" />
             
@@ -43,7 +43,7 @@
             <render fragments="content" />
         </transition>
         <transition on="cancel" to="cancel" bind="false">
-            <evaluate expression="personDao.findPersons()" result="flowScope.persons" />
+            <evaluate expression="personService.find()" result="flowScope.persons" />
         </transition>
     </view-state>
 
@@ -54,7 +54,7 @@
         <output name="address" />
         
         <transition on="saveAddress" to="personForm">
-            <evaluate expression="personDao.saveAddress(id, address)" result="flowScope.person" />
+            <evaluate expression="personService.saveAddress(id, address)" result="flowScope.person" />
             
             <set name="flashScope.statusMessageKey" value="'address.form.msg.success'" />
         </transition>
