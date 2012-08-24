@@ -16,15 +16,14 @@
 
 package org.springbyexample.web.service;
 
-import org.springbyexample.web.jpa.bean.Person;
-import org.springbyexample.web.jpa.dao.PersonDao;
+import org.springbyexample.web.orm.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.flex.remoting.RemotingDestination;
 import org.springframework.stereotype.Service;
 
 
 /**
- * Person service.
+ * Flex person service.
  * 
  * @author David Winterfeldt
  */
@@ -32,14 +31,11 @@ import org.springframework.stereotype.Service;
 @RemotingDestination
 public class PersonService {
 
-    private final PersonDao personDao;
+    private final PersonRepository repository;
 
-    /**
-     * Constructor
-     */
     @Autowired
-    public PersonService(PersonDao personDao) {
-        this.personDao = personDao;
+    public PersonService(PersonRepository repository) {
+        this.repository = repository;
     }
 
     /**
@@ -49,9 +45,7 @@ public class PersonService {
      * from the Flex client causes a problem with Hibernate.</p>
      */
     public void remove(int id) {
-        Person person = personDao.findPersonById(id);
-        
-        personDao.delete(person);
+        repository.delete(id);
     }
     
 }

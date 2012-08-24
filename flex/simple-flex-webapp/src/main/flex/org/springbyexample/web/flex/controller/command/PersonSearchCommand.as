@@ -44,8 +44,8 @@ public class PersonSearchCommand implements ICommand {
      * Implementation of <code>ICommand</code>.
      */
     public function execute(event:CairngormEvent):void { 
-        var ro:RemoteObject = new RemoteObject("personDao");      	
-        ro.findPersons();
+        var ro:RemoteObject = new RemoteObject("personRepository");
+        ro.findAll();
         
         ro.addEventListener(ResultEvent.RESULT, updateSearch);
     }

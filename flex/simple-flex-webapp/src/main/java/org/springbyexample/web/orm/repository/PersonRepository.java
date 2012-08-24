@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.web.service;
+package org.springbyexample.web.orm.repository;
 
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.flex.remoting.RemotingDestination;
-import org.springframework.stereotype.Service;
+import org.springbyexample.web.jpa.bean.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
 /**
- * Flex internationalization service.
+ * Person repository.
  * 
  * @author David Winterfeldt
  */
-@Service("i18nService")
-@RemotingDestination
-public class InternationalizationService {
-
-    /**
-     * Gets current locale.
-     */
-    public String getLocale() {
-        return LocaleContextHolder.getLocale().toString();
-    }
+public interface PersonRepository extends JpaRepository<Person, Integer> {
     
 }

@@ -15,6 +15,6 @@
 
     <flex:message-broker/>
 
-    <flex:remoting-destination ref="personDao" /> 
+    <flex:remoting-destination ref="personRepository"  /> 
 
 </beans>

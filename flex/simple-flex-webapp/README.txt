@@ -16,7 +16,7 @@ It can also be run from the command line with 'mvn jetty:run' and accessed at th
 
 Release Notes
 --------------
-1.1.2 - Updated persistence.xml to version 2.0.
+1.1.2 - Upgraded to use Spring Data JPA.
 
 1.1.1 - Upgraded to Spring 3.2.
 
