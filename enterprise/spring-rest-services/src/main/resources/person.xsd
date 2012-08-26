@@ -1,0 +1,40 @@
+<xsd:schema xmlns="http://www.springbyexample.org/schema/beans/person"
+            targetNamespace="http://www.springbyexample.org/schema/beans/person"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:response="http://www.springbyexample.org/schema/beans/response">
+
+    <xsd:import namespace="http://www.springbyexample.org/schema/beans/response" schemaLocation="response-base.xsd" />
+
+    <xsd:element name="person-response">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="response:response-result">
+                    <xsd:sequence>
+                        <xsd:element name="result" type="person" />
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="person-find-response">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="response:find-response-result">
+                    <xsd:sequence>
+                        <xsd:element name="results" type="person" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="person">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:int" />
+            <xsd:element name="first-name" type="xsd:string" />
+            <xsd:element name="last-name" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
