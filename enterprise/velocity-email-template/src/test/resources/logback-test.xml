@@ -6,7 +6,7 @@
         </layout>  
     </appender>  
     
-    <logger name="org.springbyexample.jms" additivity="false">
+    <logger name="org.springbyexample.email" additivity="false">
         <level value="DEBUG" />
         
         <appender-ref ref="CONSOLE" />
