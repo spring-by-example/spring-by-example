@@ -29,11 +29,11 @@
     </util:list>
         
     <beans profile="rest-json">
-        <import resource="classpath*:/META-INF/spring/mvc/rest-json-type-converter-context.xml"/>
+        <import resource="classpath:/META-INF/spring/mvc/rest-json-converter-context.xml"/>
     
         <!-- since id is the same as XML list above, essentially overriding the other list -->
         <util:list id="messageConvertersList">
-            <ref bean="mappingJacksonHttpMessageConverterWithType"/>
+            <ref bean="mappingJacksonHttpMessageConverter"/>
         </util:list>
     </beans>
 

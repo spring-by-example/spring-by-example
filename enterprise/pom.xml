@@ -17,9 +17,10 @@
         <module>simple-spring-jms</module>
         <module>simple-spring-web-services</module>
         <module>spring-jmx</module>
+        <module>spring-integration</module>  
         <module>spring-modules-jcr</module>
+        <module>spring-rest-services</module>
         <module>solr-client</module>
-        <module>spring-integration</module>        
         <module>velocity-email-template</module>
     </modules>
 	

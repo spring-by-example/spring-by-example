@@ -17,8 +17,7 @@
                 </bean>
                 <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
-<!--                 <ref bean="mappingJacksonHttpMessageConverter"/> -->
-<!--                 <ref bean="mappingJacksonHttpMessageConverterWithType"/> -->
+                <ref bean="mappingJacksonHttpMessageConverter"/>
             </list>
         </property>
     </bean>
@@ -28,16 +27,14 @@
         <property name="mediaTypes">
             <map>
                 <entry key="xml" value="application/xml"/>                
-<!--                 <entry key="json" value="application/json"/> -->
-<!--                 <entry key="json-type" value="application/json-type"/>   -->
+                <entry key="json" value="application/json"/>
             </map>
         </property>
         <property name="defaultViews">
             <list>
                 <bean class="org.springframework.web.servlet.view.xml.MarshallingView" 
                       p:marshaller-ref="marshaller"/>
-<!--                 <ref bean="mappingJacksonJsonView"/>                       -->
-<!--                 <ref bean="mappingJacksonJsonViewWithType"/> -->
+                <ref bean="mappingJacksonJsonView"/>                      
             </list>
         </property>
     </bean>
