@@ -89,7 +89,7 @@ public class JcrContentExporterIT {
                     
                     session.save();
 
-                    InputStream in = this.getClass().getResourceAsStream("/org/springbyexample/jcr/JcrContentExporterTest-context.xml");
+                    InputStream in = this.getClass().getResourceAsStream("/org/springbyexample/jcr/JcrContentExporterIT-context.xml");
                     
                     saveFile(session, orgFolderNode, "JcrContentExporterTest-context.xml", in);
                     
@@ -110,7 +110,7 @@ public class JcrContentExporterIT {
         
         List<String> lResults = processor.process();
         
-        int size = 2;
+        int size = 3;
         
         assertEquals("Number of processed results should be " + size +".", size, lResults.size());
     }

@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.web.service;
+package org.springbyexample.web.service.person;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
- * Base class for REST controller tests.
+ * Tests person controller with JSON serialization.
  * 
  * @author David Winterfeldt
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:/org/springbyexample/web/service/rest-controller-test-context.xml" })
-public abstract class AbstractRestControllerTest {
+@ActiveProfiles(profiles= { "rest-json" }, inheritProfiles=true)
+public class PersonControllerJsonIT extends PersonControllerTest {
     
 }

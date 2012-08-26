@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+    
+     <bean id="jacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+           p:targetMethod="disable">
+        <property name="targetObject">
+            <bean class="org.codehaus.jackson.map.ObjectMapper"/>
+        </property>
+        <property name="arguments">
+            <list>
+                <util:constant static-field="org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+            </list>
+        </property>
+    </bean>    
+          
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
+          p:supportedMediaTypes="application/json" 
+          p:objectMapper-ref="jacksonObjectMapper"/>          
+          
+    <bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+          p:extractValueFromSingleKeyModel="true" 
+          p:objectMapper-ref="jacksonObjectMapper"/>
+    
+</beans>

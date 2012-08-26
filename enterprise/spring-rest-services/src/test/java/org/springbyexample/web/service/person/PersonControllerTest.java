@@ -24,7 +24,6 @@ import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springbyexample.web.client.person.PersonClient;
 import org.springbyexample.web.service.AbstractRestControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * Tests person service client against an embedded web service 
@@ -51,7 +50,6 @@ public class PersonControllerTest extends AbstractRestControllerTest {
      * Tests person service client.
      */ 
     @Test
-    @DirtiesContext
     public void testFindById() {
         PersonResponse response = client.findById(ID);
         
