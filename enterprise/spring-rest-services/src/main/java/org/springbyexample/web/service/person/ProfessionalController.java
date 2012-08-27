@@ -17,9 +17,9 @@ package org.springbyexample.web.service.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.schema.beans.person.Person;
-import org.springbyexample.schema.beans.person.PersonFindResponse;
-import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.person.Professional;
+import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
+import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springbyexample.schema.beans.response.Message;
 import org.springbyexample.schema.beans.response.MessageType;
 import org.springbyexample.schema.beans.response.ResponseResult;
@@ -36,56 +36,63 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author David Winterfeldt
  */
 @Controller
-public class PersonController implements PersonMarshallingService {
+public class ProfessionalController implements ProfessionalMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final static Integer ID = new Integer(1);
     private final static String FIRST_NAME = "Joe";
     private final static String LAST_NAME = "Smith";
+    private final static String COMPANY_NAME = "Spring Travel";
 
     private final static Integer SECOND_ID = new Integer(2);
     private final static String SECOND_FIRST_NAME = "John";
     private final static String SECOND_LAST_NAME = "Jackson";
+    private final static String SECOND_COMPANY_NAME = "Spring Coffee";
 
     @Override
     @RequestMapping(value = FIND_BY_ID_REQUEST, method = RequestMethod.GET)
-    public PersonResponse findById(@PathVariable(ID_VAR) long id) {
-        logger.info("Find person.  id={}", id);
+    public ProfessionalResponse findById(@PathVariable(ID_VAR) long id) {
+        logger.info("Find professional.  id={}", id);
 
-        return new PersonResponse()
-                    .withResult(new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME));
+        return new ProfessionalResponse()
+                    .withResult(new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                                  .withCompanyName(COMPANY_NAME));
     }
 
     @Override
     @RequestMapping(value = FIND_PAGINATED_REQUEST, method = RequestMethod.GET)
-    public PersonFindResponse find(@PathVariable(PAGE_VAR) int page,
+    public ProfessionalFindResponse find(@PathVariable(PAGE_VAR) int page,
                                    @PathVariable(PAGE_SIZE_VAR) int pageSize) {
-        logger.info("Find person page.  page={}  pageSize={}", page, pageSize);
+        logger.info("Find Professional page.  page={}  pageSize={}", page, pageSize);
 
-        return new PersonFindResponse()
+        return new ProfessionalFindResponse()
                     .withCount(2)
-                    .withResults(new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME),
-                                 new Person().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME));
+                    .withResults(new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                                   .withCompanyName(COMPANY_NAME),
+                                 new Professional().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME)
+                                                   .withCompanyName(SECOND_COMPANY_NAME));
     }
 
     @Override
     @RequestMapping(value = FIND_REQUEST, method = RequestMethod.GET)
-    public PersonFindResponse find() {
-        logger.info("Find all persons.");
+    public ProfessionalFindResponse find() {
+        logger.info("Find all Professionals.");
 
-        return new PersonFindResponse()
+        return new ProfessionalFindResponse()
                     .withCount(2)
-                    .withResults(new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME),
-                                 new Person().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME));
+                    .withResults(new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                                   .withCompanyName(COMPANY_NAME),
+                                 new Professional().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME)
+                                                   .withCompanyName(SECOND_COMPANY_NAME));
     }
 
     @Override
     @RequestMapping(value = SAVE_REQUEST, method = RequestMethod.POST)
-    public PersonResponse save(@RequestBody Person request) {
-        logger.info("Save person.  id={}", request.getId());
+    public ProfessionalResponse save(@RequestBody Professional request) {
+        logger.info("Save Professional.  id={}", request.getId());
 
-        return new PersonResponse().withMessageList(
+        return new ProfessionalResponse().withMessageList(
                     new Message().withMessageType(MessageType.INFO)
                                  .withMessage(String.format("Successfully saved record.  id='%d'", request.getId())))
                     .withResult(request);
@@ -94,7 +101,7 @@ public class PersonController implements PersonMarshallingService {
     @Override
     @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
     public ResponseResult delete(@PathVariable(ID_VAR) long id) {
-        logger.info("Delete person.  id={}", id);
+        logger.info("Delete Professional.  id={}", id);
 
         return new ResponseResult().withMessageList(
                     new Message().withMessageType(MessageType.INFO)

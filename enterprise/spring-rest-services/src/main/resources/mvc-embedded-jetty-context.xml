@@ -8,6 +8,7 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- controllers need to be loaded in the servlet context -->
     <import resource="classpath*:/META-INF/spring/mvc/mvc-rest-context.xml"/>
 
 </beans>

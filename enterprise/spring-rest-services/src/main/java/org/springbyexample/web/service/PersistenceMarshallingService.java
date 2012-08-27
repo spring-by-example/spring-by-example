@@ -13,38 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.web.client;
+package org.springbyexample.web.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springbyexample.schema.beans.response.ResponseResult;
 
 
 /**
- * REST client properties.
+ * Persistence find marshalling service.
  * 
  * @author David Winterfeldt
+ * 
+ *  @param   <R>      Generic response.
+ *  @param   <FR>     Find response.
+ *  @param   <T>      Entity.
  */
-@Component
-public class RestClientProperties {
-
-    @Value("#{ restProperties['ws.api'] }") 
-    private String apiPath;
-
-    @Value("#{ systemProperties['ws.url'] != null ? systemProperties['ws.url'] : restProperties['ws.url'] }") 
-    private String url;
+public interface PersistenceMarshallingService<R extends ResponseResult, FR extends ResponseResult, T> 
+        extends PersistenceFindMarshallingService<R, FR> {
 
     /**
-     * Gets base URI for the REST APIs.
+     * Save record.
      */
-    public String getApiPath() {
-        return apiPath;
-    }
-
+    public R save(T request);
+    
     /**
-     * Gets URL.
+     * Delete record.
      */
-    public String getUrl() {
-        return url;
-    }
+    public ResponseResult delete(long id);
 
 }

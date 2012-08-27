@@ -1,6 +1,9 @@
 <xsd:schema xmlns="http://www.springbyexample.org/schema/beans/person"
             targetNamespace="http://www.springbyexample.org/schema/beans/person"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+            xmlns:annox="http://annox.dev.java.net" 
+            jaxb:extensionBindingPrefixes="annox"
             xmlns:response="http://www.springbyexample.org/schema/beans/response">
 
     <xsd:import namespace="http://www.springbyexample.org/schema/beans/response" schemaLocation="response-base.xsd" />
@@ -29,12 +32,60 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="professional-response">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="response:response-result">
+                    <xsd:sequence>
+                        <xsd:element name="result" type="professional" />
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="professional-find-response">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="response:find-response-result">
+                    <xsd:sequence>
+                        <xsd:element name="results" type="professional" minOccurs="0" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:complexType name="person">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate>
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="person"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="id" type="xsd:int" />
             <xsd:element name="first-name" type="xsd:string" />
             <xsd:element name="last-name" type="xsd:string" />
         </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="professional">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate>
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="professional"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="person">
+                <xsd:sequence>
+                    <xsd:element name="company-name" type="xsd:string" />
+                </xsd:sequence>                
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
 </xsd:schema>
