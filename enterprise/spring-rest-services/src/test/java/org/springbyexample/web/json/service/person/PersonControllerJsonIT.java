@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.web.service.person;
+package org.springbyexample.web.json.service.person;
 
+import org.springbyexample.web.service.person.PersonControllerTest;
 import org.springframework.test.context.ActiveProfiles;
 
 /**

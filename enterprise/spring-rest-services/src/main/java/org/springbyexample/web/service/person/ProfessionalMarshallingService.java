@@ -15,19 +15,19 @@
  */
 package org.springbyexample.web.service.person;
 
-import org.springbyexample.schema.beans.person.Person;
-import org.springbyexample.schema.beans.person.PersonFindResponse;
-import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.person.Professional;
+import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
+import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springbyexample.web.service.PersistenceMarshallingService;
 
 /**
- * Person marshalling service.
+ * Professional marshalling service.
  * 
  * @author David Winterfeldt
  */
-public interface PersonMarshallingService extends PersistenceMarshallingService<PersonResponse, PersonFindResponse, Person> {
-    
-    final static String PATH = "/person";
+public interface ProfessionalMarshallingService extends PersistenceMarshallingService<ProfessionalResponse, ProfessionalFindResponse, Professional> {
+
+    final static String PATH = "/professional";
     final static String PATH_PLURAL = PATH + "s";
     
     public final static String FIND_BY_ID_REQUEST = PATH + PATH_DELIM + "{" + ID_VAR + "}";

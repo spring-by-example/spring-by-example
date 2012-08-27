@@ -22,10 +22,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springbyexample.schema.beans.person.Person;
-import org.springbyexample.schema.beans.person.PersonFindResponse;
-import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.person.Professional;
+import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
+import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springbyexample.schema.beans.response.ResponseResult;
-import org.springbyexample.web.client.person.PersonClient;
+import org.springbyexample.web.client.person.ProfessionalClient;
 import org.springbyexample.web.service.AbstractRestControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,9 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author David Winterfeldt
  */
-public class PersonControllerTest extends AbstractRestControllerTest {
+public class ProfessionalControllerTest extends AbstractRestControllerTest {
 
-    final static Logger logger = LoggerFactory.getLogger(PersonControllerTest.class);
+    final static Logger logger = LoggerFactory.getLogger(ProfessionalControllerTest.class);
     
     protected final static Integer ID = 1;
     protected final static String FIRST_NAME = "Joe";
@@ -48,11 +49,11 @@ public class PersonControllerTest extends AbstractRestControllerTest {
     protected final static String SECOND_LAST_NAME = "Jackson";
 
     @Autowired
-    protected PersonClient client = null;
+    protected ProfessionalClient client = null;
     
     @Test
     public void testFindById() {
-        PersonResponse response = client.findById(ID);
+        ProfessionalResponse response = client.findById(ID);
         
         assertNotNull("Response is null.", response);
         
@@ -64,7 +65,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
         int page = 0;
         int pageSize = 2;
         
-        PersonFindResponse response = client.find(page, pageSize);
+        ProfessionalFindResponse response = client.find(page, pageSize);
         assertNotNull("Response is null.", response);
         
         int expectedCount = 2;
@@ -76,7 +77,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
 
     @Test
     public void testFind() {
-        PersonFindResponse response = client.find();
+        ProfessionalFindResponse response = client.find();
         assertNotNull("Response is null.", response);
 
         int expectedCount = 2;
@@ -88,9 +89,9 @@ public class PersonControllerTest extends AbstractRestControllerTest {
 
     @Test
     public void testSave() {
-        Person request = new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME);
+        Professional request = new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME);
         
-        PersonResponse response = client.save(request);
+        ProfessionalResponse response = client.save(request);
         
         assertNotNull("Response is null.", response);
         

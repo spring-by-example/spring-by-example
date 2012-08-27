@@ -21,12 +21,12 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.schema.beans.person.Person;
-import org.springbyexample.schema.beans.person.PersonFindResponse;
-import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.person.Professional;
+import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
+import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springbyexample.web.client.RestClient;
-import org.springbyexample.web.service.person.PersonMarshallingService;
+import org.springbyexample.web.service.person.ProfessionalMarshallingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -38,20 +38,20 @@ import org.springframework.stereotype.Component;
  * @author David Winterfeldt
  */
 @Component
-public class PersonClient implements PersonMarshallingService {
+public class ProfessionalClient implements ProfessionalMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
     
     private final RestClient client;
 
     @Autowired
-    public PersonClient(RestClient client) {
+    public ProfessionalClient(RestClient client) {
         this.client = client;
     }
 
     @Override
-    public PersonResponse findById(long id) {
-        PersonResponse response = null;
+    public ProfessionalResponse findById(long id) {
+        ProfessionalResponse response = null;
         
         String url = client.getUrl(FIND_BY_ID_REQUEST);
         
@@ -59,14 +59,14 @@ public class PersonClient implements PersonMarshallingService {
         
         Map<String, Long> vars = Collections.singletonMap(ID_VAR, id);
         
-        response = client.getRestTemplate().getForObject(url, PersonResponse.class, vars);
+        response = client.getRestTemplate().getForObject(url, ProfessionalResponse.class, vars);
         
         return response;
     }
 
     @Override
-    public PersonFindResponse find(int page, int pageSize) {
-        PersonFindResponse response = null;
+    public ProfessionalFindResponse find(int page, int pageSize) {
+        ProfessionalFindResponse response = null;
         
         String url = client.getUrl(FIND_PAGINATED_REQUEST);
         
@@ -78,33 +78,33 @@ public class PersonClient implements PersonMarshallingService {
         vars.put(PAGE_VAR, page);
         vars.put(PAGE_SIZE_VAR, pageSize);
 
-        response = client.getRestTemplate().getForObject(url, PersonFindResponse.class, vars);
+        response = client.getRestTemplate().getForObject(url, ProfessionalFindResponse.class, vars);
         
         return response;
     }
 
     @Override
-    public PersonFindResponse find() {
-        PersonFindResponse response = null;
+    public ProfessionalFindResponse find() {
+        ProfessionalFindResponse response = null;
         
         String url = client.getUrl(FIND_REQUEST);
         
         logger.debug("REST client find. url='{}'", url);
 
-        response = client.getRestTemplate().getForObject(url, PersonFindResponse.class);
+        response = client.getRestTemplate().getForObject(url, ProfessionalFindResponse.class);
         
         return response;
     }
 
     @Override
-    public PersonResponse save(Person request) {
-        PersonResponse response = null;
+    public ProfessionalResponse save(Professional request) {
+        ProfessionalResponse response = null;
         
         String url = client.getUrl(SAVE_REQUEST);
         
         logger.debug("REST client save.  id={}  url='{}'", request.getId(), url);
 
-        response =  client.getRestTemplate().postForObject(url, request, PersonResponse.class);
+        response =  client.getRestTemplate().postForObject(url, request, ProfessionalResponse.class);
         
         return response;
     }
