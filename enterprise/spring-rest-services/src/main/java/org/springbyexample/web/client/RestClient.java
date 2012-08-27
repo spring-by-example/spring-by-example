@@ -49,9 +49,9 @@ public class RestClient {
     }
 
     /**
-     * Gets URL based on the URI passed in.
+     * Creates URL based on the URI passed in.
      */
-    public String getUrl(String uri) {
+    public String createUrl(String uri) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(clientProperties.getUrl());

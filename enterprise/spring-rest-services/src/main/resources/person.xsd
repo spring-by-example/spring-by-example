@@ -4,8 +4,10 @@
             xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
             xmlns:annox="http://annox.dev.java.net" 
             jaxb:extensionBindingPrefixes="annox"
+            xmlns:entity="http://www.springbyexample.org/schema/beans/entity"
             xmlns:response="http://www.springbyexample.org/schema/beans/response">
 
+    <xsd:import namespace="http://www.springbyexample.org/schema/beans/entity" schemaLocation="entity-base.xsd" />
     <xsd:import namespace="http://www.springbyexample.org/schema/beans/response" schemaLocation="response-base.xsd" />
 
     <xsd:element name="person-response">
@@ -64,11 +66,14 @@
                 </annox:annotate>
             </xsd:appinfo>
         </xsd:annotation>
-        <xsd:sequence>
-            <xsd:element name="id" type="xsd:int" />
-            <xsd:element name="first-name" type="xsd:string" />
-            <xsd:element name="last-name" type="xsd:string" />
-        </xsd:sequence>
+        <xsd:complexContent>
+            <xsd:extension base="entity:pk-entity-base">
+                <xsd:sequence>
+                    <xsd:element name="first-name" type="xsd:string" />
+                    <xsd:element name="last-name" type="xsd:string" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="professional">
