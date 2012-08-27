@@ -25,15 +25,15 @@ import org.springbyexample.schema.beans.response.ResponseResult;
  * 
  *  @param   <R>      Generic response.
  *  @param   <FR>     Find response.
- *  @param   <T>      Entity.
+ *  @param   <S>      Save request.
  */
-public interface PersistenceMarshallingService<R extends ResponseResult, FR extends ResponseResult, T> 
+public interface PersistenceMarshallingService<R extends ResponseResult, FR extends ResponseResult, S> 
         extends PersistenceFindMarshallingService<R, FR> {
 
     /**
      * Save record.
      */
-    public R save(T request);
+    public R save(S request);
     
     /**
      * Delete record.
