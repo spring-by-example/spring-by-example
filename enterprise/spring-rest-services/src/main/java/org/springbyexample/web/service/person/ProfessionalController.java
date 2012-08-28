@@ -40,12 +40,12 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    final static Integer ID = new Integer(1);
+    final static Integer ID = 1;
     final static String FIRST_NAME = "Joe";
     final static String LAST_NAME = "Smith";
     final static String COMPANY_NAME = "Spring Travel";
 
-    final static Integer SECOND_ID = new Integer(2);
+    final static Integer SECOND_ID = 2;
     final static String SECOND_FIRST_NAME = "John";
     final static String SECOND_LAST_NAME = "Jackson";
     final static String SECOND_COMPANY_NAME = "Spring Coffee";

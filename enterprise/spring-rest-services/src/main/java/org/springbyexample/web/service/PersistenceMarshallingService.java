@@ -15,6 +15,8 @@
  */
 package org.springbyexample.web.service;
 
+import org.springbyexample.schema.beans.entity.PkEntityBase;
+import org.springbyexample.schema.beans.response.FindResponseResult;
 import org.springbyexample.schema.beans.response.ResponseResult;
 
 
@@ -27,7 +29,7 @@ import org.springbyexample.schema.beans.response.ResponseResult;
  *  @param   <FR>     Find response.
  *  @param   <S>      Save request.
  */
-public interface PersistenceMarshallingService<R extends ResponseResult, FR extends ResponseResult, S> 
+public interface PersistenceMarshallingService<R extends ResponseResult, FR extends FindResponseResult, S extends PkEntityBase> 
         extends PersistenceFindMarshallingService<R, FR> {
 
     /**

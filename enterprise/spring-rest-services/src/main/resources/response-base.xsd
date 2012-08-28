@@ -7,7 +7,7 @@
 
     <xsd:annotation>
         <xsd:documentation><![CDATA[
-            Shared response elemetns.
+            Shared response elements.
         ]]></xsd:documentation>
     </xsd:annotation>
 

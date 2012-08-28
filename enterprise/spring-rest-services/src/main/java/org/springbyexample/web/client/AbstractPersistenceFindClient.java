@@ -21,8 +21,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springbyexample.schema.beans.response.FindResponseResult;
 import org.springbyexample.schema.beans.response.ResponseResult;
-import org.springbyexample.web.client.RestClient;
 import org.springbyexample.web.service.PersistenceFindMarshallingService;
 
 
@@ -34,7 +34,7 @@ import org.springbyexample.web.service.PersistenceFindMarshallingService;
  *  @param   <R>      Generic response.
  *  @param   <FR>     Find response.
  */
-public abstract class AbstractPersistenceFindClient<R extends ResponseResult, FR extends ResponseResult> 
+public abstract class AbstractPersistenceFindClient<R extends ResponseResult, FR extends FindResponseResult> 
         implements PersistenceFindMarshallingService<R, FR> {
 
     final Logger logger = LoggerFactory.getLogger(getClass());

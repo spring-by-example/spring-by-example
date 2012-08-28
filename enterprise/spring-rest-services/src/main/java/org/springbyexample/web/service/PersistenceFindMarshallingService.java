@@ -15,6 +15,7 @@
  */
 package org.springbyexample.web.service;
 
+import org.springbyexample.schema.beans.response.FindResponseResult;
 import org.springbyexample.schema.beans.response.ResponseResult;
 
 
@@ -26,7 +27,7 @@ import org.springbyexample.schema.beans.response.ResponseResult;
  *  @param   <R>      Generic response.
  *  @param   <FR>     Find response.
  */
-public interface PersistenceFindMarshallingService<R extends ResponseResult, FR extends ResponseResult> {
+public interface PersistenceFindMarshallingService<R extends ResponseResult, FR extends FindResponseResult> {
 
     public final static String PATH_DELIM = "/";
     

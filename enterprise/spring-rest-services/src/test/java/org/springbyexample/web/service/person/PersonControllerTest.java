@@ -21,107 +21,58 @@ import static org.springbyexample.web.service.person.PersonController.FIRST_NAME
 import static org.springbyexample.web.service.person.PersonController.ID;
 import static org.springbyexample.web.service.person.PersonController.LAST_NAME;
 
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springbyexample.web.client.person.PersonClient;
-import org.springbyexample.web.service.AbstractRestControllerTest;
+import org.springbyexample.web.service.AbstractPersistenceControllerTest;
+import org.springbyexample.web.service.PersistenceMarshallingService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests person service client against an embedded web service 
+ * Tests person client against an embedded REST service 
  * with the main Spring context as the parent context.
  * 
  * @author David Winterfeldt
  */
-public class PersonControllerTest extends AbstractRestControllerTest {
-
-    final Logger logger = LoggerFactory.getLogger(getClass());
+public class PersonControllerTest extends AbstractPersistenceControllerTest<PersonResponse, PersonFindResponse, Person> {
 
     @Autowired
-    protected PersonClient client = null;
-    
-    @Test
-    public void testFindById() {
-        PersonResponse response = client.findById(ID);
-        
-        assertNotNull("Response is null.", response);
-        
-        verifyRecord(response.getResult());
+    private PersonClient client = null;
+
+    @Override
+    protected PersistenceMarshallingService<PersonResponse, PersonFindResponse, Person> getClient() {
+        return client;
     }
 
-    @Test
-    public void testPaginatedFind() {
-        int page = 0;
-        int pageSize = 2;
-        
-        PersonFindResponse response = client.find(page, pageSize);
-        assertNotNull("Response is null.", response);
-        
-        int expectedCount = 2;
-        assertEquals("count", expectedCount, response.getCount());
-        
-        assertNotNull("Response results is null.", response.getResults());
-        verifyRecord(response.getResults().get(0));
+    @Override
+    protected Person getResult(PersonResponse response) {
+        return response.getResult();
     }
 
-    @Test
-    public void testFind() {
-        PersonFindResponse response = client.find();
-        assertNotNull("Response is null.", response);
-
-        int expectedCount = 2;
-        assertEquals("count", expectedCount, response.getCount());
-        
-        assertNotNull("Response results is null.", response.getResults());
-        verifyRecord(response.getResults().get(0));
+    @Override
+    protected List<Person> getResults(PersonFindResponse response) {
+        return response.getResults();
     }
 
-    @Test
-    public void testSave() {
-        Person request = new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME);
-        
-        PersonResponse response = client.save(request);
-        
-        assertNotNull("Response is null.", response);
-        
-        verifyRecord(response.getResult());
-
-        int expectedCount = 1;
-        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
-
-        logger.info(response.getMessageList().get(0).getMessage());
+    @Override
+    protected Person createSaveRequest() {
+        return new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME);
     }
 
-    @Test
-    public void testDelete() {
-        ResponseResult response = client.delete(ID);
+    @Override
+    protected void verifyRecord(Person record) {
+        assertNotNull("Result is null.", record);
         
-        assertNotNull("Response is null.", response);
+        assertEquals("'id'", ID.intValue(), record.getId());
+        assertEquals("'firstName'", FIRST_NAME, record.getFirstName());
+        assertEquals("'lastName'", LAST_NAME, record.getLastName());
 
-        int expectedCount = 1;
-        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
-
-        logger.info(response.getMessageList().get(0).getMessage());
-    }
-
-    /**
-     * Tests person is valid.
-     */
-    protected void verifyRecord(Person person) {
-        assertNotNull("Result is null.", person);
-        
-        assertEquals("'id'", ID.intValue(), person.getId());
-        assertEquals("'firstName'", FIRST_NAME, person.getFirstName());
-        assertEquals("'lastName'", LAST_NAME, person.getLastName());
-
-        logger.debug("id=" + person.getId() + 
-                     "  firstName=" + person.getFirstName() + 
-                     "  lastName=" + person.getLastName());
+        logger.debug("id=" + record.getId() + 
+                     "  firstName=" + record.getFirstName() + 
+                     "  lastName=" + record.getLastName());
     }
     
 }

@@ -22,98 +22,49 @@ import static org.springbyexample.web.service.person.PersonController.ID;
 import static org.springbyexample.web.service.person.PersonController.LAST_NAME;
 import static org.springbyexample.web.service.person.ProfessionalController.COMPANY_NAME;
 
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springbyexample.web.client.person.ProfessionalClient;
-import org.springbyexample.web.service.AbstractRestControllerTest;
+import org.springbyexample.web.service.AbstractPersistenceControllerTest;
+import org.springbyexample.web.service.PersistenceMarshallingService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests person service client against an embedded web service 
+ * Tests professional client against an embedded REST service 
  * with the main Spring context as the parent context.
  * 
  * @author David Winterfeldt
  */
-public class ProfessionalControllerTest extends AbstractRestControllerTest {
+public class ProfessionalControllerTest extends AbstractPersistenceControllerTest<ProfessionalResponse, ProfessionalFindResponse, Professional> {
 
-    final Logger logger = LoggerFactory.getLogger(getClass());
-    
     @Autowired
-    protected ProfessionalClient client = null;
+    private ProfessionalClient client = null;
     
-    @Test
-    public void testFindById() {
-        ProfessionalResponse response = client.findById(ID);
-        
-        assertNotNull("Response is null.", response);
-        
-        verifyRecord(response.getResult());
+    @Override
+    protected PersistenceMarshallingService<ProfessionalResponse, ProfessionalFindResponse, Professional> getClient() {
+        return client;
     }
 
-    @Test
-    public void testPaginatedFind() {
-        int page = 0;
-        int pageSize = 2;
-        
-        ProfessionalFindResponse response = client.find(page, pageSize);
-        assertNotNull("Response is null.", response);
-        
-        int expectedCount = 2;
-        assertEquals("count", expectedCount, response.getCount());
-        
-        assertNotNull("Response results is null.", response.getResults());
-        verifyRecord(response.getResults().get(0));
+    @Override
+    protected Professional getResult(ProfessionalResponse response) {
+        return response.getResult();
     }
 
-    @Test
-    public void testFind() {
-        ProfessionalFindResponse response = client.find();
-        assertNotNull("Response is null.", response);
-
-        int expectedCount = 2;
-        assertEquals("count", expectedCount, response.getCount());
-        
-        assertNotNull("Response results is null.", response.getResults());
-        verifyRecord(response.getResults().get(0));
+    @Override
+    protected List<Professional> getResults(ProfessionalFindResponse response) {
+        return response.getResults();
     }
 
-    @Test
-    public void testSave() {
-        Professional request = new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
-                                                 .withCompanyName(COMPANY_NAME);
-        
-        ProfessionalResponse response = client.save(request);
-        
-        assertNotNull("Response is null.", response);
-        
-        verifyRecord(response.getResult());
-
-        int expectedCount = 1;
-        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
-
-        logger.info(response.getMessageList().get(0).getMessage());
+    @Override
+    protected Professional createSaveRequest() {
+        return new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                 .withCompanyName(COMPANY_NAME);
     }
 
-    @Test
-    public void testDelete() {
-        ResponseResult response = client.delete(ID);
-        
-        assertNotNull("Response is null.", response);
-
-        int expectedCount = 1;
-        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
-
-        logger.info(response.getMessageList().get(0).getMessage());
-    }
-
-    /**
-     * Tests if professional is valid.
-     */
+    @Override
     protected void verifyRecord(Professional record) {
         assertNotNull("Result is null.", record);
         
@@ -127,5 +78,5 @@ public class ProfessionalControllerTest extends AbstractRestControllerTest {
                      "  lastName=" + record.getLastName() +
                      "  companyName=" + record.getCompanyName());
     }
-    
+
 }
