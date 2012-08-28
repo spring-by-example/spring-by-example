@@ -40,15 +40,15 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final static Integer ID = new Integer(1);
-    private final static String FIRST_NAME = "Joe";
-    private final static String LAST_NAME = "Smith";
-    private final static String COMPANY_NAME = "Spring Travel";
+    final static Integer ID = new Integer(1);
+    final static String FIRST_NAME = "Joe";
+    final static String LAST_NAME = "Smith";
+    final static String COMPANY_NAME = "Spring Travel";
 
-    private final static Integer SECOND_ID = new Integer(2);
-    private final static String SECOND_FIRST_NAME = "John";
-    private final static String SECOND_LAST_NAME = "Jackson";
-    private final static String SECOND_COMPANY_NAME = "Spring Coffee";
+    final static Integer SECOND_ID = new Integer(2);
+    final static String SECOND_FIRST_NAME = "John";
+    final static String SECOND_LAST_NAME = "Jackson";
+    final static String SECOND_COMPANY_NAME = "Spring Coffee";
 
     @Override
     @RequestMapping(value = FIND_BY_ID_REQUEST, method = RequestMethod.GET)
