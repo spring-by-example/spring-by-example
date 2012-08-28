@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.springbyexample.schema.beans.entity.PkEntityBase;
+import org.springbyexample.schema.beans.response.FindResponseResult;
 import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springbyexample.web.service.PersistenceMarshallingService;
 import org.springframework.http.HttpMethod;
@@ -33,7 +34,7 @@ import org.springframework.http.HttpMethod;
  *  @param   <FR>     Find response.
  *  @param   <S>      Save request.
 */
-public abstract class AbstractPersistenceClient<R extends ResponseResult, FR extends ResponseResult, S extends PkEntityBase>
+public abstract class AbstractPersistenceClient<R extends ResponseResult, FR extends FindResponseResult, S extends PkEntityBase>
         extends AbstractPersistenceFindClient<R, FR>
         implements PersistenceMarshallingService<R, FR, S> {
 
