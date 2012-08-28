@@ -17,6 +17,9 @@ package org.springbyexample.web.service.person;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springbyexample.web.service.person.PersonController.FIRST_NAME;
+import static org.springbyexample.web.service.person.PersonController.ID;
+import static org.springbyexample.web.service.person.PersonController.LAST_NAME;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -37,15 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class PersonControllerTest extends AbstractRestControllerTest {
 
-    final static Logger logger = LoggerFactory.getLogger(PersonControllerTest.class);
-    
-    protected final static Integer ID = 1;
-    protected final static String FIRST_NAME = "Joe";
-    protected final static String LAST_NAME = "Smith";
-
-    protected final static Integer SECOND_ID = 2;
-    protected final static String SECOND_FIRST_NAME = "John";
-    protected final static String SECOND_LAST_NAME = "Jackson";
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     protected PersonClient client = null;
@@ -56,7 +51,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
         
         assertNotNull("Response is null.", response);
         
-        verifyPerson(response.getResult());
+        verifyRecord(response.getResult());
     }
 
     @Test
@@ -71,7 +66,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
         assertEquals("count", expectedCount, response.getCount());
         
         assertNotNull("Response results is null.", response.getResults());
-        verifyPerson(response.getResults().get(0));
+        verifyRecord(response.getResults().get(0));
     }
 
     @Test
@@ -83,7 +78,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
         assertEquals("count", expectedCount, response.getCount());
         
         assertNotNull("Response results is null.", response.getResults());
-        verifyPerson(response.getResults().get(0));
+        verifyRecord(response.getResults().get(0));
     }
 
     @Test
@@ -94,7 +89,7 @@ public class PersonControllerTest extends AbstractRestControllerTest {
         
         assertNotNull("Response is null.", response);
         
-        verifyPerson(response.getResult());
+        verifyRecord(response.getResult());
 
         int expectedCount = 1;
         assertEquals("messageList.size", expectedCount, response.getMessageList().size());
@@ -117,12 +112,12 @@ public class PersonControllerTest extends AbstractRestControllerTest {
     /**
      * Tests person is valid.
      */
-    protected void verifyPerson(Person person) {
+    protected void verifyRecord(Person person) {
         assertNotNull("Result is null.", person);
         
-        assertEquals("Expected id of '" + ID + "'.", ID.intValue(), person.getId());
-        assertEquals("Expected first name of '" + FIRST_NAME + "'.", FIRST_NAME, person.getFirstName());
-        assertEquals("Expected last name of '" + LAST_NAME + "'.", LAST_NAME, person.getLastName());
+        assertEquals("'id'", ID.intValue(), person.getId());
+        assertEquals("'firstName'", FIRST_NAME, person.getFirstName());
+        assertEquals("'lastName'", LAST_NAME, person.getLastName());
 
         logger.debug("id=" + person.getId() + 
                      "  firstName=" + person.getFirstName() + 

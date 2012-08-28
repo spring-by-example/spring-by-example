@@ -17,11 +17,14 @@ package org.springbyexample.web.service.person;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springbyexample.web.service.person.PersonController.FIRST_NAME;
+import static org.springbyexample.web.service.person.PersonController.ID;
+import static org.springbyexample.web.service.person.PersonController.LAST_NAME;
+import static org.springbyexample.web.service.person.ProfessionalController.COMPANY_NAME;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
@@ -38,16 +41,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class ProfessionalControllerTest extends AbstractRestControllerTest {
 
-    final static Logger logger = LoggerFactory.getLogger(ProfessionalControllerTest.class);
+    final Logger logger = LoggerFactory.getLogger(getClass());
     
-    protected final static Integer ID = 1;
-    protected final static String FIRST_NAME = "Joe";
-    protected final static String LAST_NAME = "Smith";
-
-    protected final static Integer SECOND_ID = 2;
-    protected final static String SECOND_FIRST_NAME = "John";
-    protected final static String SECOND_LAST_NAME = "Jackson";
-
     @Autowired
     protected ProfessionalClient client = null;
     
@@ -57,7 +52,7 @@ public class ProfessionalControllerTest extends AbstractRestControllerTest {
         
         assertNotNull("Response is null.", response);
         
-        verifyPerson(response.getResult());
+        verifyRecord(response.getResult());
     }
 
     @Test
@@ -72,7 +67,7 @@ public class ProfessionalControllerTest extends AbstractRestControllerTest {
         assertEquals("count", expectedCount, response.getCount());
         
         assertNotNull("Response results is null.", response.getResults());
-        verifyPerson(response.getResults().get(0));
+        verifyRecord(response.getResults().get(0));
     }
 
     @Test
@@ -84,18 +79,19 @@ public class ProfessionalControllerTest extends AbstractRestControllerTest {
         assertEquals("count", expectedCount, response.getCount());
         
         assertNotNull("Response results is null.", response.getResults());
-        verifyPerson(response.getResults().get(0));
+        verifyRecord(response.getResults().get(0));
     }
 
     @Test
     public void testSave() {
-        Professional request = new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME);
+        Professional request = new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                                 .withCompanyName(COMPANY_NAME);
         
         ProfessionalResponse response = client.save(request);
         
         assertNotNull("Response is null.", response);
         
-        verifyPerson(response.getResult());
+        verifyRecord(response.getResult());
 
         int expectedCount = 1;
         assertEquals("messageList.size", expectedCount, response.getMessageList().size());
@@ -116,18 +112,20 @@ public class ProfessionalControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Tests person is valid.
+     * Tests if professional is valid.
      */
-    protected void verifyPerson(Person person) {
-        assertNotNull("Result is null.", person);
+    protected void verifyRecord(Professional record) {
+        assertNotNull("Result is null.", record);
         
-        assertEquals("Expected id of '" + ID + "'.", ID.intValue(), person.getId());
-        assertEquals("Expected first name of '" + FIRST_NAME + "'.", FIRST_NAME, person.getFirstName());
-        assertEquals("Expected last name of '" + LAST_NAME + "'.", LAST_NAME, person.getLastName());
+        assertEquals("'id'", ID.intValue(), record.getId());
+        assertEquals("'firstName'", FIRST_NAME, record.getFirstName());
+        assertEquals("'lastName'", LAST_NAME, record.getLastName());
+        assertEquals("'companyName'", COMPANY_NAME, record.getCompanyName());
 
-        logger.debug("id=" + person.getId() + 
-                     "  firstName=" + person.getFirstName() + 
-                     "  lastName=" + person.getLastName());
+        logger.debug("id=" + record.getId() + 
+                     "  firstName=" + record.getFirstName() + 
+                     "  lastName=" + record.getLastName() +
+                     "  companyName=" + record.getCompanyName());
     }
     
 }
