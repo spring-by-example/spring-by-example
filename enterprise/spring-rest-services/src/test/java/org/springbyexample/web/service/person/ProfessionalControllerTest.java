@@ -22,14 +22,15 @@ import static org.springbyexample.web.service.person.PersonController.ID;
 import static org.springbyexample.web.service.person.PersonController.LAST_NAME;
 import static org.springbyexample.web.service.person.ProfessionalController.COMPANY_NAME;
 
-import java.util.List;
-
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
+import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springbyexample.web.client.person.ProfessionalClient;
-import org.springbyexample.web.service.AbstractPersistenceControllerTest;
-import org.springbyexample.web.service.PersistenceMarshallingService;
+import org.springbyexample.web.service.AbstractRestControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -38,45 +39,93 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author David Winterfeldt
  */
-public class ProfessionalControllerTest extends AbstractPersistenceControllerTest<ProfessionalResponse, ProfessionalFindResponse, Professional> {
+public class ProfessionalControllerTest extends AbstractRestControllerTest {
 
+    final Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Autowired
     private ProfessionalClient client = null;
-    
-    @Override
-    protected PersistenceMarshallingService<ProfessionalResponse, ProfessionalFindResponse, Professional> getClient() {
-        return client;
-    }
 
-    @Override
-    protected Professional getResult(ProfessionalResponse response) {
-        return response.getResult();
-    }
-
-    @Override
-    protected List<Professional> getResults(ProfessionalFindResponse response) {
-        return response.getResults();
-    }
-
-    @Override
-    protected Professional createSaveRequest() {
-        return new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
-                                 .withCompanyName(COMPANY_NAME);
-    }
-
-    @Override
-    protected void verifyRecord(Professional record) {
-        assertNotNull("Result is null.", record);
+    @Test
+    public void testFindById() {
+        ProfessionalResponse response = client.findById(ID);
         
-        assertEquals("'id'", ID.intValue(), record.getId());
-        assertEquals("'firstName'", FIRST_NAME, record.getFirstName());
-        assertEquals("'lastName'", LAST_NAME, record.getLastName());
-        assertEquals("'companyName'", COMPANY_NAME, record.getCompanyName());
+        assertNotNull("Response is null.", response);
+        
+        verifyRecord(response.getResult());
+    }
 
-        logger.debug("id=" + record.getId() + 
-                     "  firstName=" + record.getFirstName() + 
-                     "  lastName=" + record.getLastName() +
-                     "  companyName=" + record.getCompanyName());
+    @Test
+    public void testPaginatedFind() {
+        int page = 0;
+        int pageSize = 2;
+        
+        ProfessionalFindResponse response = client.find(page, pageSize);
+        assertNotNull("Response is null.", response);
+        
+        int expectedCount = 2;
+        assertEquals("count", expectedCount, response.getCount());
+        
+        assertNotNull("Response results is null.", response.getResults());
+        verifyRecord(response.getResults().get(0));
+    }
+
+    @Test
+    public void testFind() {
+        ProfessionalFindResponse response = client.find();
+        assertNotNull("Response is null.", response);
+
+        int expectedCount = 2;
+        assertEquals("count", expectedCount, response.getCount());
+        
+        assertNotNull("Response results is null.", response.getResults());
+        verifyRecord(response.getResults().get(0));
+    }
+
+    @Test
+    public void testSave() {
+        Professional request = new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+                                                 .withCompanyName(COMPANY_NAME);
+        
+        ProfessionalResponse response = client.save(request);
+        
+        assertNotNull("Response is null.", response);
+        
+        verifyRecord(response.getResult());
+
+        int expectedCount = 1;
+        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
+
+        logger.info(response.getMessageList().get(0).getMessage());
+    }
+
+    @Test
+    public void testDelete() {
+        ResponseResult response = client.delete(ID);
+        
+        assertNotNull("Response is null.", response);
+
+        int expectedCount = 1;
+        assertEquals("messageList.size", expectedCount, response.getMessageList().size());
+
+        logger.info(response.getMessageList().get(0).getMessage());
+    }
+
+    /**
+     * Verify professional request.
+     */
+    protected void verifyRecord(Professional request) {
+        assertNotNull("Result is null.", request);
+        
+        assertEquals("'id'", ID.intValue(), request.getId());
+        assertEquals("'firstName'", FIRST_NAME, request.getFirstName());
+        assertEquals("'lastName'", LAST_NAME, request.getLastName());
+        assertEquals("'companyName'", COMPANY_NAME, request.getCompanyName());
+
+        logger.debug("id=" + request.getId() + 
+                     "  firstName=" + request.getFirstName() + 
+                     "  lastName=" + request.getLastName() +
+                     "  companyName=" + request.getCompanyName());
     }
 
 }
