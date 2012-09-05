@@ -44,6 +44,7 @@
         <module>enterprise</module>
         <module>flex/simple-flex-webapp</module>
         <module>web</module>
+        <module>app</module>
     </modules>
 
     <licenses>
