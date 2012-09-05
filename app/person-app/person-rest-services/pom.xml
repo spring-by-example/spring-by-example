@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.springbyexample</groupId>
+        <artifactId>proto-pom-example</artifactId>
+        <version>2.0</version>
+        <relativePath>../../../proto-pom/example</relativePath>
+    </parent>
+    
+    <groupId>org.springbyexample.app.person</groupId>
+    <artifactId>person-rest-services</artifactId>
+    <version>1.0</version>
+    <name>Person REST Services</name>
+    <description>Person Spring MVC REST Services using JAXB and JSON for serialization.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springbyexample.app.person</groupId>
+            <artifactId>person-services</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>	
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+        </dependency>            
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>            
+
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-embedded</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-java5-threadpool</artifactId>
+        </dependency>               
+    </dependencies>
+
+</project>

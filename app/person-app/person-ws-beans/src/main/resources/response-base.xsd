@@ -1,0 +1,109 @@
+<xsd:schema xmlns="http://www.springbyexample.org/schema/beans/response" 
+            targetNamespace="http://www.springbyexample.org/schema/beans/response"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            xmlns:annox="http://annox.dev.java.net" 
+            jaxb:extensionBindingPrefixes="annox"
+            jaxb:version="2.1">
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[
+            Shared response elements.
+        ]]></xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:complexType name="abstract-response">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <jaxb:class ref="org.springbyexample.schema.beans.response.AbstractResponse"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+    </xsd:complexType>
+
+    <xsd:complexType name="abstract-response-result">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <jaxb:class ref="org.springbyexample.schema.beans.response.AbstractResponseResult"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+    </xsd:complexType>
+    <xsd:complexType name="abstract-entity-response-result" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="abstract-response-result">
+                <xsd:sequence>        
+                    <xsd:element name="errors" type="xsd:boolean" />
+                    <xsd:element name="message-list" type="message" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="abstract-find-response-result">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <jaxb:class ref="org.springbyexample.schema.beans.response.AbstractFindResponseResult"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+    </xsd:complexType>
+    <xsd:complexType name="abstract-entity-find-response-result" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="abstract-find-response-result">
+                <xsd:sequence>        
+                    <xsd:element name="errors" type="xsd:boolean" />
+                    <xsd:element name="message-list" type="message" minOccurs="0" maxOccurs="unbounded" />
+
+                    <!-- primarily for paginated results -->
+                    <xsd:element name="count" type="xsd:long" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="response-result">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate>
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="response-result"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="abstract-response">
+                <xsd:sequence>        
+                    <xsd:element name="errors" type="xsd:boolean" />
+                    <xsd:element name="message-list" type="message" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="find-response-result">
+        <xsd:complexContent>
+            <xsd:extension base="response-result">
+                <xsd:sequence>
+                    <!-- primarily for paginated results -->
+                    <xsd:element name="count" type="xsd:long" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="message">
+        <xsd:sequence>
+            <xsd:element name="message-type" type="message-type" />
+            <xsd:element name="message" type="xsd:string" />
+            <xsd:element name="message-key" type="xsd:string" />
+            <xsd:element name="property" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="message-type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="INFO" />
+            <xsd:enumeration value="WARN" />
+            <xsd:enumeration value="ERROR" />
+            <xsd:enumeration value="FATAL" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>
