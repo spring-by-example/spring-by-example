@@ -15,6 +15,13 @@
         </xsd:annotation>
         <xsd:sequence>
             <xsd:element name="id" type="xsd:int" />
+            
+            <xsd:element name="lock-version" type="xsd:int" />
+            
+            <xsd:element name="last-updated" type="xsd:dateTime" />
+            <xsd:element name="last-update-user" type="xsd:string" />
+            <xsd:element name="created" type="xsd:dateTime" />
+            <xsd:element name="create-user" type="xsd:string" />
         </xsd:sequence>
     </xsd:complexType>
 

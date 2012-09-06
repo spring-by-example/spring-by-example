@@ -4,4 +4,44 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
                               http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
+    <configuration>
+        <custom-converters> 
+            <converter type="org.springbyexample.person.converter.DateTimeConverter">
+                <class-a>org.joda.time.DateTime</class-a>
+                <class-b>org.joda.time.DateTime</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+    
+    <!-- 
+    <mapping>
+        <class-a>org.springbyexample.orm.entity.person.Person</class-a>
+        <class-b>org.springbyexample.schema.beans.person.Person</class-b>
+        <field>
+            <a>lastModifiedDate</a>
+            <b>lastUpdated</b>
+        </field>
+        <field>
+            <a>lastModifiedBy</a>
+            <b>lastUpdateUser</b>
+        </field>
+        <field>
+            <a>createdDate</a>
+            <b>created</b>
+        </field>
+        <field>
+            <a>createdBy</a>
+            <b>createUser</b>
+        </field>
+    </mapping>
+    <mapping>
+        <class-a>org.springbyexample.orm.entity.person.Student</class-a>
+        <class-b>org.springbyexample.schema.beans.person.Student</class-b>
+    </mapping>
+    <mapping>
+        <class-a>org.springbyexample.orm.entity.person.Professional</class-a>
+        <class-b>org.springbyexample.schema.beans.person.Professional</class-b>
+    </mapping>
+    -->
+
 </mappings>

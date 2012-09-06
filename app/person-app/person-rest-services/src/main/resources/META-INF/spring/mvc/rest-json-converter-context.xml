@@ -11,10 +11,12 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util.xsd">
     
-     <bean id="jacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-           p:targetMethod="disable">
+    <bean id="abstractJacksonObjectMapper" 
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+          abstract="true"
+          p:targetMethod="disable">
         <property name="targetObject">
-            <bean class="org.codehaus.jackson.map.ObjectMapper"/>
+            <bean class="org.codehaus.jackson.map.ObjectMapper" />
         </property>
         <property name="arguments">
             <list>
@@ -23,12 +25,24 @@
         </property>
     </bean>    
           
-    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
-          p:supportedMediaTypes="application/json" 
+    <bean id="abstractMappingJacksonHttpMessageConverter" 
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
+          abstract="true"
+          p:supportedMediaTypes="application/json"/>          
+          
+    <bean id="abstractMappingJacksonJsonView" 
+          class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+          abstract="true"
+          p:extractValueFromSingleKeyModel="true"/>
+
+    <bean id="jacksonObjectMapper" parent="abstractJacksonObjectMapper" />
+          
+    <bean id="mappingJacksonHttpMessageConverter" 
+          parent="abstractMappingJacksonHttpMessageConverter"
           p:objectMapper-ref="jacksonObjectMapper"/>          
           
-    <bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
-          p:extractValueFromSingleKeyModel="true" 
+    <bean id="mappingJacksonJsonView" 
+          parent="abstractMappingJacksonJsonView"
           p:objectMapper-ref="jacksonObjectMapper"/>
-    
+
 </beans>

@@ -8,7 +8,7 @@
                            http://www.springframework.org/schema/data/jpa
                            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <jpa:repositories base-package="org.springbyexample.orm.repository" />
+    <jpa:repositories base-package="org.springbyexample.person.orm.repository" />
         
     <bean id="transactionManager" 
           class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -26,6 +26,6 @@
     <!-- auditing -->
     <jpa:auditing auditor-aware-ref="auditorAware" />
 
-    <bean id="auditorAware" class="org.springbyexample.orm.entity.AuditorAwareImpl" />
+    <bean id="auditorAware" class="org.springbyexample.person.orm.entity.AuditorAwareImpl" />
 
 </beans>

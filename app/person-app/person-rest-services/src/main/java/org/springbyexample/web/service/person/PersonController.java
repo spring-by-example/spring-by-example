@@ -82,10 +82,11 @@ public class PersonController implements PersonMarshallingService {
     public PersonFindResponse find() {
         logger.info("Find all persons.");
 
-        return new PersonFindResponse()
-                    .withCount(2)
-                    .withResults(new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME),
-                                 new Person().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME));
+        return service.find();
+//        return new PersonFindResponse()
+//                    .withCount(2)
+//                    .withResults(new Person().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME),
+//                                 new Person().withId(SECOND_ID).withFirstName(SECOND_FIRST_NAME).withLastName(SECOND_LAST_NAME));
     }
 
     @Override
