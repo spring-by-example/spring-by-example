@@ -1,22 +1,26 @@
-Ext.define('app.store.PersonStore', {
+Ext.define('person.store.PersonStore', {
     extend: 'Ext.data.Store',
     
     config: {
-//    	model: 'app.model.PersonFindResponseModel',
-    	fields: [ 'firstName', 'lastName' ],
-        autoLoad: true,
+        model: 'person.model.PersonModel',
+
+        grouper: {
+            groupFn: function(record) {
+                return record.get('lastName');
+            }
+        },
         
     	proxy: {
-    		type: 'ajax',
-    		url: '/person/api/persons.json',
-//    	    headers: {
-//    	        "Content-Type": "application/json"
-//    	    },
+    		type: 'rest',
+    		url: '/person/api/person',
+    	    headers: {
+                'Content-Type' : 'application/json-type',
+                'Accept': 'application/json-type'
+    	    },
     		reader: {
-    		    type: 'json',
     		    rootProperty: 'results',
     		    totalProperty: 'count'
     		}
 	    }
     }
-})
+});

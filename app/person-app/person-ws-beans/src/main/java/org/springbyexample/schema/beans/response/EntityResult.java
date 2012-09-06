@@ -28,6 +28,6 @@ public interface EntityResult {
     /**
      * Gets entity result.
      */
-    public <T extends PkEntityBase> T getResult();
+    public <T extends PkEntityBase> T getResults();
     
 }

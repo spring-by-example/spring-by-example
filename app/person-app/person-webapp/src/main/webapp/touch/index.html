@@ -1,8 +1,7 @@
-<!DOCTYPE HTML>
-<html manifest="" lang="en-US">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Person</title>
+    <title>Contacts</title>
     <style type="text/css">
          /**
          * Example of an initial loading indicator.
@@ -49,8 +48,30 @@
             }
         }
     </style>
+    
+    <link href="sdk/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
+    <link href="resources/css/app.css" rel="stylesheet" type="text/css" />
+
     <!-- The line below must be kept intact for Sencha Command to build your application -->
     <script id="microloader" type="text/javascript" src="sdk/microloader/development.js"></script>
+    
+	<script type="text/javascript">
+        Ext.onReady(function () {
+            Ext.Date.patterns = {
+	            ISO8601Long:"Y-m-d H:i:s",
+	            ISO8601Short:"Y-m-d",
+	            ShortDate: "n/j/Y",
+	            LongDate: "l, F d, Y",
+	            FullDateTime: "l, F d, Y g:i:s A",
+	            MonthDay: "F d",
+	            ShortTime: "g:i A",
+	            LongTime: "g:i:s A",
+	            SortableDateTime: "Y-m-d\\TH:i:s",
+	            UniversalSortableDateTime: "Y-m-d H:i:sO",
+	            YearMonth: "F, Y"
+        	};
+		});
+	</script>
 </head>
 <body>
     <div id="appLoadingIndicator">

@@ -15,7 +15,7 @@
             <xsd:complexContent>
                 <xsd:extension base="response:abstract-entity-response-result">
                     <xsd:sequence>
-                        <xsd:element name="result" type="person" />
+                        <xsd:element name="results" type="person" />
                     </xsd:sequence>
                 </xsd:extension>
             </xsd:complexContent>
@@ -39,7 +39,7 @@
             <xsd:complexContent>
                 <xsd:extension base="response:abstract-entity-response-result">
                     <xsd:sequence>
-                        <xsd:element name="result" type="professional" />
+                        <xsd:element name="results" type="professional" />
                     </xsd:sequence>
                 </xsd:extension>
             </xsd:complexContent>
@@ -72,6 +72,23 @@
                     <xsd:element name="first-name" type="xsd:string" />
                     <xsd:element name="last-name" type="xsd:string" />
                 </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="student">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate>
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="student"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="person">
+                <xsd:sequence>
+                    <xsd:element name="school-name" type="xsd:string" />
+                </xsd:sequence>                
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>

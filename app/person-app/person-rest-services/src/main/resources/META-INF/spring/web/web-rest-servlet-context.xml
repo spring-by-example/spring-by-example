@@ -20,6 +20,7 @@
                 <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
                 <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
                 <ref bean="mappingJacksonHttpMessageConverter"/>
+                <ref bean="mappingJacksonHttpMessageConverterWithType"/>
             </list>
         </property>
     </bean>
@@ -30,6 +31,7 @@
             <map>
                 <entry key="xml" value="application/xml"/>                
                 <entry key="json" value="application/json"/>
+                <entry key="json-type" value="application/json-type"/>
             </map>
         </property>
         <property name="defaultViews">
@@ -37,6 +39,7 @@
                 <bean class="org.springframework.web.servlet.view.xml.MarshallingView" 
                       p:marshaller-ref="marshaller"/>
                 <ref bean="mappingJacksonJsonView"/>                      
+                <ref bean="mappingJacksonJsonViewWithType"/>                      
             </list>
         </property>
     </bean>

@@ -1,18 +1,10 @@
-Ext.application({
-    name: 'Person',
-    
-    requires: [
-        'Ext.MessageBox',
-        'app.model.PersonFindResponseModel',
-        'app.model.PersonModel',
-        'app.store.PersonStore',
-        'app.view.PersonListView'
-    ],
+﻿Ext.application({
+    name: "person",
 
-    models: [ 'PersonModel','PersonFindResponseModel' ],
+    models: [ 'PersonFindResponseModel', 'PersonModel' ],
     stores: [ 'PersonStore' ],
-    views: [ 'PersonListView' ],
-//    views: [ 'Main','PersonListView', 'List' ],
+    controllers: [ 'PersonController' ],
+    views: [ 'PersonList', 'PersonEditor' ],
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -32,96 +24,18 @@ Ext.application({
         '1496x2048': 'resources/startup/1496x2048.png'
     },
 
-    launch: function() {
-        // Destroy the #appLoadingIndicator element
+    launch: function () {
+        // remove startup loading indicator
         Ext.fly('appLoadingIndicator').destroy();
 
-        // Initialize the main view
-//        Ext.Viewport.add(Ext.create('app.view.Main'));
-        
-        // comment out line above to work
-//        Ext.create("Ext.tab.Panel", {
-//            fullscreen: true,
-//            tabBarPosition: 'bottom',
-//
-//            items: [
-//                {
-//                    title: 'Contact',
-//                    iconCls: 'user',
-//                    xtype: 'formpanel',
-//                    url: 'contact.php',
-//                    layout: 'vbox',
-//
-//                    items: [
-//                        {
-//                            xtype: 'fieldset',
-//                            title: 'Contact Us',
-//                            instructions: '(email address is optional)',
-//                            items: [
-//                                {
-//                                    xtype: 'textfield',
-//                                    label: 'Name'
-//                                },
-//                                {
-//                                    xtype: 'emailfield',
-//                                    label: 'Email'
-//                                },
-//                                {
-//                                    xtype: 'textareafield',
-//                                    label: 'Message'
-//                                }
-//                            ]
-//                        },
-//                        {
-//                            xtype: 'button',
-//                            text: 'Send',
-//                            ui: 'confirm',
-//                            handler: function() {
-//                                this.up('formpanel').submit();
-//                            }
-//                        }
-//                    ]
-//                }
-//            ]
-//        });
-        
-    },
+        var personListView = {
+            xtype: "personListView"
+        };
+        var personEditorView = {
+            xtype: "personEditorView"
+        };
 
-    onReady: function() {
-//    	Ext.Viewport.add({
-//			xclass : 'app.view.List',
-//			width : 380,
-//			height : 420,
-//			centered : true,
-//			modal : true,
-//			hideOnMaskTap : false
-//		}).show();
+        Ext.Viewport.add([personListView, personEditorView]);
 
-        if (Ext.os.is.Phone) {
-            Ext.create('app.view.PersonListView', {
-                fullscreen: true
-            });
-        } else {
-            Ext.Viewport.add({
-                xclass: 'app.view.PersonListView',
-                width: 380,
-                height: 420,
-                centered: true,
-                modal: true,
-                hideOnMaskTap: false
-            }).show();
-        }    	
-    },
-    
-    onUpdated: function() {
-        Ext.Msg.confirm(
-            "Application Update",
-            "This application has just successfully been updated to the latest version. Reload now?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    window.location.reload();
-                }
-            }
-        );
     }
 });

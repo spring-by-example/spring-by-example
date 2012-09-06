@@ -33,6 +33,6 @@ public abstract class AbstractResponseResult extends AbstractResponse
      * Gets entity result.
      */
     @Override
-    public abstract <T extends PkEntityBase> T getResult();
+    public abstract <T extends PkEntityBase> T getResults();
     
 }
