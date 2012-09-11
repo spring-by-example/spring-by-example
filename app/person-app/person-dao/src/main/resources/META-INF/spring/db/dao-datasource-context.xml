@@ -16,8 +16,6 @@
 
     <tx:annotation-driven />
 
-    <import resource="classpath*:/META-INF/spring/security/crypto-beans-context.xml"/>
-
     <bean id="dataSource"
           class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -39,7 +37,7 @@
     </beans>
 
     <beans profile="postgresql">
-        <context:property-placeholder location="classpath:/sql/postgresql.properties,classpath*:META-INF/config/**/*.properties,file:appd*.properties" />
+        <context:property-placeholder location="classpath:/sql/postgresql.properties,classpath*:META-INF/config/**/*.properties,file:person-app*.properties" />
 
         <util:list id="databaseScriptsList" value-type="org.springframework.core.io.Resource">
             <value>classpath:/sql/postgres/schema.sql</value>

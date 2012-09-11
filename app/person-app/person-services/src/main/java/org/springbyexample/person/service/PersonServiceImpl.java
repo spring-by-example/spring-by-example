@@ -34,6 +34,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -42,6 +43,7 @@ import org.springframework.stereotype.Service;
  * @author David Winterfeldt
  */
 @Service
+@Transactional(readOnly=true)
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository repository;
@@ -86,6 +88,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonResponse save(Person request) {
         org.springbyexample.person.orm.entity.person.Person bean = null;
         
@@ -106,6 +109,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public ResponseResult delete(Integer id) {
         repository.delete(id);
 

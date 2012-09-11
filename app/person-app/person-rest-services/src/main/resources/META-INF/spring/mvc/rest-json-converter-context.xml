@@ -27,8 +27,7 @@
           
     <bean id="abstractMappingJacksonHttpMessageConverter" 
           class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
-          abstract="true"
-          p:supportedMediaTypes="application/json"/>          
+          abstract="true"/>          
           
     <bean id="abstractMappingJacksonJsonView" 
           class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
@@ -39,10 +38,12 @@
           
     <bean id="mappingJacksonHttpMessageConverter" 
           parent="abstractMappingJacksonHttpMessageConverter"
-          p:objectMapper-ref="jacksonObjectMapper"/>          
+          p:objectMapper-ref="jacksonObjectMapper"
+          p:supportedMediaTypes="application/json" />          
           
     <bean id="mappingJacksonJsonView" 
           parent="abstractMappingJacksonJsonView"
-          p:objectMapper-ref="jacksonObjectMapper"/>
+          p:objectMapper-ref="jacksonObjectMapper"
+          p:contentType="application/json" />
 
 </beans>
