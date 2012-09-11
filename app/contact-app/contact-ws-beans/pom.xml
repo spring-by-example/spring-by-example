@@ -11,11 +11,11 @@
         <relativePath>../../../proto-pom</relativePath>
     </parent>
     
-    <groupId>org.springbyexample.app.person</groupId>
-    <artifactId>person-ws-beans</artifactId>
+    <groupId>org.springbyexample.app.contact</groupId>
+    <artifactId>contact-ws-beans</artifactId>
     <version>1.0</version>
-    <name>Person Web Service Beans</name>
-    <description>Person JAXB beans (web service beans).</description>
+    <name>Contact Web Service Beans</name>
+    <description>Contact JAXB beans (web service beans).</description>
 
     <dependencies>
         <dependency>

@@ -11,20 +11,20 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
     
-    <groupId>org.springbyexample.app.person</groupId>
-    <artifactId>person-rest-services</artifactId>
+    <groupId>org.springbyexample.app.contact</groupId>
+    <artifactId>contact-rest-services</artifactId>
     <version>1.0</version>
-    <name>Person REST Services</name>
-    <description>Person Spring MVC REST Services using JAXB and JSON for serialization.</description>
+    <name>Contact REST Services</name>
+    <description>Contact Spring MVC REST Services using JAXB and JSON for serialization.</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-services</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-services</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-test</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-test</artifactId>
         </dependency>
 
         <dependency>

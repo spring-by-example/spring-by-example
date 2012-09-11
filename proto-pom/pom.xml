@@ -45,7 +45,7 @@
 
         <junit.version>4.8.2</junit.version>
         
-        <person.app.version>1.0</person.app.version>
+        <contact.app.version>1.0</contact.app.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -716,26 +716,26 @@
                 <scope>test</scope>
             </dependency>        
             
-            <!-- peron app -->
+            <!-- contact app -->
             <dependency>
-                <groupId>org.springbyexample.app.person</groupId>
-                <artifactId>person-dao</artifactId>
-                <version>${person.app.version}</version>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-dao</artifactId>
+                <version>${contact.app.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springbyexample.app.person</groupId>
-                <artifactId>person-ws-beans</artifactId>
-                <version>${person.app.version}</version>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-ws-beans</artifactId>
+                <version>${contact.app.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springbyexample.app.person</groupId>
-                <artifactId>person-services</artifactId>
-                <version>${person.app.version}</version>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-services</artifactId>
+                <version>${contact.app.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springbyexample.app.person</groupId>
-                <artifactId>person-test</artifactId>
-                <version>${person.app.version}</version>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-test</artifactId>
+                <version>${contact.app.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

@@ -11,19 +11,19 @@
         <relativePath>../../../proto-pom/example-web</relativePath>
     </parent>
     
-	<groupId>org.springbyexample.app.person</groupId>
-	<artifactId>person-webapp</artifactId>
+	<groupId>org.springbyexample.app.contact</groupId>
+	<artifactId>contact-webapp</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	<name>Person Webapp</name>
+	<name>Contact Webapp</name>
 	<description>
-		Person Webapp.
+		Contact Webapp.
 	</description>
 	
 	<dependencies>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-rest-services</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-rest-services</artifactId>
             <version>1.0</version>
         </dependency>
 
@@ -40,7 +40,7 @@
 	</dependencies>
 
 	<build>
-        <finalName>person</finalName>
+        <finalName>contact</finalName>
 	</build>
 	
 </project>

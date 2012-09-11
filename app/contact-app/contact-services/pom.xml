@@ -9,26 +9,26 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
 
-    <groupId>org.springbyexample.app.person</groupId>
-    <artifactId>person-services</artifactId>
+    <groupId>org.springbyexample.app.contact</groupId>
+    <artifactId>contact-services</artifactId>
     <version>1.0</version>
-    <name>Person Services</name>
+    <name>Contact Services</name>
     <description>
-        Person services layer for any business logic.
+        Contact services layer for any business logic.
     </description>
     
     <dependencies>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-dao</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-dao</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-ws-beans</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-ws-beans</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-test</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-test</artifactId>
         </dependency>
 
         <dependency>

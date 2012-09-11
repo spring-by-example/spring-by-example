@@ -12,7 +12,7 @@ Ext.define('person.store.PersonStore', {
         
     	proxy: {
     		type: 'rest',
-    		url: '/person/api/person',
+    		url: '../api/person',
     	    headers: {
                 'Content-Type' : 'application/json-type',
                 'Accept': 'application/json-type'
