@@ -15,21 +15,15 @@
  */
 package org.springbyexample.person.orm.repository;
 
-import org.junit.runner.RunWith;
+import org.springbyexample.person.test.AbstractTransactionalProfileTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Abstract repository test.
  * 
  * @author David Winterfeldt
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:/dao-test-context.xml" })
-@TransactionConfiguration
-@Transactional
-public abstract class AbstractRepositoryTest {
+public abstract class AbstractRepositoryTest extends AbstractTransactionalProfileTest {
  
 }

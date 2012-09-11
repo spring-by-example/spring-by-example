@@ -14,12 +14,13 @@
     </description>
 
     <modules>
+        <module>person-test</module>
         <module>person-ws-beans</module>
         <module>person-dao</module>
         <module>person-services</module>
         <module>person-rest-services</module>
         <module>person-webapp</module>
     </modules>
-	
+
 </project>
 

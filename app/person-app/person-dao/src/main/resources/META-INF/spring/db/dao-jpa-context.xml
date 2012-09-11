@@ -9,6 +9,10 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <jpa:repositories base-package="org.springbyexample.person.orm.repository" />
+
+    <!-- auditing -->
+    <jpa:auditing auditor-aware-ref="auditorAware" />
+    <bean id="auditorAware" class="org.springbyexample.person.orm.entity.AuditorAwareImpl" />
         
     <bean id="transactionManager" 
           class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -17,15 +21,32 @@
     <bean id="entityManagerFactory" 
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
     	  p:dataSource-ref="dataSource"
-          p:persistenceUnitName="hsql">
+          p:persistenceUnitName="${jpa.persistence.unit.name}"
+          depends-on="dataSourceInitializer">
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">${jpa.show.sql}</prop>
+                <prop key="hibernate.generate_statistics">true</prop> 
+                <prop key="hibernate.cache.use_second_level_cache">${jpa.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+            </props>
+        </property>
     </bean>
 
-    <!-- auditing -->
-    <jpa:auditing auditor-aware-ref="auditorAware" />
-
-    <bean id="auditorAware" class="org.springbyexample.person.orm.entity.AuditorAwareImpl" />
+    <!-- 
+        FIX ME: file bug that jdbc:initialize-database needs a default name and/or a way to set one
+                also, way to use it instead of calling beans if possible (below)
+    -->
+    <bean id="dataSourceInitializer" 
+          class="org.springframework.jdbc.datasource.init.DataSourceInitializer"
+          p:dataSource-ref="dataSource">
+        <property name="databasePopulator">
+            <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator"
+                  p:scripts-ref="databaseScriptsList" />
+        </property>
+    </bean>
 
 </beans>

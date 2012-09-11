@@ -31,7 +31,7 @@
         <property name="handlers">
             <list>
                 <bean class="org.mortbay.jetty.servlet.Context"
-                      p:contextPath="/${ws.context.path}">
+                      p:contextPath="/ws">
                     <property name="sessionHandler">
                         <bean class="org.mortbay.jetty.servlet.SessionHandler" />
                     </property>

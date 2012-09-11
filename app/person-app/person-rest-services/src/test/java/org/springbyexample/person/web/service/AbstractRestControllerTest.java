@@ -15,17 +15,15 @@
  */
 package org.springbyexample.person.web.service;
 
-import org.junit.runner.RunWith;
+import org.springbyexample.person.test.AbstractProfileTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Base class for REST controller tests.
  * 
  * @author David Winterfeldt
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:/org/springbyexample/person/web/service/rest-controller-test-context.xml" })
-public abstract class AbstractRestControllerTest {
+public abstract class AbstractRestControllerTest extends AbstractProfileTest {
     
 }
