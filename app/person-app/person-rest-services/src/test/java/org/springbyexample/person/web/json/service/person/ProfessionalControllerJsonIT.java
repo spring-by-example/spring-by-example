@@ -15,6 +15,8 @@
  */
 package org.springbyexample.person.web.json.service.person;
 
+import static org.springbyexample.person.test.constants.ProfileConstants.REST_JSON;
+
 import org.springbyexample.person.web.service.person.ProfessionalControllerTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -23,7 +25,7 @@ import org.springframework.test.context.ActiveProfiles;
  * 
  * @author David Winterfeldt
  */
-@ActiveProfiles(profiles= { "rest-json" }, inheritProfiles=true)
+@ActiveProfiles(profiles= { REST_JSON }, inheritProfiles=true)
 public class ProfessionalControllerJsonIT extends ProfessionalControllerTest {
     
 }

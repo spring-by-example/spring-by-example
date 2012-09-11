@@ -21,7 +21,10 @@
         <dependency>
             <groupId>org.springbyexample.app.person</groupId>
             <artifactId>person-services</artifactId>
-            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springbyexample.app.person</groupId>
+            <artifactId>person-test</artifactId>
         </dependency>
 
         <dependency>

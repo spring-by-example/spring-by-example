@@ -20,6 +20,11 @@
     
     <dependencies>
         <dependency>
+            <groupId>org.springbyexample.app.person</groupId>
+            <artifactId>person-test</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
@@ -31,7 +36,12 @@
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-        </dependency>            
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

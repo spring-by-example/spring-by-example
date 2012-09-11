@@ -17,7 +17,7 @@
     </logger>
     
     <logger name="org.springframework.data" additivity="false">
-        <level value="DEBUG" />
+        <level value="INFO" />
         <appender-ref ref="CONSOLE" />
     </logger>
     
