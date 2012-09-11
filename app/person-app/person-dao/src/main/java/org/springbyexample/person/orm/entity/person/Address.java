@@ -17,7 +17,7 @@ package org.springbyexample.person.orm.entity.person;
 
 import javax.persistence.Entity;
 
-import org.springbyexample.person.orm.entity.AbstractAuditableEntity;
+import org.springbyexample.person.orm.entity.AbstractVersionedEntity;
 
 
 /**
@@ -26,7 +26,7 @@ import org.springbyexample.person.orm.entity.AbstractAuditableEntity;
  * @author David Winterfeldt
  */
 @Entity
-public class Address extends AbstractAuditableEntity {
+public class Address extends AbstractVersionedEntity {
 
     private static final long serialVersionUID = 7851794269407495684L;
 

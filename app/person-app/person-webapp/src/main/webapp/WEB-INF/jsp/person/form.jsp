@@ -11,6 +11,7 @@
 <c:url var="url" value="/person/form.html" /> 
 <form:form action="${url}" commandName="person">
     <form:hidden path="id" />
+    <form:hidden path="lockVersion" />
 
     <fieldset>
         <div class="form-row">

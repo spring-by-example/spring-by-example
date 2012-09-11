@@ -27,7 +27,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import org.springbyexample.person.orm.entity.AbstractAuditableEntity;
+import org.springbyexample.person.orm.entity.AbstractVersionedEntity;
 
 
 /**
@@ -38,7 +38,7 @@ import org.springbyexample.person.orm.entity.AbstractAuditableEntity;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="TYPE", discriminatorType=DiscriminatorType.INTEGER)
-public class Person extends AbstractAuditableEntity {
+public class Person extends AbstractVersionedEntity {
 
     private static final long serialVersionUID = -2175150694352541150L;
 
