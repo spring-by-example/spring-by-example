@@ -11,11 +11,11 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
     
-    <groupId>org.springbyexample.app.person</groupId>
-    <artifactId>person-test</artifactId>
+    <groupId>org.springbyexample.app.contact</groupId>
+    <artifactId>contact-test</artifactId>
     <version>1.0</version>
-    <name>Person Test</name>
-    <description>Person shared test classes and configuration.</description>
+    <name>Contact Test</name>
+    <description>Contact shared test classes and configuration.</description>
 
     <dependencies>
         <dependency>

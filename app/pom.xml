@@ -14,7 +14,7 @@
     </description>
 
     <modules>
-        <module>person-app</module>
+        <module>contact-app</module>
     </modules>
 	
 </project>

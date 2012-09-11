@@ -9,19 +9,19 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
 
-    <groupId>org.springbyexample.app.person</groupId>
-    <artifactId>person-dao</artifactId>
+    <groupId>org.springbyexample.app.contact</groupId>
+    <artifactId>contact-dao</artifactId>
     <version>1.0</version>
-    <name>Person DAO</name>
+    <name>Contact DAO</name>
     <description>
-        Person DAO has the DB schema, JPA entities, 
+        Contact DAO has the DB schema, JPA entities, 
         and Spring Data JPA repositories.
     </description>
     
     <dependencies>
         <dependency>
-            <groupId>org.springbyexample.app.person</groupId>
-            <artifactId>person-test</artifactId>
+            <groupId>org.springbyexample.app.contact</groupId>
+            <artifactId>contact-test</artifactId>
         </dependency>
 
         <dependency>
