@@ -38,6 +38,7 @@
         <jetty.version>6.1.26</jetty.version>
         <jstl.version>1.1.2</jstl.version>        
         <logback.version>1.0.6</logback.version>
+        <postgresql.jdbc.version>9.0-801.jdbc4</postgresql.jdbc.version>
         <slf4j.version>1.6.6</slf4j.version>
         <spring.modules.version>0.8a</spring.modules.version>
 		<tiles.version>2.1.3</tiles.version>
@@ -402,7 +403,12 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>2.1</version>
-            </dependency>            
+            </dependency>
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.jdbc.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-core</artifactId>
@@ -838,7 +844,7 @@
                     </configuration>
                     <dependencies>
                         <dependency>
-                            <groupId>org.jvnet.jaxb2-commons</groupId>
+                            <groupId>org.andromda.thirdparty.jaxb2_commons</groupId>
                             <artifactId>collection-setter-injector</artifactId>
                             <version>1.0</version>
                         </dependency>

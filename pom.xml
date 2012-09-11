@@ -42,7 +42,8 @@
         <module>core</module>
         <module>persistence</module>
         <module>enterprise</module>
-        <module>flex/simple-flex-webapp</module>
+        <!-- issues with getting com.adobe.blazeds:blazeds-core:jar:4.0.0.14931 -->
+        <!-- <module>flex/simple-flex-webapp</module> -->
         <module>web</module>
         <module>app</module>
     </modules>
