@@ -19,6 +19,11 @@
         </param-value>
     </context-param>
 
+    <context-param>
+        <param-name>contextInitializerClasses</param-name>
+        <param-value>org.springbyexample.person.web.context.PersonApplicationContextInitializer</param-value>
+    </context-param>
+
     <!-- Enables Spring Security -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>

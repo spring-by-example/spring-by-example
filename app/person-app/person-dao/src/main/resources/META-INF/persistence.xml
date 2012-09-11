@@ -26,7 +26,6 @@
 
             <property name="hibernate.hbm2ddl.auto" value="validate" />
             <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
-<!--             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" /> -->
             <property name="hibernate.max_fetch_depth" value="3" />
             <property name="jadira.usertype.autoRegisterUserTypes" value="true" />
             <property name="jadira.usertype.databaseZone" value="jvm" />

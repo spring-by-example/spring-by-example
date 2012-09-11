@@ -29,23 +29,20 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.show_sql">${jpa.show.sql}</prop>
-                <prop key="hibernate.generate_statistics">true</prop> 
+                <prop key="hibernate.generate_statistics">false</prop> 
                 <prop key="hibernate.cache.use_second_level_cache">${jpa.cache.use_second_level_cache}</prop>
                 <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
             </props>
         </property>
     </bean>
 
-    <!-- 
-        FIX ME: file bug that jdbc:initialize-database needs a default name and/or a way to set one
-                also, way to use it instead of calling beans if possible (below)
-    -->
     <bean id="dataSourceInitializer" 
           class="org.springframework.jdbc.datasource.init.DataSourceInitializer"
           p:dataSource-ref="dataSource">
         <property name="databasePopulator">
             <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator"
-                  p:scripts-ref="databaseScriptsList" />
+                  p:scripts-ref="databaseScriptsList"
+                  p:sqlScriptEncoding="UTF-8" />
         </property>
     </bean>
 
