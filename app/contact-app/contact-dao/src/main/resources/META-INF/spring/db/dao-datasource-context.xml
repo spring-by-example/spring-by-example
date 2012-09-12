@@ -39,10 +39,7 @@
     <beans profile="postgresql">
         <context:property-placeholder location="classpath:/sql/postgresql.properties,classpath*:META-INF/config/**/*.properties,file:person-app*.properties" />
 
-        <util:list id="databaseScriptsList" value-type="org.springframework.core.io.Resource">
-            <value>classpath:/sql/postgres/schema.sql</value>
-            <value>classpath:/sql/postgres/security_schema.sql</value>
-        </util:list>
+        <util:list id="databaseScriptsList" value-type="org.springframework.core.io.Resource" />
     </beans>
 
 </beans>

@@ -8,11 +8,11 @@
                            http://www.springframework.org/schema/data/jpa
                            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <jpa:repositories base-package="org.springbyexample.person.orm.repository" />
+    <jpa:repositories base-package="org.springbyexample.contact.orm.repository" />
 
     <!-- auditing -->
     <jpa:auditing auditor-aware-ref="auditorAware" />
-    <bean id="auditorAware" class="org.springbyexample.person.orm.entity.AuditorAwareImpl" />
+    <bean id="auditorAware" class="org.springbyexample.contact.orm.entity.AuditorAwareImpl" />
         
     <bean id="transactionManager" 
           class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -31,7 +31,7 @@
                 <prop key="hibernate.show_sql">${jpa.show.sql}</prop>
                 <prop key="hibernate.generate_statistics">false</prop> 
                 <prop key="hibernate.cache.use_second_level_cache">${jpa.cache.use_second_level_cache}</prop>
-                <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
             </props>
         </property>
     </bean>

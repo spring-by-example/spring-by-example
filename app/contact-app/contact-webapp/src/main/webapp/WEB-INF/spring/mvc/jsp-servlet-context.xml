@@ -11,7 +11,7 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="org.springbyexample.person.web.servlet.mvc" />
+    <context:component-scan base-package="org.springbyexample.contact.web.servlet.mvc" />
 
     <mvc:annotation-driven />
     

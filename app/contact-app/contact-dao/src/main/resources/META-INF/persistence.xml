@@ -22,7 +22,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.dialect" value="org.springbyexample.orm.dialect.TableNameSequencePostgreSQLDialect" />
 
             <property name="hibernate.hbm2ddl.auto" value="validate" />
             <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>

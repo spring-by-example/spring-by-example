@@ -8,6 +8,6 @@
                            http://www.springframework.org/schema/context 
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="org.springbyexample.person.converter,org.springbyexample.person.service" />
+    <context:component-scan base-package="org.springbyexample.contact.converter,org.springbyexample.contact.service" />
 
 </beans>

@@ -1,41 +1,26 @@
 \c contact contact
 
-/* default spring security acl table creation scripts */
+CREATE TABLE users (
+	username VARCHAR(50) NOT NULL PRIMARY KEY,
+	password VARCHAR(50) NOT NULL,
+	enabled BOOLEAN NOT NULL
+);
 
-create table acl_sid(
-  id bigserial not null primary key,
-  principal boolean not null,
-  sid varchar(100) not null,
-  constraint unique_uk_1 unique(sid,principal));
+CREATE TABLE authorities (
+	username VARCHAR(50) NOT NULL,
+	authority VARCHAR(50) NOT NULL
+);
 
-create table acl_class(
-  id bigserial not null primary key,
-  class varchar(100) not null,
-  constraint unique_uk_2 unique(class));
+CREATE UNIQUE INDEX ix_auth_username ON authorities (username, authority);
 
-create table acl_object_identity(
-  id bigserial primary key,
-  object_id_class bigint not null,
-  object_id_identity bigint not null,
-  parent_object bigint,
-  owner_sid bigint,
-  entries_inheriting boolean not null,
-  constraint unique_uk_3 unique(object_id_class,object_id_identity),
-  constraint foreign_fk_1 foreign key(parent_object) references acl_object_identity(id),
-  constraint foreign_fk_2 foreign key(object_id_class) references acl_class(id),
-  constraint foreign_fk_3 foreign key(owner_sid) references acl_sid(id));
+ALTER TABLE authorities ADD CONSTRAINT fk_authorities_users foreign key (username) REFERENCES users(username);
 
-create table acl_entry(
-  id bigserial primary key,
-  acl_object_identity bigint not null,
-  ace_order int not null,
-  sid bigint not null,
-  mask integer not null,
-  granting boolean not null,
-  audit_success boolean not null,
-  audit_failure boolean not null,
-  constraint unique_uk_4 unique(acl_object_identity,ace_order),
-  constraint foreign_fk_4 foreign key(acl_object_identity)
-      references acl_object_identity(id),
-  constraint foreign_fk_5 foreign key(sid) references acl_sid(id));
-  
+
+INSERT INTO users VALUES ('david', 'newyork', true);
+INSERT INTO users VALUES ('alex', 'newjersey', true);
+INSERT INTO users VALUES ('tim', 'illinois', true);
+
+INSERT INTO authorities VALUES ('david', 'ROLE_USER');
+INSERT INTO authorities VALUES ('david', 'ROLE_ADMIN');
+INSERT INTO authorities VALUES ('alex', 'ROLE_USER');
+INSERT INTO authorities VALUES ('tim', 'ROLE_USER');
