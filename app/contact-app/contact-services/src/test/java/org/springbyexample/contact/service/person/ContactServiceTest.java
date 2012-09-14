@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springbyexample.contact.service.AbstractServiceTest;
-import org.springbyexample.contact.service.PersonService;
+import org.springbyexample.contact.service.ContactService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +32,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author David Winterfeldt
  */
-public class PersonServiceTest extends AbstractServiceTest {
+public class ContactServiceTest extends AbstractServiceTest {
 
-    final Logger logger = LoggerFactory.getLogger(PersonServiceTest.class);
+    final Logger logger = LoggerFactory.getLogger(ContactServiceTest.class);
 
     private final static Integer FIRST_ID = Integer.valueOf(1);
     private final static Integer SECOND_ID = Integer.valueOf(2);
@@ -52,7 +52,7 @@ public class PersonServiceTest extends AbstractServiceTest {
     private final static String COUNTRY = "USA";
 
     @Autowired
-    private PersonService service;
+    private ContactService service;
         
     @Test
     public void testFindOne() {

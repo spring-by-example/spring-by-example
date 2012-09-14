@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.contact.service.PersonService;
+import org.springbyexample.contact.service.ContactService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,10 +47,10 @@ public class PersonFormController {
     private static final String SEARCH_VIEW_KEY = "redirect:search.html";
     private static final String SEARCH_MODEL_KEY = "persons";
 
-    private final PersonService service;
+    private final ContactService service;
 
     @Autowired
-    public PersonFormController(PersonService service) {
+    public PersonFormController(ContactService service) {
         this.service = service;
     }
 

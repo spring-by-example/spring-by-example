@@ -28,10 +28,10 @@ import org.springframework.stereotype.Component;
  * @author David Winterfeldt
  */
 @Component
-public class PersonConverter extends AbstractMapperListConverter<org.springbyexample.contact.orm.entity.person.Person, Person> {
+public class ContactConverter extends AbstractMapperListConverter<org.springbyexample.contact.orm.entity.person.Person, Person> {
 
     @Autowired
-    public PersonConverter(Mapper mapper) {
+    public ContactConverter(Mapper mapper) {
         super(mapper, 
               org.springbyexample.contact.orm.entity.person.Person.class, Person.class);
     }

@@ -8,10 +8,10 @@
                            http://www.springframework.org/schema/context 
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="org.dozer.Mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles">
             <list>
-                <value>dozer/dozer-mappings.xml</value>
+                <value>classpath:/dozer/dozer-mappings.xml</value>
             </list>
         </property>
     </bean>
