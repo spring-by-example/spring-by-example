@@ -17,7 +17,7 @@ package org.springbyexample.contact.web.service.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.contact.service.PersonService;
+import org.springbyexample.contact.service.ContactService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
@@ -41,10 +41,10 @@ public class PersonController implements PersonMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final PersonService service;
+    private final ContactService service;
 
     @Autowired
-    public PersonController(PersonService service) {
+    public PersonController(ContactService service) {
         this.service = service;
     }
     

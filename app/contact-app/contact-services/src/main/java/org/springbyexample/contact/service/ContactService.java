@@ -27,7 +27,7 @@ import org.springframework.security.access.annotation.Secured;
  * 
  * @author David Winterfeldt
  */
-public interface PersonService {
+public interface ContactService {
 
     /**
      * Find person by id.

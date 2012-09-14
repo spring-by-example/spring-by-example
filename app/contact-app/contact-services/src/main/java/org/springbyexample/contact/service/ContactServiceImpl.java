@@ -17,7 +17,7 @@ package org.springbyexample.contact.service;
 
 import java.util.List;
 
-import org.springbyexample.contact.converter.person.PersonConverter;
+import org.springbyexample.contact.converter.person.ContactConverter;
 import org.springbyexample.contact.converter.person.ProfessionalConverter;
 import org.springbyexample.contact.converter.person.StudentConverter;
 import org.springbyexample.contact.orm.repository.PersonRepository;
@@ -44,16 +44,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly=true)
-public class PersonServiceImpl implements PersonService {
+public class ContactServiceImpl implements ContactService {
 
     private final PersonRepository repository;
-    private final PersonConverter converter;
+    private final ContactConverter converter;
     private final StudentConverter studentConverter;
     private final ProfessionalConverter professionalConverter;
     
     @Autowired
-    public PersonServiceImpl(PersonRepository repository, 
-                             PersonConverter converter, 
+    public ContactServiceImpl(PersonRepository repository, 
+                             ContactConverter converter, 
                              StudentConverter studentConverter, ProfessionalConverter professionalConverter) {
         this.repository = repository;
         this.converter = converter;

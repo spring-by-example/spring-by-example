@@ -31,11 +31,11 @@ public interface Converter<T, V> {
     /**
      * Converts from a domain model to the business model.
      */
-    public V convertTo(T bean);
+    public V convertTo(T source);
 
     /**
      * Converts from a business model to the domain model.
      */
-    public T convertFrom(V vo);
+    public T convertFrom(V source);
 
 }
