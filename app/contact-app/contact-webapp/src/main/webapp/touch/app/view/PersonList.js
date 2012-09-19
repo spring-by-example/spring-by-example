@@ -10,17 +10,18 @@
 
         items: [{
             xtype: "toolbar",
-            title: "Contacts",
-            docked: "top",
-            items: [
-                { xtype: 'spacer' },
-                {
-                    xtype: "button",
-                    text: 'New',
-                    ui: 'action',
-                    itemId: "newButton"
-                }
-            ]
+//            title: "Contacts",
+            docked: "top"
+//                ,
+//            items: [
+//                { xtype: 'spacer' },
+//                {
+//                    xtype: "button",
+//                    text: 'New',
+//                    ui: 'action',
+//                    itemId: "newButton"
+//                }
+//            ]
         }, {
             xtype: "list",
             store: "PersonStore",

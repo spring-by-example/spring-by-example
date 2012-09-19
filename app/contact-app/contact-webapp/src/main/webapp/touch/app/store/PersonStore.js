@@ -23,4 +23,5 @@ Ext.define('person.store.PersonStore', {
     		}
 	    }
     }
+
 });
