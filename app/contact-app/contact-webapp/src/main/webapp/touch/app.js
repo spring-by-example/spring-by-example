@@ -1,10 +1,14 @@
 ﻿Ext.application({
     name: "person",
 
+    profiles: ['Tablet', 'Phone'],
     models: [ 'PersonFindResponseModel', 'PersonModel' ],
     stores: [ 'PersonStore' ],
-    controllers: [ 'PersonController' ],
+//    controllers: [ 'PersonController' ],
     views: [ 'PersonList', 'PersonEditor' ],
+
+    phoneStartupScreen: 'resources/loading/Default.png',
+    tabletStartupScreen: 'resources/loading/Default~ipad.png',
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -28,14 +32,14 @@
         // remove startup loading indicator
         Ext.fly('appLoadingIndicator').destroy();
 
-        var personListView = {
-            xtype: "personListView"
-        };
-        var personEditorView = {
-            xtype: "personEditorView"
-        };
-
-        Ext.Viewport.add([personListView, personEditorView]);
+//        var personListView = {
+//            xtype: "personListView"
+//        };
+//        var personEditorView = {
+//            xtype: "personEditorView"
+//        };
+//
+//        Ext.Viewport.add([personListView, personEditorView]);
 
     }
 });

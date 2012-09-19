@@ -28,10 +28,10 @@
     activatePersonEditor: function (record) {
         var personEditorView = this.getPersonEditorView();
         personEditorView.setRecord(record); // load() is deprecated.
-        Ext.Viewport.animateActiveItem(personEditorView, this.slideLeftTransition);
+//        Ext.Viewport.animateActiveItem(personEditorView, this.slideLeftTransition);
     },
     activatePersonList: function () {
-        Ext.Viewport.animateActiveItem(this.getPersonListView(), this.slideRightTransition);
+//        Ext.Viewport.animateActiveItem(this.getPersonListView(), this.slideRightTransition);
     },
 
     // Commands.
