@@ -783,6 +783,20 @@
     </profiles>
 
     <build>
+        <plugins>
+            <!-- Needed for scp distribution management -->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-ssh</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>            
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
