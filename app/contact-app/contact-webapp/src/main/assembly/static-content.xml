@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE assembly>
+<assembly>
+    <id>static-content</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>target/contact</directory>
+            <outputDirectory></outputDirectory>
+            <excludes>
+                <exclude>index.jsp</exclude>
+                <exclude>META-INF/**</exclude>
+                <exclude>WEB-INF/**</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+</assembly>

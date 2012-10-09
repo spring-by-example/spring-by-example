@@ -2,26 +2,45 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%d{MMM dd yyyy HH:mm:ss,SSS} %-5p %c - %msg%n</Pattern>
+            <Pattern>%d{MMM dd yyyy HH:mm:ss.SSS} %-5p [%thread] %c - %msg%n</Pattern>
         </layout>  
     </appender>  
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <Prudent>false</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>contact%d{yyyy-MM-dd}.log</FileNamePattern>  
+            <MaxHistory>30</MaxHistory> 
+        </rollingPolicy>  
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy> 
+        
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{MMM dd yyyy HH:mm:ss.SSS} %-5p [%thread] %c - %msg%n</Pattern>
+        </layout>  
+    </appender>
     
     <logger name="org.springbyexample" additivity="false">
         <level value="DEBUG" />
         
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
     </logger>
 
     <logger name="org.springframework" additivity="false">
-        <level value="DEBUG" />
+        <level value="INFO" />
         
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
     </logger>
     
     <root>
         <level value="WARN" />
           
-        <appender-ref ref="CONSOLE" />  
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />  
     </root> 
     
 </configuration>

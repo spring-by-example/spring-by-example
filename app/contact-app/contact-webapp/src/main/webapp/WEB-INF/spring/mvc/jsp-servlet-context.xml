@@ -19,6 +19,7 @@
     <mvc:view-controller path="/login.html" />
     <mvc:view-controller path="/logoutSuccess.html" />
     
+    <mvc:resources mapping="/extjs/**" location="/extjs/" />
     <mvc:resources mapping="/touch/**" location="/touch/" />
     
     <bean id="tilesConfigurer"
