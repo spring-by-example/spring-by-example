@@ -1,4 +1,4 @@
-Ext.define('Pandora.model.PersonFindResponseModel', {
+Ext.define('contact.model.PersonFindResponseModel', {
     extend: 'Ext.data.Model',
     statics: {
         CLASS_NAME: 'org.springbyexample.schema.beans.person.PersonFindResponse'

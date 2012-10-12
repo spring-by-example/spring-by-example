@@ -1,9 +1,12 @@
+Ext.Loader.setConfig({
+    enabled: true,
+    disableCaching: false
+});
+
 Ext.application({
-    name: 'Pandora',
-    
+    name: 'contact',
+
     autoCreateViewport: true,
-    
-    models: ['Station', 'Song'],    
-    stores: ['PersonStore', 'Stations', 'RecentSongs', 'SearchResults'],
-    controllers: ['Station', 'Song']
+
+    controllers: [ 'person.PersonController' ]
 });
