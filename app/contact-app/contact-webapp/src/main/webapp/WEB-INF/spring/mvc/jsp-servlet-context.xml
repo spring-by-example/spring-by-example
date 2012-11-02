@@ -31,9 +31,6 @@
           p:viewClass="org.springbyexample.web.servlet.view.tiles2.DynamicTilesView"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
-
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
-          p:basenames="messages" />
     
     <!-- Declare the Interceptor -->
     <mvc:interceptors>    

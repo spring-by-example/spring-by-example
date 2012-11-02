@@ -26,7 +26,7 @@ import javax.persistence.Version;
  */
 @MappedSuperclass
 @SuppressWarnings("serial")
-public class AbstractVersionedEntity extends AbstractAuditableEntity {
+public abstract class AbstractVersionedEntity extends AbstractAuditableEntity {
 
     @Version
     protected int lockVersion;

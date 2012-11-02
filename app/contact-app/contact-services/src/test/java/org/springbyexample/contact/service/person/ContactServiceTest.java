@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springbyexample.contact.service.AbstractServiceTest;
-import org.springbyexample.contact.service.ContactService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;

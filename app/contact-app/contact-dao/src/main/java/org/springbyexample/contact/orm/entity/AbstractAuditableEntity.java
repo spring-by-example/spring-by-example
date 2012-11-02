@@ -30,7 +30,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
  */
 @MappedSuperclass
 @SuppressWarnings("serial")
-public class AbstractAuditableEntity extends AbstractPersistable<Integer> implements Auditable<String, Integer> {
+public abstract class AbstractAuditableEntity extends AbstractPersistable<Integer> implements Auditable<String, Integer> {
 
     private DateTime lastUpdated;
     private String lastUpdateUser;

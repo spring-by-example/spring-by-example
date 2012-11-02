@@ -1,0 +1,100 @@
+/*
+ * Copyright 2007-2012 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.springbyexample.contact.service.person;
+
+import java.util.List;
+
+import org.springbyexample.contact.converter.person.ContactConverter;
+import org.springbyexample.contact.converter.person.ProfessionalConverter;
+import org.springbyexample.contact.converter.person.StudentConverter;
+import org.springbyexample.contact.orm.repository.PersonRepository;
+import org.springbyexample.contact.service.AbstractPersistenceService;
+import org.springbyexample.contact.service.util.MessageHelper;
+import org.springbyexample.schema.beans.person.Person;
+import org.springbyexample.schema.beans.person.PersonFindResponse;
+import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.person.Professional;
+import org.springbyexample.schema.beans.person.Student;
+import org.springbyexample.schema.beans.response.Message;
+import org.springbyexample.schema.beans.response.MessageType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+/**
+ * Person service implementation.
+ * 
+ * @author David Winterfeldt
+ */
+@Service
+public class ContactServiceImpl extends AbstractPersistenceService<org.springbyexample.contact.orm.entity.person.Person, Person,
+                                                                   PersonResponse, PersonFindResponse>
+        implements ContactService {
+
+    private final StudentConverter studentConverter;
+    private final ProfessionalConverter professionalConverter;
+    
+    @Autowired
+    public ContactServiceImpl(PersonRepository repository, 
+                              ContactConverter converter, 
+                              StudentConverter studentConverter, ProfessionalConverter professionalConverter,
+                              MessageHelper messageHelper) {
+        super(repository, converter, messageHelper);
+
+        this.studentConverter = studentConverter;
+        this.professionalConverter = professionalConverter;
+    }
+
+    @Override
+    protected PersonResponse doSave(Person request) {
+        org.springbyexample.contact.orm.entity.person.Person bean = null;
+        
+        if (request instanceof Student) {
+            bean = studentConverter.convertFrom((Student) request);
+        } else if (request instanceof Professional) {
+            bean = professionalConverter.convertFrom((Professional) request);
+        } else {
+            bean = converter.convertFrom(request);
+        }
+        
+        Person result = converter.convertTo(repository.saveAndFlush(bean)); 
+        
+        return createSaveResponse(result);
+    }
+
+    @Override
+    protected PersonResponse createSaveResponse(Person result) {
+        return new PersonResponse().withMessageList(new Message().withMessageType(MessageType.INFO)
+                    .withMessage(String.format("Successfully saved record.  id='%d'", result.getId())))
+                    .withResults(result);
+    }
+
+    @Override
+    protected PersonResponse createResponse(Person result) {
+        return new PersonResponse().withResults(result);
+    }
+
+    @Override
+    protected PersonFindResponse createFindResponse(List<Person> results) {
+        return new PersonFindResponse().withResults(results).withCount(results.size());
+    }
+
+    @Override
+    protected PersonFindResponse createFindResponse(List<Person> results, long count) {
+        return new PersonFindResponse().withResults(results).withCount(count);
+    }
+    
+}

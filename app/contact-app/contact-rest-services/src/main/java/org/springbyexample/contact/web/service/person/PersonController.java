@@ -17,7 +17,8 @@ package org.springbyexample.contact.web.service.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.contact.service.ContactService;
+import org.springbyexample.contact.service.person.ContactService;
+import org.springbyexample.contact.web.service.AbstractController;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
@@ -37,15 +38,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author David Winterfeldt
  */
 @Controller
-public class PersonController implements PersonMarshallingService {
+public class PersonController extends AbstractController<Person, PersonResponse, PersonFindResponse> 
+        implements PersonMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final ContactService service;
-
     @Autowired
     public PersonController(ContactService service) {
-        this.service = service;
+        super(service);
     }
     
     @Override
@@ -76,21 +76,21 @@ public class PersonController implements PersonMarshallingService {
     @Override
     @RequestMapping(value = SAVE_REQUEST, method = RequestMethod.POST)
     public PersonResponse save(@RequestBody Person request) {
-        Assert.isTrue((request.getId() <= 0), "Create should not have a valid primary key");
+        Assert.isTrue(!isPrimaryKeyValid(request), "Create should not have a valid primary key.");
         
         logger.info("Save person.  id={}", request.getId());
 
-        return service.save(request);
+        return service.create(request);
     }
 
     @Override
     @RequestMapping(value = UPDATE_REQUEST, method = RequestMethod.PUT)
     public PersonResponse update(@RequestBody Person request) {
-        Assert.isTrue((request.getId() >  0), "Update should have a valid primary key");
+        Assert.isTrue(isPrimaryKeyValid(request), "Update should have a valid primary key.");
         
         logger.info("Update person.  id={}", request.getId());
         
-        return service.save(request);
+        return service.update(request);
     }
 
     @Override
