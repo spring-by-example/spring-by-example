@@ -20,8 +20,11 @@ import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.contact.service.ContactService;
+import org.springbyexample.contact.service.person.ContactService;
+import org.springbyexample.contact.web.service.AbstractController;
 import org.springbyexample.schema.beans.person.Person;
+import org.springbyexample.schema.beans.person.PersonFindResponse;
+import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author David Winterfeldt
  */
 @Controller
-public class PersonFormController {
+public class PersonFormController extends AbstractController<Person, PersonResponse, PersonFindResponse> {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
     
@@ -47,11 +50,9 @@ public class PersonFormController {
     private static final String SEARCH_VIEW_KEY = "redirect:search.html";
     private static final String SEARCH_MODEL_KEY = "persons";
 
-    private final ContactService service;
-
     @Autowired
     public PersonFormController(ContactService service) {
-        this.service = service;
+        super(service);
     }
 
     /**
@@ -78,7 +79,7 @@ public class PersonFormController {
      */
     @RequestMapping(value="/person/form", method=RequestMethod.POST)
     public Person form(Person person, Model model) {
-        Person result = service.save(person).getResults();
+        Person result = save(person).getResults();
         
         model.addAttribute("statusMessageKey", "person.form.msg.success");
         

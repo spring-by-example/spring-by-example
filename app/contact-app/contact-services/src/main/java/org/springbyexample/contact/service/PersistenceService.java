@@ -15,44 +15,38 @@
  */
 package org.springbyexample.contact.service;
 
-import org.springbyexample.schema.beans.person.Person;
-import org.springbyexample.schema.beans.person.PersonFindResponse;
-import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.schema.beans.entity.PkEntityBase;
+import org.springbyexample.schema.beans.response.EntityFindResponseResult;
+import org.springbyexample.schema.beans.response.EntityResponseResult;
 import org.springbyexample.schema.beans.response.ResponseResult;
-import org.springframework.security.access.annotation.Secured;
 
 
 /**
- * Person service interface.
+ * Persistence service interface.
  * 
  * @author David Winterfeldt
+ * 
+ * @param   <V>      Domain transfer object (DTO).
+ * @param   <R>      Generic response.
+ * @param   <FR>     Find response.
  */
-public interface ContactService {
+public interface PersistenceService<V extends PkEntityBase,
+                                    R extends EntityResponseResult, FR extends EntityFindResponseResult> 
+        extends PersistenceFindService<R, FR> {
 
     /**
-     * Find person by id.
+     * Creates a record.
      */
-    public PersonResponse findById(Integer id);
+    public R create(V request);
 
     /**
-     * Find persons.
+     * Updates a record.
      */
-    public PersonFindResponse find();
-    
-    /**
-     * Find a paginated list of persons.
-     */
-    public PersonFindResponse find(int page, int pageSize);
-
-    /**
-     * Saves person.
-     */
-    public PersonResponse save(Person person);
+    public R update(V request);
 
     /**
      * Deletes person.
      */
-    @Secured ({"ROLE_ADMIN"})
     public ResponseResult delete(Integer id);
 
 }
