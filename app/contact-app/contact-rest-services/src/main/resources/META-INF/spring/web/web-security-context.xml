@@ -7,8 +7,6 @@
                            http://www.springframework.org/schema/security
                            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <security:global-method-security secured-annotations="enabled" />
-    
     <security:http auto-config="true">
         <!-- Restrict URLs based on role -->
         <security:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
@@ -25,25 +23,5 @@
                              authentication-failure-url="/login.html?login_error=1" />
         <security:logout logout-url="/logout" logout-success-url="/logoutSuccess.html" />
     </security:http>
-
-    <security:authentication-manager>
-        <security:authentication-provider >
-            <security:jdbc-user-service data-source-ref="dataSource" />
-        </security:authentication-provider>
-        
-        <!-- 
-            david:newyork
-            alex:newjersey
-            tim:illinois
-        --> 
-        <!-- 
-        <security:password-encoder hash="md5" />
-        <security:user-service>
-            <security:user name="david" password="369389d19e24204b4927e30dd7c39efc" authorities="ROLE_USER,ROLE_ADMIN" />
-            <security:user name="alex" password="847c6f184197dc1545d9891d42814a7d" authorities="ROLE_USER" />
-            <security:user name="tim" password="0513111ff330e25c631b5d3e9c0a4aae" authorities="ROLE_USER" />
-        </security:user-service>
-        -->
-    </security:authentication-manager>
     
 </beans>

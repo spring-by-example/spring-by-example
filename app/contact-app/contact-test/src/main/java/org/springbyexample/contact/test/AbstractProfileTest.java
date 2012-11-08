@@ -16,8 +16,14 @@
 package org.springbyexample.contact.test;
 
 import static org.springbyexample.contact.test.constants.ProfileConstants.HSQL;
+import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER;
+import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER_PASSWORD;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -30,5 +36,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(profiles= { HSQL })
 public abstract class AbstractProfileTest {
+
+    /**
+     * Setup the security context before each test.
+     */
+    @Before
+    public void setUp() {
+        doInit();
+    }
+
+    /**
+     * Clear the security context after each test.
+     */
+    @After
+    public void tearDown() {
+        SecurityContextHolder.clearContext();
+    }
+
+    /**
+     * Set the default user on the security context.
+     */
+    protected void doInit() {
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(DEFAULT_SECURITY_USER, DEFAULT_SECURITY_USER_PASSWORD));
+    }
 
 }

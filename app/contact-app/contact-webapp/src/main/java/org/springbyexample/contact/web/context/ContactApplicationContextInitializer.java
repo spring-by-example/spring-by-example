@@ -35,10 +35,8 @@ public class ContactApplicationContextInitializer implements ApplicationContextI
     private static final String SPRING_PROFILES_ACTIVE_PROPERTY = "spring.profiles.active";
     
     private static final String PROFILE_HSQL = "hsql";
-    private static final String PROFILE_POSTGRESQL = "postgresql";
     
     private final static String [] DEFAULT_ACTIVE_PROFILES = { PROFILE_HSQL };
-//    private final static String [] DEFAULT_ACTIVE_PROFILES = { PROFILE_POSTGRESQL };
     
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {

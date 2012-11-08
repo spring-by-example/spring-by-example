@@ -23,6 +23,7 @@ import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Handler;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.Context;
+import org.mortbay.jetty.servlet.FilterHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +34,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 /**
  * Spring bean that creates an embedded jetty server.
@@ -43,8 +45,9 @@ public class EmbeddedJetty {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final static String [] DEFAULT_ACTIVE_PROFILES = { "hsql" };
-    private final static String [] DEFAULT_CONFIG_LOCATIONS = new String[] { "/embedded-jetty-context.xml" };
+    private final static String[] DEFAULT_ACTIVE_PROFILES = { "hsql" };
+    private final static String[] DEFAULT_CONFIG_LOCATIONS = new String[] { "/embedded-jetty-context.xml" };
+    private final static String SECURITY_FILTER_NAME = "springSecurityFilterChain";;
 
     private final String[] activeProfiles;
     private final String[] configLocations;
@@ -114,6 +117,15 @@ public class EmbeddedJetty {
                 }
 
                 servletContext = context.getServletContext();
+                
+                // setup Spring Security Filter
+                FilterHolder filterHolder = new FilterHolder();
+                filterHolder.setName(SECURITY_FILTER_NAME);
+                filterHolder.setClassName(DelegatingFilterProxy.class.getName());
+
+                context.getServletHandler().addFilterWithMapping(filterHolder, "/*", 0);
+                
+                break;                
             }
         }
 

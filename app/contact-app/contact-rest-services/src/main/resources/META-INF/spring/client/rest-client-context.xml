@@ -17,8 +17,16 @@
     
     <bean id="httpConnectionManager" class="org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager"/>
     
+    <bean id="httpClient" class="org.apache.http.impl.client.DefaultHttpClient"/>
+    
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"
-          p:messageConverters-ref="messageConvertersList" />
+          p:messageConverters-ref="messageConvertersList">
+        <constructor-arg>
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+                <constructor-arg ref="httpClient"/>
+            </bean>
+        </constructor-arg>
+    </bean>
 
     <util:list id="messageConvertersList">
         <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"

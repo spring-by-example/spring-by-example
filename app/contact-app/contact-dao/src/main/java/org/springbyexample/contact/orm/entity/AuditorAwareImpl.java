@@ -17,6 +17,7 @@ package org.springbyexample.contact.orm.entity;
 
 
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 /**
@@ -28,7 +29,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
     public String getCurrentAuditor() {
-        return "SYSTEM";
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     }
 
 

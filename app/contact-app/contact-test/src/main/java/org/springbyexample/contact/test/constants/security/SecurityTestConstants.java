@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.contact.test.constants;
+package org.springbyexample.contact.test.constants.security;
 
 
 /**
- * Profile constants.
+ * Security test constants.
  * 
  * @author David Winterfeldt
  */
-public class ProfileConstants {
+public class SecurityTestConstants {
 
-    public static final String HSQL = "hsql";
-    public static final String POSTGRESQL = "postgresql";
-
-    public static final String REST_JSON = "rest-json";
+    public static final String DEFAULT_SECURITY_USER = "david";
+    public static final String DEFAULT_SECURITY_USER_PASSWORD = "newyork";
     
-    private ProfileConstants() {}
+    private SecurityTestConstants() {}
     
 }
