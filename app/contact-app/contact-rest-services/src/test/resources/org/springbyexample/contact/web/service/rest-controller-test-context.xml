@@ -21,10 +21,13 @@
             <list>
                 <value>/embedded-jetty-context.xml</value>
 
+                <value>/META-INF/spring/security/**/*-context.xml</value>
                 <value>/META-INF/spring/marshaller/**/*-context.xml</value>
                 <value>/META-INF/spring/db/**/*-context.xml</value>
                 <value>/META-INF/spring/services/**/*-context.xml</value>
                 <value>/META-INF/spring/mvc/**/*-context.xml</value>
+                
+                <value>/mock-web-security-context.xml</value>
             </list>
         </constructor-arg>
     </bean>

@@ -8,6 +8,7 @@
                            http://www.springframework.org/schema/context 
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <import resource="classpath*:/META-INF/spring/security/**/*-context.xml"/>
     <import resource="classpath*:/META-INF/spring/marshaller/**/*-context.xml"/>
     <import resource="classpath*:/META-INF/spring/db/**/*-context.xml"/>
     <import resource="classpath*:/META-INF/spring/services/**/*-context.xml"/>

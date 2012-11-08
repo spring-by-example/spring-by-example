@@ -15,6 +15,11 @@
  */
 package org.springbyexample.contact.web.client;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +39,19 @@ public class RestClient {
     
     private final RestTemplate template;
     private final RestClientProperties clientProperties;
+    private final DefaultHttpClient httpClient;
 
     @Autowired
-    public RestClient(RestTemplate template, RestClientProperties clientProperties) {
+    public RestClient(RestTemplate template, RestClientProperties clientProperties,
+                      DefaultHttpClient httpClient) {
         this.template = template;
         this.clientProperties = clientProperties;
+        this.httpClient = httpClient;
+    }
+
+    @PostConstruct
+    public void init() {
+        setCredentials(clientProperties.getUsername(), clientProperties.getPassword());
     }
 
     /**
@@ -62,5 +75,17 @@ public class RestClient {
         
         return sb.toString();
     }
+    
+    /**
+     * Set default credentials on HTTP client.
+     */
+    public void setCredentials(String userName, String password) {
+        UsernamePasswordCredentials creds = 
+                new UsernamePasswordCredentials(clientProperties.getUsername(), clientProperties.getPassword());
+        AuthScope authScope = new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
+        
+        httpClient.getCredentialsProvider().setCredentials(authScope, creds);
+    }
+
 
 }

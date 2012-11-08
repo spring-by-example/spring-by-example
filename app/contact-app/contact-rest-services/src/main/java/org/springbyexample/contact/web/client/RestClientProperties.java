@@ -33,6 +33,12 @@ public class RestClientProperties {
     @Value("#{ systemProperties['ws.url'] != null ? systemProperties['ws.url'] : restProperties['ws.url'] }") 
     private String url;
 
+    @Value("#{ systemProperties['ws.username'] != null ? systemProperties['ws.username'] : restProperties['ws.username'] }")
+    private String username;
+    
+    @Value("#{ systemProperties['ws.password'] != null ? systemProperties['ws.password'] : restProperties['ws.password'] }")
+    private String password;   
+
     /**
      * Gets base URI for the REST APIs.
      */
@@ -47,4 +53,18 @@ public class RestClientProperties {
         return url;
     }
 
+    /**
+     * Gets username.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Gets password.
+     */
+    public String getPassword() {
+        return password;
+    }
+    
 }
