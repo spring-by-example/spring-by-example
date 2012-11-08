@@ -44,6 +44,8 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
                                                                    PersonResponse, PersonFindResponse>
         implements ContactService {
 
+    private static final String SAVE_MSG = "contact.save.msg";
+    
     private final StudentConverter studentConverter;
     private final ProfessionalConverter professionalConverter;
     
@@ -78,7 +80,7 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
     @Override
     protected PersonResponse createSaveResponse(Person result) {
         return new PersonResponse().withMessageList(new Message().withMessageType(MessageType.INFO)
-                    .withMessage(String.format("Successfully saved record.  id='%d'", result.getId())))
+                    .withMessage(getMessage(SAVE_MSG, new Object[] { result.getFirstName(), result.getLastName()})))
                     .withResults(result);
     }
 
