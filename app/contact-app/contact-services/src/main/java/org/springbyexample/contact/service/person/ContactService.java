@@ -15,6 +15,7 @@
  */
 package org.springbyexample.contact.service.person;
 
+import static org.springbyexample.contact.security.Role.*;
 import org.springbyexample.contact.service.PersistenceService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
@@ -31,27 +32,27 @@ import org.springframework.security.access.annotation.Secured;
 public interface ContactService extends PersistenceService<Person, PersonResponse, PersonFindResponse> {
 
     @Override
-    @Secured ({"ROLE_USER"})
+    @Secured ({ USER })
     public PersonResponse findById(Integer id);
 
     @Override
-    @Secured ({"ROLE_USER"})
+    @Secured ({ USER })
     public PersonFindResponse find();
     
     @Override
-    @Secured ({"ROLE_USER"})
+    @Secured ({ USER })
     public PersonFindResponse find(int page, int pageSize);
 
     @Override
-    @Secured ({"ROLE_USER"})
+    @Secured ({ USER })
     public PersonResponse create(Person person);
 
     @Override
-    @Secured ({"ROLE_USER"})
+    @Secured ({ USER })
     public PersonResponse update(Person person);
 
     @Override
-    @Secured ({"ROLE_ADMIN"})
+    @Secured ({ ADMIN })
     public ResponseResult delete(Integer id);
 
 }
