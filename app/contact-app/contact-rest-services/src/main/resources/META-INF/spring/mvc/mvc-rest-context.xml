@@ -8,8 +8,6 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--     <import resource="classpath:/META-INF/spring/web/web-rest-servlet-context.xml"/> -->
-
     <context:component-scan base-package="org.springbyexample.contact.web.service"/>
     
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />

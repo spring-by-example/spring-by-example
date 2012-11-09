@@ -59,4 +59,33 @@
         </dependency>               
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <id>rest-client-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>rest-client</classifier>
+                            <includes>
+                                <include>META-INF/spring/client/*</include>
+                                <include>META-INF/spring/mvc/rest-json-*-context.xml</include>
+                                <include>org/springbyexample/contact/web/client/**/*.class</include>
+                                <include>org/springbyexample/contact/web/service/**/*MarshallingService.class</include>
+                                <include>org/springbyexample/contact/web/servlet/mvc/json/*.class</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

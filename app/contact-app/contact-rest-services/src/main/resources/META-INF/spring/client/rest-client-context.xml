@@ -15,9 +15,11 @@
     
     <context:component-scan base-package="org.springbyexample.contact.web.client" />
     
-    <bean id="httpConnectionManager" class="org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager"/>
-    
-    <bean id="httpClient" class="org.apache.http.impl.client.DefaultHttpClient"/>
+    <bean id="httpClient" class="org.apache.http.impl.client.DefaultHttpClient">
+        <constructor-arg>
+            <bean class="org.apache.http.impl.conn.PoolingClientConnectionManager"/>
+        </constructor-arg>
+    </bean>
     
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"
           p:messageConverters-ref="messageConvertersList">
