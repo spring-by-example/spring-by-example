@@ -42,7 +42,6 @@ public interface PersistenceMarshallingService<R extends EntityResponseResult, F
      * Update record.
      */
     public R update(S request);
-    
 
     /**
      * Delete record.

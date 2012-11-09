@@ -8,6 +8,7 @@
                            http://www.springframework.org/schema/context 
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath*:/META-INF/spring/web/web-rest-servlet-context.xml"/>
+    <import resource="classpath*:/META-INF/spring/mvc/**/*-context.xml"/>
+    <import resource="classpath:/META-INF/spring/web/web-rest-servlet-context.xml"/>
     
 </beans>
