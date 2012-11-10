@@ -26,6 +26,7 @@
         <context:property-placeholder location="classpath:/sql/hsql.properties,classpath*:META-INF/config/**/*.properties" />
 
         <util:list id="databaseScriptsList" value-type="org.springframework.core.io.Resource">
+            <value>classpath:/sql/hsql/drop_database.sql</value>
             <value>classpath:/sql/hsql/schema.sql</value>
             <value>classpath:/sql/hsql/security_schema.sql</value>
         </util:list>

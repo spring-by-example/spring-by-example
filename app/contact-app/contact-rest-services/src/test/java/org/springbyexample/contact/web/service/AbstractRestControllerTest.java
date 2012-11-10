@@ -15,7 +15,22 @@
  */
 package org.springbyexample.contact.web.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.persistence.Cache;
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springbyexample.contact.test.AbstractProfileTest;
+import org.springbyexample.web.service.EmbeddedJetty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -25,5 +40,66 @@ import org.springframework.test.context.ContextConfiguration;
  */
 @ContextConfiguration({ "classpath:/org/springbyexample/contact/web/service/rest-controller-test-context.xml" })
 public abstract class AbstractRestControllerTest extends AbstractProfileTest {
+
+    final Logger logger = LoggerFactory.getLogger(AbstractRestControllerTest.class);
+    
+    @Autowired 
+    private EmbeddedJetty embeddedJetty;
+    
+    /**
+     * Reset the DB before each test.
+     */
+    protected void doInit() {
+        reset();
+    }
+
+    /**
+     * Reset the database and entity manager cache.
+     */
+    protected void reset() {
+        resetSchema();
+        resetCache();
+        
+        logger.info("DB schema and entity manager cache reset.");
+    }
+
+    /**
+     * Resets DB schema.
+     */
+    private void resetSchema() {
+        ApplicationContext ctx = embeddedJetty.getApplicationContext();
+        DataSource dataSource = ctx.getBean(DataSource.class);
+        @SuppressWarnings("unchecked")
+        List<Resource> databaseScripts = (List<Resource>) ctx.getBean("databaseScriptsList");
+        
+        Connection con = null;
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+
+        try {
+            con = dataSource.getConnection();
+
+            resourceDatabasePopulator.setScripts(databaseScripts.toArray(new Resource[0]));   
+
+            resourceDatabasePopulator.populate(con);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+
+    /**
+     * Reset cache.
+     */
+    private void resetCache() {
+        ApplicationContext ctx = embeddedJetty.getApplicationContext();
+        EntityManagerFactory entityManagerFactory = ctx.getBean(EntityManagerFactory.class);
+        
+        Cache cache = entityManagerFactory.getCache();
+        
+        if (cache != null) {
+            cache.evictAll();
+        }  
+    }
     
 }

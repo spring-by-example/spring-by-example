@@ -84,6 +84,13 @@ public class EmbeddedJetty {
         this.configLocations = configLocations;
     }
 
+    /**
+     * Gets application context.
+     */
+    public ApplicationContext getApplicationContext() {
+        return ctx;
+    }
+
     @PostConstruct
     public void init() throws Exception {
         ctx = new ClassPathXmlApplicationContext();
