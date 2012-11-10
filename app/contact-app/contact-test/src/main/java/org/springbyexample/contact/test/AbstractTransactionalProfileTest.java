@@ -15,6 +15,11 @@
  */
 package org.springbyexample.contact.test;
 
+import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER;
+import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER_PASSWORD;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,5 +33,13 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration
 @Transactional
 public abstract class AbstractTransactionalProfileTest extends AbstractProfileTest {
+
+    /**
+     * Set the default user on the security context.
+     */
+    protected void doInit() {
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(DEFAULT_SECURITY_USER, DEFAULT_SECURITY_USER_PASSWORD));
+    }
 
 }
