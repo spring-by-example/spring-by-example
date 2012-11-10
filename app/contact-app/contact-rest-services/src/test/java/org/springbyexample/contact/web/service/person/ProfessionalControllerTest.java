@@ -17,9 +17,9 @@ package org.springbyexample.contact.web.service.person;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.springbyexample.contact.web.service.person.PersonControllerTest.FIRST_NAME;
-import static org.springbyexample.contact.web.service.person.PersonControllerTest.ID;
-import static org.springbyexample.contact.web.service.person.PersonControllerTest.LAST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_ID;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
 import static org.springbyexample.contact.web.service.person.ProfessionalController.COMPANY_NAME;
 
 import org.springbyexample.contact.web.client.person.ProfessionalClient;
@@ -53,7 +53,7 @@ public class ProfessionalControllerTest extends AbstractPersistenceControllerTes
     @Override
     protected Professional createSaveRequest() {
         // update since primary key is specified
-        return new Professional().withId(ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
+        return new Professional().withId(FIRST_ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
                                  .withCompanyName(COMPANY_NAME);
     }
 

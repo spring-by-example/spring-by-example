@@ -17,6 +17,8 @@ package org.springbyexample.contact.web.service.person;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
 
 import org.springbyexample.contact.web.client.person.PersonClient;
 import org.springbyexample.contact.web.service.AbstractPersistenceControllerTest;
@@ -33,10 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author David Winterfeldt
  */
 public class PersonControllerTest extends AbstractPersistenceControllerTest<PersonResponse, PersonFindResponse, Person> {
-
-    final static Integer ID = 1;
-    final static String FIRST_NAME = "Joe";
-    final static String LAST_NAME = "Smith";
 
     @Autowired
     private PersonClient client = null;
