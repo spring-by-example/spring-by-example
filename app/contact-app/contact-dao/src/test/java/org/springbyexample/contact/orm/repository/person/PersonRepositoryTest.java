@@ -18,7 +18,17 @@ package org.springbyexample.contact.orm.repository.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.ADDR;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.CITY;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.COUNTRY;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.EXPECTED_ADDRESS_COUNT;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.EXPECTED_COUNT;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_ID;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.SECOND_ID;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.STATE;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.ZIP_POSTAL;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -32,7 +42,6 @@ import org.springbyexample.contact.orm.entity.AbstractAuditableEntity;
 import org.springbyexample.contact.orm.entity.person.Address;
 import org.springbyexample.contact.orm.entity.person.Person;
 import org.springbyexample.contact.orm.entity.person.Professional;
-import org.springbyexample.contact.orm.entity.person.Student;
 import org.springbyexample.contact.orm.repository.AbstractRepositoryTest;
 import org.springbyexample.contact.orm.repository.PersonRepository;
 import org.springbyexample.contact.orm.repository.ProfessionalRepository;
@@ -48,21 +57,6 @@ import org.springframework.data.domain.PageRequest;
 public class PersonRepositoryTest extends AbstractRepositoryTest {
 
     final Logger logger = LoggerFactory.getLogger(PersonRepositoryTest.class);
-
-    private final static Integer FIRST_ID = Integer.valueOf(1);
-    private final static Integer SECOND_ID = Integer.valueOf(2);
-
-    private final static int EXPECTED_COUNT = 3;
-    
-    private final static String FIRST_NAME = "Joe";
-    private final static String LAST_NAME = "Smith";
-    
-    private final static int EXPECTED_ADDRESS_COUNT = 1;
-    private final static String ADDR = "1060 West Addison St.";
-    private final static String CITY = "Chicago";
-    private final static String STATE = "IL";
-    private final static String ZIP_POSTAL = "60613";
-    private final static String COUNTRY = "USA";
 
     @Autowired
     private PersonRepository personRepository;

@@ -59,7 +59,8 @@ public abstract class AbstractPersistenceFindService<T extends AbstractPersistab
 
     @Override
     public R findById(Integer id) {
-        V result = converter.convertTo(repository.findOne(id));
+        T bean = repository.findOne(id);
+        V result = (bean != null ? converter.convertTo(bean) : null);
         
         return createResponse(result);
     }

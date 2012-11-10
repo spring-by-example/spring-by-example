@@ -53,6 +53,16 @@
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
         </dependency>
+        
+        <!-- 
+            Spring Security is trying to load javax.servlet.Filter,
+            no web related dependencies should be used on this layer 
+        -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

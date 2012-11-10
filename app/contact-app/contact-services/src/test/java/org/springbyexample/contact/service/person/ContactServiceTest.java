@@ -17,38 +17,33 @@ package org.springbyexample.contact.service.person;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.EXPECTED_COUNT;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_ID;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.SECOND_ID;
+
+import java.util.Collection;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springbyexample.contact.service.AbstractServiceTest;
+import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.person.Person;
+import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests Person repository.
+ * Tests contact service.
  * 
  * @author David Winterfeldt
  */
 public class ContactServiceTest extends AbstractServiceTest {
 
     final Logger logger = LoggerFactory.getLogger(ContactServiceTest.class);
-
-    private final static Integer FIRST_ID = Integer.valueOf(1);
-    private final static Integer SECOND_ID = Integer.valueOf(2);
-
-    private final static int EXPECTED_COUNT = 3;
-    
-    private final static String FIRST_NAME = "Joe";
-    private final static String LAST_NAME = "Smith";
-    
-    private final static int EXPECTED_ADDRESS_COUNT = 1;
-    private final static String ADDR = "1060 West Addison St.";
-    private final static String CITY = "Chicago";
-    private final static String STATE = "IL";
-    private final static String ZIP_POSTAL = "60613";
-    private final static String COUNTRY = "USA";
 
     @Autowired
     private ContactService service;
@@ -61,195 +56,100 @@ public class ContactServiceTest extends AbstractServiceTest {
         testPersonOne(person);
     }
     
-//    @Test
-//    public void testFindAll() {
-//        Collection<Person> persons = personRepository.findAll();
-//
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + EXPECTED_COUNT + ".", EXPECTED_COUNT, persons.size());
-//        
-//        for (Person person : persons) {
-//            logger.debug(person.toString());
-//            
-//            if (FIRST_ID.equals(person.getId())) {                
-//                testPersonOne(person);
-//            } else if (SECOND_ID.equals(person.getId())) {
-//                testPersonTwo(person);
-//            }
-//        }
-//    }
-//
-//    @Test
-//    public void testFindByFirstNameLike() {
-//        List<Person> persons = personRepository.findByFirstNameLike("J%");
-//        
-//        int expectedCount = 2;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//        
-//        Person person = persons.get(0);
-//        
-//        testPersonOne(person);
-//    }
-//
-//    @Test
-//    public void testFindByLastName() {
-//        List<Person> persons = personRepository.findByLastName(LAST_NAME);
-//
-//        int expectedCount = 1;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//
-//        Person person = persons.get(0);
-//        
-//        testPersonOne(person);
-//    }
-//
-//    @Test
-//    public void testFindByAddress() {
-//        List<Person> persons = personRepository.findByAddress(ADDR);
-//        
-//        int expectedCount = 1;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//        
-//        Person person = persons.get(0);
-//        
-//        testPersonOne(person);
-//    }
-//
-//    @Test
-//    public void testFindByAddressPage() {
-//        String firstName = "Jack";
-//        String lastName = "Johnson";
-//        String companyName = "Spring Pizza";
-//
-//        int page = 0;
-//        int size = 10;
-//
-//        for (int i = 0; i < 35; i++) {
-//            createProfessional(firstName, lastName, companyName, ADDR);
-//        }
-//        
-//        Page<Person> pageResult = personRepository.findByAddress(ADDR, new PageRequest(page, size));
-//        List<Person> persons = pageResult.getContent();
-//        
-//        int expectedCount = size;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//
-//        // query last page
-//        page = pageResult.getTotalPages() - 1;
-//        pageResult = personRepository.findByAddress(ADDR, new PageRequest(page, size));
-//        persons = pageResult.getContent();
-//        
-//        // created 35 records with the same address, one existing
-//        expectedCount = 6;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//        
-//    }
-//
-//    @Test
-//    public void testFindByName() {
-//        List<Person> persons = personRepository.findByName(FIRST_NAME, LAST_NAME);
-//        
-//        int expectedCount = 1;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//        
-//        Person person = persons.get(0);
-//        
-//        testPersonOne(person);
-//    }
-//
-//    @Test
-//    public void testSave() {
-//        String firstName = "Jack";
-//        String lastName = "Johnson";
-//        String companyName = "Spring Pizza";
-//        
-//        Person person = createProfessional(firstName, lastName, companyName, ADDR);
-//        
-//        // get PK of first address
-//        Integer addressId = person.getAddresses().iterator().next().getId();
-//
-//        // test saved person
-//        testPerson(person, 
-//                   firstName, lastName,  
-//                   EXPECTED_ADDRESS_COUNT, addressId, ADDR, CITY, STATE, ZIP_POSTAL,
-//                   true, companyName);
-//
-//        person = professionalRepository.findOne(person.getId());
-//
-//        // test retrieved person just saved
-//        testPerson(person, 
-//                   firstName, lastName,  
-//                   EXPECTED_ADDRESS_COUNT, addressId, ADDR, CITY, STATE, ZIP_POSTAL,
-//                   true, companyName);
-//
-//        Collection<Person> persons = personRepository.findAll();
-//
-//        int expectedCount = EXPECTED_COUNT + 1;
-//        
-//        assertNotNull("Person list is null.", persons);
-//        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
-//    }
-//
-//    @Test
-//    public void testUpdate() {
-//        Person person = personRepository.findOne(FIRST_ID);
-//        testPersonOne(person);
-//        
-//        String lastName = "Jones"; 
-//        person.setLastName(lastName);
-//        
-//        personRepository.saveAndFlush(person);
-//
-//        person = personRepository.findOne(FIRST_ID);
-//        testPersonOne(person, lastName);
-//    }
-//
-//    @Test
-//    public void testDelete() {
-//        personRepository.delete(FIRST_ID);
-//
-//        // person should be null after delete
-//        Person person = personRepository.findOne(FIRST_ID);
-//        assertNull("Person is not null.", person);
-//    }
-//
-//    /**
-//     * Create professional.
-//     */
-//    private Person createProfessional(String firstName, String lastName, String companyName,
-//                                            String addr) {
-//        Professional person = new Professional();
-//        Set<Address> addresses = new HashSet<Address>();
-//        Address address = new Address();
-//        addresses.add(address);
-//        
-//        address.setAddress(addr);
-//        address.setCity(CITY);
-//        address.setState(STATE);
-//        address.setZipPostal(ZIP_POSTAL);
-//        address.setCountry(COUNTRY);
-//        
-//        person.setFirstName(firstName);
-//        person.setLastName(lastName);
-//        person.setCompanyName(companyName);
-//        person.setAddresses(addresses);
-//        
-//        Person result = personRepository.saveAndFlush(person);
-//        
-//        return result;
-//    }
+    @Test
+    public void testFindAll() {
+        PersonFindResponse response = service.find();
+        assertNotNull("Person response is null.", response);
+        
+        Collection<Person> persons = response.getResults();
+
+        assertNotNull("Person list is null.", persons);
+        assertEquals("Number of persons should be " + EXPECTED_COUNT + ".", EXPECTED_COUNT, persons.size());
+        
+        for (Person person : persons) {
+            logger.debug(person.toString());
+            
+            if (FIRST_ID.equals(person.getId())) {                
+                testPersonOne(person);
+            } else if (SECOND_ID.equals(person.getId())) {
+                testPersonTwo(person);
+            }
+        }
+    }
+
+    @Test
+    public void testCreate() {
+        String firstName = "Jack";
+        String lastName = "Johnson";
+        
+        PersonResponse response = createPerson(firstName, lastName);
+        assertNotNull("Person response is null.", response);
+        
+        Person person = response.getResults();
+        
+        // test saved person
+        testPerson(person, 
+                   firstName, lastName);
+
+        PersonFindResponse findResponse = service.find();
+        assertNotNull("Person response is null.", findResponse);
+        
+        Collection<Person> persons = findResponse.getResults();
+
+        int expectedCount = EXPECTED_COUNT + 1;
+        
+        assertNotNull("Person list is null.", persons);
+        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, persons.size());
+    }
+
+    @Test
+    public void testUpdate() {
+        PersonResponse response = service.findById(FIRST_ID);
+        assertNotNull("Person response is null.", response);
+        
+        Person person = response.getResults();
+        
+        testPersonOne(person);
+        
+        String lastName = "Jones"; 
+        person.setLastName(lastName);
+
+        service.update(person);
+
+        response = service.findById(FIRST_ID);
+        assertNotNull("Person response is null.", response);
+        
+        person = response.getResults();
+        
+        testPersonOne(person, lastName);
+    }
+
+    @Test
+    public void testDelete() {
+        service.delete(FIRST_ID);
+
+        // person should be null after delete
+        PersonResponse response = service.findById(FIRST_ID);
+        assertNotNull("Person response is null.", response);
+        
+        Person person = response.getResults();
+
+        assertNull("Person is not null.", person);
+    }
+
+    /**
+     * Create person.
+     */
+    private PersonResponse createPerson(String firstName, String lastName) {
+        Person person = new Person();
+
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+        
+        PersonResponse response = service.create(person);
+        
+        return response;
+    }
     
     /**
      * Tests person with a PK of one.
@@ -262,89 +162,42 @@ public class ContactServiceTest extends AbstractServiceTest {
      * Tests person with a PK of one.
      */
     private void testPersonOne(Person person, String lastName) {
-        String schoolName = "NYU";
-        
-        Integer addressId = new Integer(1);
-        
         testPerson(person, 
-                   FIRST_NAME, lastName,  
-                   EXPECTED_ADDRESS_COUNT, addressId, ADDR, CITY, STATE, ZIP_POSTAL,
-                   false, schoolName);
+                   FIRST_NAME, lastName);
     }
 
-//    /**
-//     * Tests person with a PK of two.
-//     */
-//    private void testPersonTwo(Person person) {
-//        String firstName = "John";
-//        String lastName = "Wilson";
-//        String companyName = "Spring Pizza";
-//        
-//        int expectedAddresses = 2;
-//                
-//        Integer addressId = new Integer(3);
-//        String addr = "47 Howard St.";
-//        String city = "San Francisco";
-//        String state = "CA";
-//        String zipPostal = "94103";
-//
-//        testPerson(person, 
-//                   firstName, lastName,  
-//                   expectedAddresses, addressId, addr, city, state, zipPostal,
-//                   true, companyName);
-//    }
+    /**
+     * Tests person with a PK of two.
+     */
+    private void testPersonTwo(Person person) {
+        String firstName = "John";
+        String lastName = "Wilson";
+
+        testPerson(person, 
+                   firstName, lastName);
+    }
 
     /**
      * Tests person.
      */
     private void testPerson(Person person, 
-                            String firstName, String lastName, 
-                            int expectedAddresses, Integer addressId,
-                            String addr, String city, String state, String zipPostal,
-                            boolean professional, String professionName) {
+                            String firstName, String lastName) {
         assertNotNull("Person is null.", person);
         
         assertEquals("firstName", firstName, person.getFirstName());
         assertEquals("lastName", lastName, person.getLastName());
-        
-////        assertNotNull("Person's address list is null.", person.getAddresses());
-////        assertEquals("addresses", expectedAddresses, person.getAddresses().size());
-//        
-//        if (professional) {
-//            assertTrue("Person should be an instance of professional.", (person instanceof Professional));
-//            assertEquals("companyName", professionName, ((Professional)person).getCompanyName());
-//        } else {
-//            assertTrue("Person should be an instance of student.", (person instanceof Student));
-//            assertEquals("schoolName", professionName, ((Student)person).getSchoolName());            
-//        }
-//        
-//        for (Address address : person.getAddresses()) {
-//            assertNotNull("Address is null.", address);
-//            
-//            if (addressId.equals(address.getId())) {
-//                assertEquals("address.id", addressId, address.getId());
-//                assertEquals("address.addr", addr, address.getAddress());
-//                
-//                assertEquals("address.city", city, address.getCity());
-//                assertEquals("address.state", state, address.getState());
-//                assertEquals("address.zipPostal" + zipPostal + "'.", zipPostal, address.getZipPostal());
-//                assertEquals("address.country", COUNTRY, address.getCountry());
-//                
-//                testAuditable(address);
-//            }
-//        }
-//        
-//        testAuditable(person);
+                
+        testAuditable(person);
     }
 
-//    /**
-//     * Tests auditable entity.
-//     */
-//    private void testAuditable(AbstractAuditableEntity auditRecord) {
-//        assertNotNull("lastUpdated", auditRecord.getLastModifiedDate());
-//        assertNotNull("lastUpdatedBy", auditRecord.getLastModifiedBy());
-//        assertNotNull("created", auditRecord.getCreatedDate());
-//        assertNotNull("createdBy", auditRecord.getCreatedBy());
-//    }
+    /**
+     * Tests auditable entity.
+     */
+    private void testAuditable(PkEntityBase auditRecord) {
+        assertNotNull("lastUpdated", auditRecord.getLastUpdated());
+        assertNotNull("lastUpdatedBy", auditRecord.getLastUpdateUser());
+        assertNotNull("created", auditRecord.getCreated());
+        assertNotNull("createdBy", auditRecord.getCreateUser());
+    }
  
 }
