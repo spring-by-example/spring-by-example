@@ -21,7 +21,6 @@ import org.springbyexample.contact.web.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springframework.http.HttpMethod;
 
 
@@ -87,8 +86,8 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
     }
 
     @Override
-    public ResponseResult delete(long id) {
-        ResponseResult response = null;
+    public R delete(long id) {
+        R response = null;
         
         String url = client.createUrl(deletePkRequest);
         
@@ -96,14 +95,14 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
         
         Map<String, Long> vars = createPkVars(id);
         
-        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, ResponseResult.class, vars).getBody();
+        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, responseClazz, vars).getBody();
 
         return response;
     }
 
     @Override
-    public ResponseResult delete(S request) {
-        ResponseResult response = null;
+    public R delete(S request) {
+        R response = null;
         
         String url = client.createUrl(deleteRequest);
         
@@ -111,7 +110,7 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
         
         logger.debug("REST client delete.  id={}  url='{}'", id, url);
         
-        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, ResponseResult.class).getBody();
+        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, responseClazz).getBody();
         
         return response;
     }

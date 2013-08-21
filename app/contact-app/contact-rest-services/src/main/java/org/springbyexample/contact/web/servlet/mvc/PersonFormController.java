@@ -95,7 +95,7 @@ public class PersonFormController extends AbstractController<Person, PersonRespo
     public String delete(@RequestParam("id") Integer id) {
         logger.info("'{}'  id={}", DELETE_PATH_KEY, id);
         
-        service.delete(id);
+        service.delete(new Person().withId(id));
 
         return SEARCH_VIEW_KEY;
     }

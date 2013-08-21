@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Person service implementation.
+ * Professional converter.
  * 
  * @author David Winterfeldt
  */

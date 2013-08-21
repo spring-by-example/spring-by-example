@@ -47,7 +47,7 @@ public class EmbeddedJetty {
 
     private final static String[] DEFAULT_ACTIVE_PROFILES = { "hsql" };
     private final static String[] DEFAULT_CONFIG_LOCATIONS = new String[] { "/embedded-jetty-context.xml" };
-    private final static String SECURITY_FILTER_NAME = "springSecurityFilterChain";;
+    private final static String SECURITY_FILTER_NAME = "springSecurityFilterChain";
 
     private final String[] activeProfiles;
     private final String[] configLocations;

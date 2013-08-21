@@ -78,10 +78,23 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
     }
 
     @Override
+    public PersonFindResponse findByLastName(String lastName) {
+        List<Person> results = converter.convertListTo(((PersonRepository)repository).findByLastName(lastName));
+        
+        return createFindResponse(results);
+    }
+    
+    @Override
     protected PersonResponse createSaveResponse(Person result) {
         return new PersonResponse().withMessageList(new Message().withMessageType(MessageType.INFO)
                     .withMessage(getMessage(SAVE_MSG, new Object[] { result.getFirstName(), result.getLastName()})))
                     .withResults(result);
+    }
+
+    @Override
+    protected PersonResponse createDeleteResponse() {
+        return new PersonResponse().withMessageList(new Message().withMessageType(MessageType.INFO)
+                .withMessageKey(DELETE_MSG).withMessage(getMessage(DELETE_MSG)));
     }
 
     @Override

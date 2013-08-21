@@ -16,9 +16,8 @@
     <description>
 		AspectJ Load-time Weaving Example
     </description>
-
+    
     <dependencies>
-        <!-- spring-instrument in example 3.2.0.M1 is missing the premain manifest  -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-instrument</artifactId>

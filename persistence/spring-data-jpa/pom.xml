@@ -16,7 +16,7 @@
     <description>
         Spring Data JPA examples.
     </description>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>

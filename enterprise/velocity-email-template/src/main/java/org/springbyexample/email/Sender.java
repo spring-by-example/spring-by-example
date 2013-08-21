@@ -34,6 +34,6 @@ public interface Sender {
      * @param   msg                 The e-mail message to be sent, except for the body.
      * @param   hTemplateVariables  Variables to use when processing the template. 
      */
-    public void send(SimpleMailMessage msg, Map<Object, Object> hTemplateVariables);
+    public void send(SimpleMailMessage msg, Map<String, Object> hTemplateVariables);
     
 }

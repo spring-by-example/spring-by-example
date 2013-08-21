@@ -18,7 +18,6 @@ package org.springbyexample.contact.web.service;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
-import org.springbyexample.schema.beans.response.ResponseResult;
 
 
 /**
@@ -46,11 +45,11 @@ public interface PersistenceMarshallingService<R extends EntityResponseResult, F
     /**
      * Delete record.
      */
-    public ResponseResult delete(long id);
+    public R delete(long id);
 
     /**
      * Delete record.
      */
-    public ResponseResult delete(S request);
+    public R delete(S request);
     
 }

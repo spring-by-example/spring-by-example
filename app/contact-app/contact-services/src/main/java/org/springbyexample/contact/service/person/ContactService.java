@@ -15,12 +15,13 @@
  */
 package org.springbyexample.contact.service.person;
 
-import static org.springbyexample.contact.security.Role.*;
+import static org.springbyexample.contact.security.Role.ADMIN;
+import static org.springbyexample.contact.security.Role.USER;
+
 import org.springbyexample.contact.service.PersistenceService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springframework.security.access.annotation.Secured;
 
 
@@ -34,6 +35,12 @@ public interface ContactService extends PersistenceService<Person, PersonRespons
     @Override
     @Secured ({ USER })
     public PersonResponse findById(Integer id);
+    
+    /**
+     * Find by last name.
+     */
+    @Secured ({ USER })
+    public PersonFindResponse findByLastName(String lastName);
 
     @Override
     @Secured ({ USER })
@@ -53,6 +60,6 @@ public interface ContactService extends PersistenceService<Person, PersonRespons
 
     @Override
     @Secured ({ ADMIN })
-    public ResponseResult delete(Integer id);
+    public PersonResponse delete(Person person);
 
 }

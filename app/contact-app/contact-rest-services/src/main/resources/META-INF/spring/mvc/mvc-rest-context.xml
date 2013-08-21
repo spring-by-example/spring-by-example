@@ -11,5 +11,5 @@
     <context:component-scan base-package="org.springbyexample.contact.web.service"/>
     
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
-
+    
 </beans>

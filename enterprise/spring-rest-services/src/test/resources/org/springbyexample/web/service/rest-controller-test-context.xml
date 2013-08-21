@@ -13,8 +13,6 @@
 
     <import resource="classpath*:/META-INF/spring/client/**/*-context.xml"/>
 
-<!--     <context:property-placeholder location="org/springbyexample/web/service/ws.properties"/> -->
-    
     <util:properties id="restProperties"
                      location="org/springbyexample/web/service/ws.properties" />
                      

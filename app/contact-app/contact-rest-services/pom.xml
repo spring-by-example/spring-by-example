@@ -56,7 +56,12 @@
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-java5-threadpool</artifactId>
-        </dependency>               
+        </dependency>    
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

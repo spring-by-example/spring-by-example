@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Person service implementation.
+ * Student converter.
  * 
  * @author David Winterfeldt
  */

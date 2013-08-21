@@ -18,7 +18,6 @@ package org.springbyexample.contact.service;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
-import org.springbyexample.schema.beans.response.ResponseResult;
 
 
 /**
@@ -47,6 +46,6 @@ public interface PersistenceService<V extends PkEntityBase,
     /**
      * Deletes person.
      */
-    public ResponseResult delete(Integer id);
+    public R delete(V request);
 
 }
