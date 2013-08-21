@@ -95,12 +95,6 @@
            <artifactId>jsp-api</artifactId>
         </dependency>
 
-        <!-- For Spring AOP -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-        </dependency>
-
 		<!-- Bytecode Weaving replacement for Reflection -->
         <dependency>
             <groupId>javassist</groupId>

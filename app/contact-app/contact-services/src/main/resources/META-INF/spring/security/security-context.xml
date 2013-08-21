@@ -10,7 +10,7 @@
     <security:global-method-security secured-annotations="enabled" />
 
     <security:authentication-manager>
-        <security:authentication-provider >
+        <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource" />
         </security:authentication-provider>
     </security:authentication-manager>

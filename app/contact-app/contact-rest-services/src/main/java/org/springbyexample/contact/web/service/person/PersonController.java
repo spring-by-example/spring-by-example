@@ -95,15 +95,15 @@ public class PersonController extends AbstractController<Person, PersonResponse,
 
     @Override
     @RequestMapping(value = DELETE_PK_REQUEST, method = RequestMethod.DELETE)
-    public ResponseResult delete(@PathVariable(ID_VAR) long id) {
+    public PersonResponse delete(@PathVariable(ID_VAR) long id) {
         logger.info("Delete person.  id={}", id);
 
-        return service.delete((int)id);
+        return service.delete(new Person().withId((int) id));
     }
 
     @Override
     @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
-    public ResponseResult delete(@RequestBody Person request) {
+    public PersonResponse delete(@RequestBody Person request) {
         Assert.isTrue((request.getId() > 0), "Delete should have a valid primary key");
         
         int id = request.getId();

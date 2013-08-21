@@ -18,13 +18,14 @@ package org.springbyexample.contact.service.person;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.springbyexample.contact.test.constants.person.PersonTestConstants.EXPECTED_COUNT;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.*;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_ID;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.SECOND_ID;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -49,15 +50,30 @@ public class ContactServiceTest extends AbstractServiceTest {
     private ContactService service;
         
     @Test
-    public void testFindOne() {
+    public void testFindById() {
         PersonResponse response = service.findById(FIRST_ID);
         Person person = response.getResults();
 
         testPersonOne(person);
     }
+
+    @Test
+    public void testFindByLastName() {
+        PersonFindResponse response = service.findByLastName(LAST_NAME);
+        List<Person> results = response.getResults();
+        
+        int expectedCount = 1;
+
+        assertNotNull("Person list is null.", results);
+        assertEquals("Number of persons should be " + expectedCount + ".", expectedCount, results.size());
+        
+        Person person = response.getResults().get(0);
+        
+        testPersonOne(person);
+    }
     
     @Test
-    public void testFindAll() {
+    public void testFind() {
         PersonFindResponse response = service.find();
         assertNotNull("Person response is null.", response);
         
@@ -126,7 +142,7 @@ public class ContactServiceTest extends AbstractServiceTest {
 
     @Test
     public void testDelete() {
-        service.delete(FIRST_ID);
+        service.delete(new Person().withId(FIRST_ID));
 
         // person should be null after delete
         PersonResponse response = service.findById(FIRST_ID);

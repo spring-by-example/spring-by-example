@@ -21,29 +21,30 @@
         
         <java.version>1.6</java.version>
 
-        <spring.framework.version>3.1.2.RELEASE</spring.framework.version>
-        <spring.amqp.version>1.0.0.RELEASE</spring.amqp.version>
-        <spring.data.jpa.version>1.1.0.RELEASE</spring.data.jpa.version>
+        <spring.framework.version>3.2.4.RELEASE</spring.framework.version>
+        <spring.amqp.version>1.2.0.RELEASE</spring.amqp.version>
+        <spring.data.jpa.version>1.3.4.RELEASE</spring.data.jpa.version>
+        <spring.data.rest.version>1.0.0.RELEASE</spring.data.rest.version>
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
-        <spring.integration.version>2.1.2.RELEASE</spring.integration.version>
-        <spring.security.version>3.1.0.RELEASE</spring.security.version>
+        <spring.integration.version>2.2.4.RELEASE</spring.integration.version>
+        <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
-        <spring.ws.version>2.1.0.RELEASE</spring.ws.version>
+        <spring.ws.version>2.1.2.RELEASE</spring.ws.version>
 
-        <aspectj.version>1.6.12</aspectj.version>
-        <hibernate.version>4.1.6.Final</hibernate.version>
-        <jackson.mapper.version>1.9.9</jackson.mapper.version>
+        <aspectj.version>1.7.2</aspectj.version>
+        <hibernate.version>4.2.3.Final</hibernate.version>
+        <jackson.mapper.version>1.9.13</jackson.mapper.version>
         <jackrabbit.version>1.3.3</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
         <jstl.version>1.1.2</jstl.version>        
-        <logback.version>1.0.6</logback.version>
+        <logback.version>1.0.13</logback.version>
         <postgresql.jdbc.version>9.0-801.jdbc4</postgresql.jdbc.version>
-        <slf4j.version>1.6.6</slf4j.version>
+        <slf4j.version>1.7.5</slf4j.version>
         <spring.modules.version>0.8a</spring.modules.version>
 		<tiles.version>2.1.3</tiles.version>
 
-        <junit.version>4.8.2</junit.version>
+        <junit.version>4.11</junit.version>
         
         <contact.app.version>1.0</contact.app.version>
 
@@ -80,6 +81,11 @@
 	</developers>
 
     <dependencies>
+        <!-- 
+            NOTE: As of Spring 3.2 spring-core repackages both asm 4.0 and cglib 
+            3.0 and inlines both into the spring-core jar. cglib 3.0 itself depends on 
+            asm 4.0. 
+        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -242,6 +248,12 @@
                 <groupId>org.springframework.flex</groupId>
                 <artifactId>spring-flex-core</artifactId>
                 <version>${spring.flex.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib-nodep</artifactId>
+                    </exclusion>
+                </exclusions>                
             </dependency>
 
             <dependency>
@@ -296,6 +308,21 @@
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring.data.jpa.version}</version>
             </dependency> 
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-rest-core</artifactId>
+                <version>${spring.data.rest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-rest-repository</artifactId>
+                <version>${spring.data.rest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-rest-webmvc</artifactId>
+                <version>${spring.data.rest.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.ws</groupId>
@@ -315,18 +342,8 @@
             </dependency>
 
             <dependency>
-                <groupId>asm</groupId>
-                <artifactId>asm-all</artifactId>
-                <version>3.3.1</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib-nodep</artifactId>
-                <version>2.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beantuils</groupId>
-                <artifactId>commons-beantuils</artifactId>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
                 <version>1.8.3</version>
             </dependency>
             <dependency>
@@ -347,7 +364,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>1.4</version>
+                <version>2.4</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -913,6 +930,11 @@ limitations under the License.
             <id>repository.springframework.milestone</id>
             <name>Spring Framework Maven Milestone Repository</name>
             <url>http://maven.springframework.org/milestone</url>
+        </repository>
+        <repository>
+            <id>repository.springframework.snapshot</id>
+            <name>Spring Framework Maven Snapshot Repository</name>
+            <url>http://maven.springframework.org/snapshot</url>
         </repository>
     </repositories>
 

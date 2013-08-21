@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springbyexample.person.schema.beans.GetPersonsRequest;
 import org.springbyexample.person.schema.beans.Person;
 import org.springbyexample.person.schema.beans.PersonResponse;
-import org.springbyexample.ws.client.PersonServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;

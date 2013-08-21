@@ -18,7 +18,8 @@ package org.springbyexample.email;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,7 +52,7 @@ public class VelocityEmailSenderIT {
         assertNotNull("VelocityEmailSender is null.", sender);
         assertNotNull("SimpleMailMessage is null.", msg);
 
-        Properties props = new Properties();
+        Map<String, Object> props = new HashMap<String, Object>();
         props.put("firstName", "Joe");
         props.put("lastName", "Smith");
         

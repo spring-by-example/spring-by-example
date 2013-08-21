@@ -69,8 +69,8 @@ public abstract class AbstractPersistenceService<T extends AbstractPersistable<I
 
     @Override
     @Transactional
-    public ResponseResult delete(Integer id) {
-        return doDelete(id);
+    public R delete(V request) {
+        return doDelete(request);
     }
 
     /**
@@ -92,8 +92,8 @@ public abstract class AbstractPersistenceService<T extends AbstractPersistable<I
     /**
      * Processes delete. Can be overridden for custom save logic.
      */
-    protected ResponseResult doDelete(long id) {
-        repository.delete((int) id);
+    protected R doDelete(V request) {
+        repository.delete(request.getId());
         repository.flush();
 
         return createDeleteResponse();
@@ -104,9 +104,9 @@ public abstract class AbstractPersistenceService<T extends AbstractPersistable<I
      */
     protected abstract R createSaveResponse(V result);
 
-    protected ResponseResult createDeleteResponse() {
-        return new ResponseResult().withMessageList(new Message().withMessageType(MessageType.INFO)
-                .withMessageKey(DELETE_MSG).withMessage(getMessage(DELETE_MSG)));
-    }
+    /**
+     * Create a delete response.
+     */
+    protected abstract R createDeleteResponse();
 
 }

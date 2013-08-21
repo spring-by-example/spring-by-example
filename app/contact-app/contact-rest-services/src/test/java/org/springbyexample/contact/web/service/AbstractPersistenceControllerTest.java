@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
-import org.springbyexample.schema.beans.response.ResponseResult;
 
 /**
  * Tests persistence client against an embedded REST service 
@@ -78,7 +77,7 @@ public abstract class AbstractPersistenceControllerTest<R extends EntityResponse
 
     @Test
     public void testDeletePk() {
-        ResponseResult response = getClient().delete(id);
+        R response = getClient().delete(id);
         
         assertNotNull("Response is null.", response);
 

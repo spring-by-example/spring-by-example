@@ -62,7 +62,7 @@ public class VelocityEmailSender implements Sender {
      * @param   hTemplateVariables  Variables to use when processing the template. 
      */
     public void send(final SimpleMailMessage msg, 
-                     final Map<Object, Object> hTemplateVariables) {
+                     final Map<String, Object> hTemplateVariables) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);

@@ -36,5 +36,5 @@ public interface PersonMarshallingService extends PersistenceMarshallingService<
     public final static String UPDATE_REQUEST = FIND_BY_ID_REQUEST;
     public final static String DELETE_PK_REQUEST = FIND_BY_ID_REQUEST;
     public final static String DELETE_REQUEST = PATH;
-
+    
 }

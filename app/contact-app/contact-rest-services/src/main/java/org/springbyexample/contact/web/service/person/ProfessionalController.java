@@ -22,7 +22,6 @@ import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springbyexample.schema.beans.response.Message;
 import org.springbyexample.schema.beans.response.MessageType;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -114,24 +113,24 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     @Override
     @RequestMapping(value = DELETE_PK_REQUEST, method = RequestMethod.DELETE)
-    public ResponseResult delete(@PathVariable(ID_VAR) long id) {
+    public ProfessionalResponse delete(@PathVariable(ID_VAR) long id) {
         logger.info("Delete Professional.  id={}", id);
 
-        return new ResponseResult().withMessageList(
+        return new ProfessionalResponse().withMessageList(
                     new Message().withMessageType(MessageType.INFO)
                                  .withMessage(String.format("Successfully deleted record.  id='%d'", id)));
     }
 
     @Override
     @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
-    public ResponseResult delete(@RequestBody Professional request) {
+    public ProfessionalResponse delete(@RequestBody Professional request) {
         Assert.isTrue((request.getId() > 0), "Delete should have a valid primary key");
         
         int id = request.getId();
         
         logger.info("Delete professional.  id={}", id);
         
-        return new ResponseResult().withMessageList(
+        return new ProfessionalResponse().withMessageList(
                 new Message().withMessageType(MessageType.INFO)
                              .withMessage(String.format("Successfully deleted record.  id='%d'", id)));
     }

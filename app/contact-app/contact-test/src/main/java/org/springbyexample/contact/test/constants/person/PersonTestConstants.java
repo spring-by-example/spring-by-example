@@ -30,6 +30,7 @@ public class PersonTestConstants {
     
     public final static String FIRST_NAME = "Joe";
     public final static String LAST_NAME = "Smith";
+    public final static String NEW_LAST_NAME = "Jones";
     
     public final static int EXPECTED_ADDRESS_COUNT = 1;
     public final static String ADDR = "1060 West Addison St.";
