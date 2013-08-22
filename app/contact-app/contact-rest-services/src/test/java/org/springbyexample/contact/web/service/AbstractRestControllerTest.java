@@ -35,20 +35,21 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Base class for REST controller tests.
- * 
+ *
  * @author David Winterfeldt
  */
-@ContextConfiguration({ "classpath:/org/springbyexample/contact/web/service/rest-controller-test-context.xml" })
+@ContextConfiguration({ "classpath:/org/springbyexample/web/mvc/rest-controller-test-context.xml" })
 public abstract class AbstractRestControllerTest extends AbstractProfileTest {
 
     final Logger logger = LoggerFactory.getLogger(AbstractRestControllerTest.class);
-    
-    @Autowired 
+
+    @Autowired
     private EmbeddedJetty embeddedJetty;
-    
+
     /**
      * Reset the DB before each test.
      */
+    @Override
     protected void doInit() {
         reset();
     }
@@ -59,7 +60,7 @@ public abstract class AbstractRestControllerTest extends AbstractProfileTest {
     protected void reset() {
         resetSchema();
         resetCache();
-        
+
         logger.info("DB schema and entity manager cache reset.");
     }
 
@@ -71,14 +72,14 @@ public abstract class AbstractRestControllerTest extends AbstractProfileTest {
         DataSource dataSource = ctx.getBean(DataSource.class);
         @SuppressWarnings("unchecked")
         List<Resource> databaseScripts = (List<Resource>) ctx.getBean("databaseScriptsList");
-        
+
         Connection con = null;
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 
         try {
             con = dataSource.getConnection();
 
-            resourceDatabasePopulator.setScripts(databaseScripts.toArray(new Resource[0]));   
+            resourceDatabasePopulator.setScripts(databaseScripts.toArray(new Resource[0]));
 
             resourceDatabasePopulator.populate(con);
         } catch (SQLException e) {
@@ -94,12 +95,12 @@ public abstract class AbstractRestControllerTest extends AbstractProfileTest {
     private void resetCache() {
         ApplicationContext ctx = embeddedJetty.getApplicationContext();
         EntityManagerFactory entityManagerFactory = ctx.getBean(EntityManagerFactory.class);
-        
+
         Cache cache = entityManagerFactory.getCache();
-        
+
         if (cache != null) {
             cache.evictAll();
-        }  
+        }
     }
-    
+
 }

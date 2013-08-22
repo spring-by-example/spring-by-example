@@ -1,0 +1,6 @@
+--
+-- REWRITE_SYSTEM "http://springbyexample.org/schema/entity-base.xsd" "classpath:entity-base.xsd"
+-- REWRITE_SYSTEM "http://springbyexample.org/schema/response-base.xsd" "classpath:response-base.xsd"
+--
+SYSTEM "http://springbyexample.org/schema/entity-base.xsd" "entity-base.xsd"
+SYSTEM "http://springbyexample.org/schema/response-base.xsd" "response-base.xsd"

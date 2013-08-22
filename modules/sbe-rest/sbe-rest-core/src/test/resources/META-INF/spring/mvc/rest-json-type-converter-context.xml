@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <bean id="jacksonObjectMapperWithType" parent="abstractJacksonObjectMapper">
+        <property name="targetObject">
+            <bean class="org.springbyexample.mvc.json.RestObjectMapper">
+                <property name="defaultTyping">
+                    <bean class="org.springbyexample.mvc.json.ClassTypeResolverBuilder" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="mappingJacksonHttpMessageConverterWithType" 
+          parent="abstractMappingJacksonHttpMessageConverter"
+          p:objectMapper-ref="jacksonObjectMapperWithType"
+          p:supportedMediaTypes="application/json-type" />          
+          
+    <bean id="mappingJacksonJsonViewWithType" 
+          parent="abstractMappingJacksonJsonView"
+          p:objectMapper-ref="jacksonObjectMapperWithType"
+          p:contentType="application/json-type" />
+    
+</beans>

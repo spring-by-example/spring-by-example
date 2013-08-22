@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               jaxb:extensionBindingPrefixes="xjc"
+               version="2.0"> 
+
+    <jaxb:bindings> 
+        <jaxb:globalBindings> 
+            <jaxb:serializable/> 
+            
+            <xjc:javaType adapter="org.springbyexample.jaxb.beans.adapter.DateXmlAdapter" name="org.joda.time.DateTime" xmlType="xsd:date" />
+            <xjc:javaType adapter="org.springbyexample.jaxb.beans.adapter.DateTimeXmlAdapter" name="org.joda.time.DateTime" xmlType="xsd:dateTime" />
+        </jaxb:globalBindings> 
+    </jaxb:bindings>
+     
+</jaxb:bindings>

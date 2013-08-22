@@ -11,6 +11,7 @@
     <bean id="org.dozer.Mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles">
             <list>
+                <value>classpath:/dozer/dozer-joda-mappings.xml</value>
                 <value>classpath:/dozer/dozer-mappings.xml</value>
             </list>
         </property>

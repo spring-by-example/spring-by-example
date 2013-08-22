@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,16 @@ package org.springbyexample.contact.service.person;
 import static org.springbyexample.contact.security.Role.ADMIN;
 import static org.springbyexample.contact.security.Role.USER;
 
-import org.springbyexample.contact.service.PersistenceService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
+import org.springbyexample.service.PersistenceService;
 import org.springframework.security.access.annotation.Secured;
 
 
 /**
  * Contact service interface.
- * 
+ *
  * @author David Winterfeldt
  */
 public interface ContactService extends PersistenceService<Person, PersonResponse, PersonFindResponse> {
@@ -35,7 +35,7 @@ public interface ContactService extends PersistenceService<Person, PersonRespons
     @Override
     @Secured ({ USER })
     public PersonResponse findById(Integer id);
-    
+
     /**
      * Find by last name.
      */
@@ -45,7 +45,7 @@ public interface ContactService extends PersistenceService<Person, PersonRespons
     @Override
     @Secured ({ USER })
     public PersonFindResponse find();
-    
+
     @Override
     @Secured ({ USER })
     public PersonFindResponse find(int page, int pageSize);

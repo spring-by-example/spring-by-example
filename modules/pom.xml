@@ -19,6 +19,7 @@
         <module>sbe-dynamic-tiles2</module>
         <module>sbe-jcr</module>
         <module>sbe-util</module>
+        <module>sbe-rest</module>
         <module>sbe-web</module>
         <module>sbe-validation</module>
     </modules>

@@ -1,0 +1,28 @@
+<xsd:schema xmlns="http://www.springbyexample.org/schema/beans/entity" 
+            targetNamespace="http://www.springbyexample.org/schema/beans/entity"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+            xmlns:annox="http://annox.dev.java.net" 
+            jaxb:extensionBindingPrefixes="annox">
+
+    <xsd:complexType name="pk-entity-base">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <annox:annotate>
+                    <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="pk-entity-base"/>
+                </annox:annotate>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:int" />
+            
+            <xsd:element name="lock-version" type="xsd:int" />
+            
+            <xsd:element name="last-updated" type="xsd:dateTime" />
+            <xsd:element name="last-update-user" type="xsd:string" />
+            <xsd:element name="created" type="xsd:dateTime" />
+            <xsd:element name="create-user" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
