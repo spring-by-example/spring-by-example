@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="classpath:/META-INF/spring/marshaller/jaxb2-marshaller-context.xml"/>
+    
+    <context:component-scan base-package="org.springbyexample.mvc.rest.client" />
+    
+    <bean class="org.springbyexample.mvc.rest.client.factory.RestClientBeanPostProcessor">
+        <property name="basePackages">
+            <list>
+                <value>org.springbyexample.contact.web.service</value>
+            </list>
+        </property>    
+        <property name="scanner">
+            <bean class="org.springbyexample.mvc.method.annotation.RestServiceComponentProvider" />
+        </property>
+    </bean>
+    
+    <bean id="httpClient" class="org.apache.http.impl.client.DefaultHttpClient">
+        <constructor-arg>
+            <bean class="org.apache.http.impl.conn.PoolingClientConnectionManager"/>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"
+          p:messageConverters-ref="messageConvertersList">
+        <constructor-arg>
+            <bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+                <constructor-arg ref="httpClient"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <util:list id="messageConvertersList">
+        <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
+              p:supportedMediaTypes="application/xml">
+            <property name="marshaller" ref="marshaller" />
+            <property name="unmarshaller" ref="marshaller" />
+        </bean>
+    </util:list>
+        
+    <beans profile="rest-json">
+        <import resource="classpath:/META-INF/spring/mvc/rest-json-converter-context.xml"/>
+    
+        <!-- since id is the same as XML list above, essentially overriding the other list -->
+        <util:list id="messageConvertersList">
+            <ref bean="mappingJacksonHttpMessageConverter"/>
+        </util:list>
+    </beans>
+
+</beans>

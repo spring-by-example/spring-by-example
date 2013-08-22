@@ -20,8 +20,10 @@
         <sbe-site-version>1.2</sbe-site-version>
         
         <java.version>1.6</java.version>
+        
+        <sbe.rest.version>0.5</sbe.rest.version>
 
-        <spring.framework.version>3.2.4.RELEASE</spring.framework.version>
+        <spring.framework.version>3.2.3.RELEASE</spring.framework.version>
         <spring.amqp.version>1.2.0.RELEASE</spring.amqp.version>
         <spring.data.jpa.version>1.3.4.RELEASE</spring.data.jpa.version>
         <spring.data.rest.version>1.0.0.RELEASE</spring.data.rest.version>
@@ -81,11 +83,6 @@
 	</developers>
 
     <dependencies>
-        <!-- 
-            NOTE: As of Spring 3.2 spring-core repackages both asm 4.0 and cglib 
-            3.0 and inlines both into the spring-core jar. cglib 3.0 itself depends on 
-            asm 4.0. 
-        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -155,7 +152,46 @@
     
     <dependencyManagement>
         <dependencies>        
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-ws-beans</artifactId>
+                <version>${sbe.rest.version}</version>        
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-services</artifactId>
+                <version>${sbe.rest.version}</version>        
+            </dependency>
+
+            <!-- contact app -->
+            <dependency>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-dao</artifactId>
+                <version>${contact.app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-ws-beans</artifactId>
+                <version>${contact.app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-services</artifactId>
+                <version>${contact.app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-test</artifactId>
+                <version>${contact.app.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <!-- Spring Dependencies -->
+            <!-- 
+                NOTE: As of Spring 3.2 spring-core repackages both asm 4.0 and cglib 
+                3.0 and inlines both into the spring-core jar. cglib 3.0 itself depends on 
+                asm 4.0. 
+            -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
@@ -732,29 +768,6 @@
                 <version>${jetty.version}</version>
                 <scope>test</scope>
             </dependency>        
-            
-            <!-- contact app -->
-            <dependency>
-                <groupId>org.springbyexample.app.contact</groupId>
-                <artifactId>contact-dao</artifactId>
-                <version>${contact.app.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springbyexample.app.contact</groupId>
-                <artifactId>contact-ws-beans</artifactId>
-                <version>${contact.app.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springbyexample.app.contact</groupId>
-                <artifactId>contact-services</artifactId>
-                <version>${contact.app.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springbyexample.app.contact</groupId>
-                <artifactId>contact-test</artifactId>
-                <version>${contact.app.version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

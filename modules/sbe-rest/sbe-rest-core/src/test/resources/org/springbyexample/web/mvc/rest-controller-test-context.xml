@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util
+                           http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="classpath*:/META-INF/spring/client/**/*-context.xml"/>
+
+    <util:properties id="restProperties"
+                     location="org/springbyexample/web/mvc/ws.properties" />
+                     
+    <bean class="org.springbyexample.web.service.EmbeddedJetty">
+        <constructor-arg>
+            <list>
+                <value>/embedded-jetty-context.xml</value>
+
+                <value>/META-INF/spring/security/**/*-context.xml</value>
+                <value>/META-INF/spring/marshaller/**/*-context.xml</value>
+                <value>/META-INF/spring/db/**/*-context.xml</value>
+                <value>/META-INF/spring/services/**/*-context.xml</value>
+                <value>/META-INF/spring/mvc/**/*-context.xml</value>
+                
+                <value>/mock-web-security-context.xml</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+</beans>

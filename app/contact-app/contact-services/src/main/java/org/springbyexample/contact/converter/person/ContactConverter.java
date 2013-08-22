@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Contact converter.
- * 
+ *
  * @author David Winterfeldt
  */
 @Component
@@ -32,8 +32,8 @@ public class ContactConverter extends AbstractMapperListConverter<org.springbyex
 
     @Autowired
     public ContactConverter(Mapper mapper) {
-        super(mapper, 
+        super(mapper,
               org.springbyexample.contact.orm.entity.person.Person.class, Person.class);
     }
-    
+
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ import org.springbyexample.contact.converter.person.ContactConverter;
 import org.springbyexample.contact.converter.person.ProfessionalConverter;
 import org.springbyexample.contact.converter.person.StudentConverter;
 import org.springbyexample.contact.orm.repository.PersonRepository;
-import org.springbyexample.contact.service.AbstractPersistenceService;
-import org.springbyexample.contact.service.util.MessageHelper;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
@@ -30,13 +28,15 @@ import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.Student;
 import org.springbyexample.schema.beans.response.Message;
 import org.springbyexample.schema.beans.response.MessageType;
+import org.springbyexample.service.AbstractPersistenceService;
+import org.springbyexample.service.util.MessageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 /**
  * Person service implementation.
- * 
+ *
  * @author David Winterfeldt
  */
 @Service
@@ -45,13 +45,13 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
         implements ContactService {
 
     private static final String SAVE_MSG = "contact.save.msg";
-    
+
     private final StudentConverter studentConverter;
     private final ProfessionalConverter professionalConverter;
-    
+
     @Autowired
-    public ContactServiceImpl(PersonRepository repository, 
-                              ContactConverter converter, 
+    public ContactServiceImpl(PersonRepository repository,
+                              ContactConverter converter,
                               StudentConverter studentConverter, ProfessionalConverter professionalConverter,
                               MessageHelper messageHelper) {
         super(repository, converter, messageHelper);
@@ -63,7 +63,7 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
     @Override
     protected PersonResponse doSave(Person request) {
         org.springbyexample.contact.orm.entity.person.Person bean = null;
-        
+
         if (request instanceof Student) {
             bean = studentConverter.convertFrom((Student) request);
         } else if (request instanceof Professional) {
@@ -71,19 +71,19 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
         } else {
             bean = converter.convertFrom(request);
         }
-        
-        Person result = converter.convertTo(repository.saveAndFlush(bean)); 
-        
+
+        Person result = converter.convertTo(repository.saveAndFlush(bean));
+
         return createSaveResponse(result);
     }
 
     @Override
     public PersonFindResponse findByLastName(String lastName) {
         List<Person> results = converter.convertListTo(((PersonRepository)repository).findByLastName(lastName));
-        
+
         return createFindResponse(results);
     }
-    
+
     @Override
     protected PersonResponse createSaveResponse(Person result) {
         return new PersonResponse().withMessageList(new Message().withMessageType(MessageType.INFO)
@@ -111,5 +111,5 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
     protected PersonFindResponse createFindResponse(List<Person> results, long count) {
         return new PersonFindResponse().withResults(results).withCount(count);
     }
-    
+
 }

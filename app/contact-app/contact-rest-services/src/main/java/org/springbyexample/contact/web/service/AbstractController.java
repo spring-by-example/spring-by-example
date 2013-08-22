@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,31 @@
  */
 package org.springbyexample.contact.web.service;
 
-import org.springbyexample.contact.service.PersistenceService;
-import org.springbyexample.contact.service.util.DBUtil;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
+import org.springbyexample.service.PersistenceService;
+import org.springbyexample.service.util.DBUtil;
 
 
 /**
  * Abstract controller.
- * 
+ *
  * @author David Winterfeldt
- * 
+ *
  * @param   <V>      Domain transfer object (DTO).
  * @param   <R>      Generic response.
  * @param   <FR>     Find response.
  */
-public abstract class AbstractController<V extends PkEntityBase, 
+public abstract class AbstractController<V extends PkEntityBase,
                                          R extends EntityResponseResult, FR extends EntityFindResponseResult> {
 
     protected final PersistenceService<V, R, FR> service;
-    
+
     public AbstractController(PersistenceService<V, R, FR> service) {
         this.service = service;
     }
-    
+
     /**
      * Whether or not the primary key is valid (greater than zero).
      */
