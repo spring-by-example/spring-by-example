@@ -11,70 +11,48 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
     
-    <groupId>org.springbyexample.app.contact</groupId>
-    <artifactId>contact-rest-services</artifactId>
-    <version>1.0</version>
-    <name>Contact REST Services</name>
-    <description>Contact Spring MVC REST Services using JAXB and JSON for serialization.</description>
+    <groupId>org.springbyexample</groupId>
+    <artifactId>sbe-rest-core-test</artifactId>
+    <version>${sbe.rest.version}</version>
+    <name>Spring by Example REST Core Test</name>
+    <description>REST Framework core test base.</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springbyexample.app.contact</groupId>
-            <artifactId>contact-services</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springbyexample.app.contact</groupId>
-            <artifactId>contact-test</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springbyexample</groupId>
             <artifactId>sbe-rest-core-api</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-rest-ws-beans</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>	
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-        </dependency>            
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-        </dependency>            
-
         <dependency>
             <groupId>org.springbyexample</groupId>
             <artifactId>sbe-rest-test</artifactId>
+            <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springbyexample</groupId>
-            <artifactId>sbe-rest-core-test</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-embedded</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-java5-threadpool</artifactId>
+            <scope>compile</scope>
         </dependency>    
-        <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-servlet_3.0_spec</artifactId>
-            <scope>test</scope>
+        
+       <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>compile</scope>
+        </dependency>                    
     </dependencies>
 
     <build>

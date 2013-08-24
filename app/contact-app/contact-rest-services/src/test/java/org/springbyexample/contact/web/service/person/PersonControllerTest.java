@@ -19,26 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.NEW_LAST_NAME;
 
 import org.springbyexample.contact.web.client.person.PersonClient;
-import org.springbyexample.contact.web.service.AbstractPersistenceControllerTest;
-import org.springbyexample.contact.web.service.PersistenceMarshallingService;
+import org.springbyexample.contact.web.service.AbstractPersistenceContactControllerTest;
+import org.springbyexample.mvc.rest.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests person client against an embedded REST service 
+ * Tests person client against an embedded REST service
  * with the main Spring context as the parent context.
- * 
+ *
  * @author David Winterfeldt
  */
-public class PersonControllerTest extends AbstractPersistenceControllerTest<PersonResponse, PersonFindResponse, Person> {
+public class PersonControllerTest extends AbstractPersistenceContactControllerTest<PersonResponse, PersonFindResponse, Person> {
 
     @Autowired
-    private PersonClient client = null;
-    
+    private final PersonClient client = null;
+
     public PersonControllerTest() {
         super(1, 3);
     }
@@ -49,28 +50,43 @@ public class PersonControllerTest extends AbstractPersistenceControllerTest<Pers
     }
 
     @Override
-    protected Person createSaveRequest() {
+    protected Person generateCreateRequest() {
         return new Person().withFirstName(FIRST_NAME).withLastName(LAST_NAME);
     }
 
     @Override
-    protected void verifyRecord(Person record, boolean save) {
+    protected Person generateUpdateRequest(Person request) {
+        return request.withLastName(NEW_LAST_NAME);
+    }
+
+    @Override
+    protected Person generateDeleteRequest() {
+        return new Person().withId(id);
+    }
+
+    @Override
+    protected void verifyRecord(Person record, boolean save, boolean update) {
         assertNotNull("Result is null.", record);
-        
+
         verifyPrimaryKey(record.getId(), save);
-        
+
         assertEquals("'firstName'", FIRST_NAME, record.getFirstName());
-        assertEquals("'lastName'", LAST_NAME, record.getLastName());
-        
+
+        if (!update) {
+            assertEquals("'lastName'", LAST_NAME, record.getLastName());
+        } else {
+            assertEquals("'lastName'", NEW_LAST_NAME, record.getLastName());
+        }
+
         verifyAuditInfo(record.getLastUpdated(), record.getLastName(), record.getCreated(), record.getCreateUser());
 
-        logger.debug("id=" + record.getId() + 
-                     "  firstName=" + record.getFirstName() + 
+        logger.debug("id=" + record.getId() +
+                     "  firstName=" + record.getFirstName() +
                      "  lastName=" + record.getLastName() +
                      "  lastUpdated=" + record.getLastUpdated() +
                      "  lastUpdateUser=" + record.getLastUpdateUser() +
                      "  created=" + record.getCreated() +
                      "  createUser=" + record.getCreateUser());
     }
-    
+
 }

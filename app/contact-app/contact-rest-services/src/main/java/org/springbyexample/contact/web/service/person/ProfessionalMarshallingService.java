@@ -15,20 +15,20 @@
  */
 package org.springbyexample.contact.web.service.person;
 
-import org.springbyexample.contact.web.service.PersistenceMarshallingService;
+import org.springbyexample.contact.mvc.rest.service.PersistenceContactMarshallingService;
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
 
 /**
  * Professional marshalling service.
- * 
+ *
  * @author David Winterfeldt
  */
-public interface ProfessionalMarshallingService extends PersistenceMarshallingService<ProfessionalResponse, ProfessionalFindResponse, Professional> {
+public interface ProfessionalMarshallingService extends PersistenceContactMarshallingService<ProfessionalResponse, ProfessionalFindResponse, Professional> {
 
     final static String PATH = "/professional";
-    
+
     public final static String FIND_BY_ID_REQUEST = PATH + PATH_DELIM + "{" + ID_VAR + "}";
     public final static String FIND_PAGINATED_REQUEST = PATH + PAGINATED;
     public final static String FIND_REQUEST = PATH;

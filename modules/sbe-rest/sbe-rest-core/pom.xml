@@ -14,15 +14,27 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-core</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>Spring by Example REST</name>
-    <description>REST Framework for generating Spring MVC handlers based on an annotated interface that delegate to a service method.</description>
+    <name>Spring by Example REST Core</name>
+    <description>REST Framework core for generating Spring MVC handlers based on an annotated interface that delegate to a service method.</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springbyexample</groupId>
             <artifactId>sbe-rest-services</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-rest-core-api</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-rest-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springbyexample</groupId>
+            <artifactId>sbe-rest-core-test</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springbyexample.app.contact</groupId>
             <artifactId>contact-services</artifactId>

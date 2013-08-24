@@ -162,6 +162,28 @@
                 <artifactId>sbe-rest-services</artifactId>
                 <version>${sbe.rest.version}</version>        
             </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-core-api</artifactId>
+                <version>${sbe.rest.version}</version>        
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-core</artifactId>
+                <version>${sbe.rest.version}</version>        
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-test</artifactId>
+                <version>${sbe.rest.version}</version>
+                <scope>test</scope>        
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-rest-core-test</artifactId>
+                <version>${sbe.rest.version}</version>
+                <scope>test</scope>        
+            </dependency>
 
             <!-- contact app -->
             <dependency>

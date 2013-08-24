@@ -11,23 +11,18 @@
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
     
-    <groupId>org.springbyexample.app.contact</groupId>
-    <artifactId>contact-test</artifactId>
-    <version>1.0</version>
-    <name>Contact Test</name>
-    <description>Contact shared test classes and configuration.</description>
+    <groupId>org.springbyexample</groupId>
+    <artifactId>sbe-rest-test</artifactId>
+    <version>${sbe.rest.version}</version>
+    <name>SBE REST Test</name>
+    <description>Spring by Example REST shared test classes and configuration.</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springbyexample</groupId>
-            <artifactId>sbe-rest-test</artifactId>
-            <scope>compile</scope>
-        </dependency>    
+    
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

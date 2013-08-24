@@ -15,20 +15,20 @@
  */
 package org.springbyexample.contact.web.service.person;
 
-import org.springbyexample.contact.web.service.PersistenceMarshallingService;
+import org.springbyexample.contact.mvc.rest.service.PersistenceContactMarshallingService;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
 
 /**
  * Person marshalling service.
- * 
+ *
  * @author David Winterfeldt
  */
-public interface PersonMarshallingService extends PersistenceMarshallingService<PersonResponse, PersonFindResponse, Person> {
-    
+public interface PersonMarshallingService extends PersistenceContactMarshallingService<PersonResponse, PersonFindResponse, Person> {
+
     final static String PATH = "/person";
-    
+
     public final static String FIND_BY_ID_REQUEST = PATH + PATH_DELIM + "{" + ID_VAR + "}";
     public final static String FIND_PAGINATED_REQUEST = PATH + PAGINATED;
     public final static String FIND_REQUEST = PATH;
@@ -36,5 +36,5 @@ public interface PersonMarshallingService extends PersistenceMarshallingService<
     public final static String UPDATE_REQUEST = FIND_BY_ID_REQUEST;
     public final static String DELETE_PK_REQUEST = FIND_BY_ID_REQUEST;
     public final static String DELETE_REQUEST = PATH;
-    
+
 }

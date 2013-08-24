@@ -20,26 +20,27 @@ import static org.junit.Assert.assertNotNull;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_ID;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.FIRST_NAME;
 import static org.springbyexample.contact.test.constants.person.PersonTestConstants.LAST_NAME;
+import static org.springbyexample.contact.test.constants.person.PersonTestConstants.NEW_LAST_NAME;
 import static org.springbyexample.contact.web.service.person.ProfessionalController.COMPANY_NAME;
 
 import org.springbyexample.contact.web.client.person.ProfessionalClient;
-import org.springbyexample.contact.web.service.AbstractPersistenceControllerTest;
-import org.springbyexample.contact.web.service.PersistenceMarshallingService;
+import org.springbyexample.contact.web.service.AbstractPersistenceContactControllerTest;
+import org.springbyexample.mvc.rest.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests professional client against an embedded REST service 
+ * Tests professional client against an embedded REST service
  * with the main Spring context as the parent context.
- * 
+ *
  * @author David Winterfeldt
  */
-public class ProfessionalControllerTest extends AbstractPersistenceControllerTest<ProfessionalResponse, ProfessionalFindResponse, Professional> {
+public class ProfessionalControllerTest extends AbstractPersistenceContactControllerTest<ProfessionalResponse, ProfessionalFindResponse, Professional> {
 
     @Autowired
-    private ProfessionalClient client = null;
+    private final ProfessionalClient client = null;
 
     public ProfessionalControllerTest() {
         super(1, 2);
@@ -51,26 +52,42 @@ public class ProfessionalControllerTest extends AbstractPersistenceControllerTes
     }
 
     @Override
-    protected Professional createSaveRequest() {
+    protected Professional generateCreateRequest() {
         // update since primary key is specified
         return new Professional().withId(FIRST_ID).withFirstName(FIRST_NAME).withLastName(LAST_NAME)
                                  .withCompanyName(COMPANY_NAME);
     }
 
     @Override
-    protected void verifyRecord(Professional record, boolean save) {
+    protected Professional generateUpdateRequest(Professional request) {
+        return request.withLastName(NEW_LAST_NAME);
+    }
+
+    @Override
+    protected Professional generateDeleteRequest() {
+        return new Professional().withId(id);
+    }
+
+    @Override
+    protected void verifyRecord(Professional record, boolean save, boolean update) {
         assertNotNull("Result is null.", record);
-        
+
         verifyPrimaryKey(record.getId(), save);
-        
+
         assertEquals("'firstName'", FIRST_NAME, record.getFirstName());
-        assertEquals("'lastName'", LAST_NAME, record.getLastName());
+
+        if (!update) {
+            assertEquals("'lastName'", LAST_NAME, record.getLastName());
+        } else {
+            assertEquals("'lastName'", NEW_LAST_NAME, record.getLastName());
+        }
+
         assertEquals("'companyName'", COMPANY_NAME, record.getCompanyName());
-        
+
 //        verifyAuditInfo(record.getLastUpdated(), record.getLastName(), record.getCreated(), record.getCreateUser());
 
-        logger.debug("id=" + record.getId() + 
-                     "  firstName=" + record.getFirstName() + 
+        logger.debug("id=" + record.getId() +
+                     "  firstName=" + record.getFirstName() +
                      "  lastName=" + record.getLastName() +
                      "  companyName=" + record.getCompanyName());
     }
