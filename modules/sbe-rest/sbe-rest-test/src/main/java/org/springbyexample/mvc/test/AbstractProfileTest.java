@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.contact.test;
+package org.springbyexample.mvc.test;
 
-import static org.springbyexample.contact.test.constants.ProfileConstants.HSQL;
+import static org.springbyexample.mvc.test.constants.ProfileConstants.HSQL;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Abstract profile test that sets default active profiles.
- * 
+ *
  * @author David Winterfeldt
  */
 @RunWith(SpringJUnit4ClassRunner.class)

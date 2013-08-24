@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Person form controller.
- * 
+ *
  * @author David Winterfeldt
  */
 @Controller
@@ -52,7 +52,7 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     @Override
     @RequestMapping(value = FIND_BY_ID_REQUEST, method = RequestMethod.GET)
-    public ProfessionalResponse findById(@PathVariable(ID_VAR) long id) {
+    public ProfessionalResponse findById(@PathVariable(ID_VAR) Integer id) {
         logger.info("Find professional.  id={}", id);
 
         return new ProfessionalResponse()
@@ -89,7 +89,7 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     @Override
     @RequestMapping(value = SAVE_REQUEST, method = RequestMethod.POST)
-    public ProfessionalResponse save(@RequestBody Professional request) {
+    public ProfessionalResponse create(@RequestBody Professional request) {
         logger.info("Save Professional.  id={}", request.getId());
 
         return new ProfessionalResponse().withMessageList(
@@ -102,9 +102,9 @@ public class ProfessionalController implements ProfessionalMarshallingService {
     @RequestMapping(value = UPDATE_REQUEST, method = RequestMethod.PUT)
     public ProfessionalResponse update(@RequestBody Professional request) {
         Assert.isTrue((request.getId() >  0), "Update should have a valid primary key");
-        
+
         logger.info("Update person.  id={}", request.getId());
-        
+
         return new ProfessionalResponse().withMessageList(
                 new Message().withMessageType(MessageType.INFO)
                              .withMessage(String.format("Successfully saved record.  id='%d'", request.getId())))
@@ -113,7 +113,7 @@ public class ProfessionalController implements ProfessionalMarshallingService {
 
     @Override
     @RequestMapping(value = DELETE_PK_REQUEST, method = RequestMethod.DELETE)
-    public ProfessionalResponse delete(@PathVariable(ID_VAR) long id) {
+    public ProfessionalResponse delete(@PathVariable(ID_VAR) Integer id) {
         logger.info("Delete Professional.  id={}", id);
 
         return new ProfessionalResponse().withMessageList(
@@ -125,11 +125,11 @@ public class ProfessionalController implements ProfessionalMarshallingService {
     @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
     public ProfessionalResponse delete(@RequestBody Professional request) {
         Assert.isTrue((request.getId() > 0), "Delete should have a valid primary key");
-        
+
         int id = request.getId();
-        
+
         logger.info("Delete professional.  id={}", id);
-        
+
         return new ProfessionalResponse().withMessageList(
                 new Message().withMessageType(MessageType.INFO)
                              .withMessage(String.format("Successfully deleted record.  id='%d'", id)));

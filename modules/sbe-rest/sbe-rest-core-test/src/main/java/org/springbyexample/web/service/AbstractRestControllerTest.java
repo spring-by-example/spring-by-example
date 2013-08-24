@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springbyexample.contact.test.AbstractProfileTest;
+import org.springbyexample.mvc.test.AbstractProfileTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;

@@ -17,16 +17,17 @@ package org.springbyexample.contact.web.client;
 
 import java.util.Map;
 
-import org.springbyexample.contact.web.service.PersistenceMarshallingService;
+import org.springbyexample.mvc.rest.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 
 
 /**
  * Abstract persistence client.
- * 
+ *
  * @author David Winterfeldt
  *
  *  @param   <R>      Generic response.
@@ -44,13 +45,13 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
 
     public AbstractPersistenceClient(RestClient client,
                                      String findByIdRequest, String findPaginatedRequest, String findRequest,
-                                     String saveRequest, String updateRequest, 
+                                     String saveRequest, String updateRequest,
                                      String deletePkRequest, String deleteRequest,
                                      Class<R> responseClazz, Class<FR> findResponseClazz) {
-        super(client, 
+        super(client,
               findByIdRequest, findPaginatedRequest, findRequest,
               responseClazz, findResponseClazz);
-        
+
         this.saveRequest = saveRequest;
         this.updateRequest = updateRequest;
         this.deletePkRequest = deletePkRequest;
@@ -58,43 +59,42 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
     }
 
     @Override
-    public R save(S request) {
+    public R create(S request) {
         R response = null;
-        
+
         String url = client.createUrl(saveRequest);
-        
+
         logger.debug("REST client save.  id={}  url='{}'", request.getId(), url);
 
         response =  client.getRestTemplate().postForObject(url, request, responseClazz);
-        
+
         return response;
     }
 
     @Override
     public R update(S request) {
         R response = null;
-        
+
         String url = client.createUrl(updateRequest);
-        
+
         logger.debug("REST client update.  id={}  url='{}'", request.getId(), url);
-        
+
         Map<String, Long> vars = createPkVars(request.getId());
-        
-        response = client.getRestTemplate().exchange(url, HttpMethod.PUT, null, responseClazz, vars).getBody();
-        
+
+        response = client.getRestTemplate().exchange(url, HttpMethod.PUT, new HttpEntity(request), responseClazz, vars).getBody();
+
         return response;
     }
 
-    @Override
-    public R delete(long id) {
+    public R delete(Integer id) {
         R response = null;
-        
+
         String url = client.createUrl(deletePkRequest);
-        
+
         logger.debug("REST client delete.  id={}  url='{}'", id, url);
-        
+
         Map<String, Long> vars = createPkVars(id);
-        
+
         response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, responseClazz, vars).getBody();
 
         return response;
@@ -102,17 +102,21 @@ public abstract class AbstractPersistenceClient<R extends EntityResponseResult, 
 
     @Override
     public R delete(S request) {
-        R response = null;
-        
-        String url = client.createUrl(deleteRequest);
-        
-        int id = request.getId();
-        
-        logger.debug("REST client delete.  id={}  url='{}'", id, url);
-        
-        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, responseClazz).getBody();
-        
-        return response;
+        throw new UnsupportedOperationException("Issue with DELETE and posting body.");
+
+//        R response = null;
+//
+//        String url = client.createUrl(deleteRequest);
+//
+//        int id = request.getId();
+//
+//        logger.debug("REST client delete.  id={}  url='{}'", id, url);
+//
+//        // FIXME: problem with DELETE
+////        response = client.getRestTemplate().exchange(url, HttpMethod.DELETE, null, responseClazz).getBody();
+//        response = client.getRestTemplate().exchange(url, HttpMethod.PUT, new HttpEntity(request), responseClazz).getBody();
+//
+//        return response;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.springbyexample.contact.test;
 import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER;
 import static org.springbyexample.contact.test.constants.security.SecurityTestConstants.DEFAULT_SECURITY_USER_PASSWORD;
 
+import org.springbyexample.mvc.test.AbstractProfileTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -25,9 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * Abstract transactional profile test that sets default active profiles 
+ * Abstract transactional profile test that sets default active profiles
  * and turns on transactional behavior for tests.
- * 
+ *
  * @author David Winterfeldt
  */
 @TransactionConfiguration
@@ -37,6 +38,7 @@ public abstract class AbstractTransactionalProfileTest extends AbstractProfileTe
     /**
      * Set the default user on the security context.
      */
+    @Override
     protected void doInit() {
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(DEFAULT_SECURITY_USER, DEFAULT_SECURITY_USER_PASSWORD));

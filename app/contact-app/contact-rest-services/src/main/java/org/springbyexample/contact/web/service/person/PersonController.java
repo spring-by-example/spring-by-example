@@ -22,7 +22,6 @@ import org.springbyexample.contact.web.service.AbstractController;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
-import org.springbyexample.schema.beans.response.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -34,11 +33,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Person form controller.
- * 
+ *
  * @author David Winterfeldt
  */
 @Controller
-public class PersonController extends AbstractController<Person, PersonResponse, PersonFindResponse> 
+public class PersonController extends AbstractController<Person, PersonResponse, PersonFindResponse>
         implements PersonMarshallingService {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,10 +46,10 @@ public class PersonController extends AbstractController<Person, PersonResponse,
     public PersonController(ContactService service) {
         super(service);
     }
-    
+
     @Override
     @RequestMapping(value = FIND_BY_ID_REQUEST, method = RequestMethod.GET)
-    public PersonResponse findById(@PathVariable(ID_VAR) long id) {
+    public PersonResponse findById(@PathVariable(ID_VAR) Integer id) {
         logger.info("Find person.  id={}", id);
 
         return service.findById((int)id);
@@ -75,9 +74,9 @@ public class PersonController extends AbstractController<Person, PersonResponse,
 
     @Override
     @RequestMapping(value = SAVE_REQUEST, method = RequestMethod.POST)
-    public PersonResponse save(@RequestBody Person request) {
+    public PersonResponse create(@RequestBody Person request) {
         Assert.isTrue(!isPrimaryKeyValid(request), "Create should not have a valid primary key.");
-        
+
         logger.info("Save person.  id={}", request.getId());
 
         return service.create(request);
@@ -87,28 +86,28 @@ public class PersonController extends AbstractController<Person, PersonResponse,
     @RequestMapping(value = UPDATE_REQUEST, method = RequestMethod.PUT)
     public PersonResponse update(@RequestBody Person request) {
         Assert.isTrue(isPrimaryKeyValid(request), "Update should have a valid primary key.");
-        
+
         logger.info("Update person.  id={}", request.getId());
-        
+
         return service.update(request);
     }
 
     @Override
     @RequestMapping(value = DELETE_PK_REQUEST, method = RequestMethod.DELETE)
-    public PersonResponse delete(@PathVariable(ID_VAR) long id) {
+    public PersonResponse delete(@PathVariable(ID_VAR) Integer id) {
         logger.info("Delete person.  id={}", id);
 
-        return service.delete(new Person().withId((int) id));
+        return service.delete(new Person().withId(id));
     }
 
     @Override
-    @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
+    @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.PUT)
     public PersonResponse delete(@RequestBody Person request) {
         Assert.isTrue((request.getId() > 0), "Delete should have a valid primary key");
-        
+
         int id = request.getId();
-        
-        return delete((int)id);
+
+        return delete(id);
     }
 
 }

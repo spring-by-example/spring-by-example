@@ -14,8 +14,11 @@
     </description>
 
     <modules>
+        <module>sbe-rest-test</module>
+        <module>sbe-rest-core-test</module>
         <module>sbe-rest-ws-beans</module>
         <module>sbe-rest-services</module>
+        <module>sbe-rest-core-api</module>
         <module>sbe-rest-core</module>
     </modules>
 	

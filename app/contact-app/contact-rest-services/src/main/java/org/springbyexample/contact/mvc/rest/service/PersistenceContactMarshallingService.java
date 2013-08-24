@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springbyexample.contact.web.service;
+package org.springbyexample.contact.mvc.rest.service;
 
+import org.springbyexample.mvc.rest.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;
 import org.springbyexample.schema.beans.response.EntityResponseResult;
@@ -22,34 +23,19 @@ import org.springbyexample.schema.beans.response.EntityResponseResult;
 
 /**
  * Persistence find marshalling service.
- * 
+ *
  * @author David Winterfeldt
- * 
+ *
  *  @param   <R>      Generic response.
  *  @param   <FR>     Find response.
  *  @param   <S>      Save request.
  */
-public interface PersistenceMarshallingService<R extends EntityResponseResult, FR extends EntityFindResponseResult, S extends PkEntityBase> 
-        extends PersistenceFindMarshallingService<R, FR> {
-
-    /**
-     * Save record.
-     */
-    public R save(S request);
-    
-    /**
-     * Update record.
-     */
-    public R update(S request);
+public interface PersistenceContactMarshallingService<R extends EntityResponseResult, FR extends EntityFindResponseResult, S extends PkEntityBase>
+        extends PersistenceMarshallingService<R, FR, S> {
 
     /**
      * Delete record.
      */
-    public R delete(long id);
+    public R delete(Integer id);
 
-    /**
-     * Delete record.
-     */
-    public R delete(S request);
-    
 }

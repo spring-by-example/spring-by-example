@@ -15,17 +15,17 @@
  */
 package org.springbyexample.contact.web.json.service.person;
 
-import static org.springbyexample.contact.test.constants.ProfileConstants.REST_JSON;
+import static org.springbyexample.mvc.test.constants.ProfileConstants.REST_JSON;
 
 import org.springbyexample.contact.web.service.person.PersonControllerTest;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Tests person controller with JSON serialization.
- * 
+ *
  * @author David Winterfeldt
  */
 @ActiveProfiles(profiles= { REST_JSON }, inheritProfiles=true)
 public class PersonControllerJsonIT extends PersonControllerTest {
-    
+
 }
