@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom-example</artifactId>
-        <version>2.0</version>
+        <version>2.1</version>
         <relativePath>../../../proto-pom/example</relativePath>
     </parent>
     
     <groupId>org.springbyexample.app.contact</groupId>
     <artifactId>contact-test</artifactId>
-    <version>1.0</version>
+    <version>${contact.app.version}</version>
     <name>Contact Test</name>
     <description>Contact shared test classes and configuration.</description>
 

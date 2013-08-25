@@ -1,4 +1,4 @@
-Person WS (Web Service) beans.
+Contact WS (Web Service) beans.
 
 This project can be built using Maven (http://maven.apache.org).  It can also be imported into 
 the Eclipse IDE, but the M2Eclipse plugin should be installed since it is used to resolve 
@@ -8,3 +8,4 @@ the classpath.
 Release Notes
 --------------
 1.0 -	Initial release.
+1.1 -   Updated to use shared Spring by Example REST libraries.

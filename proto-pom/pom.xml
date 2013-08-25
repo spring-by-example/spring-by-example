@@ -6,7 +6,7 @@
 
 	<groupId>org.springbyexample</groupId>
 	<artifactId>proto-pom</artifactId>
-	<version>2.0</version>
+	<version>2.1</version>
 	<packaging>pom</packaging>
 	<name>proto-pom</name>
     <description>
@@ -22,6 +22,7 @@
         <java.version>1.6</java.version>
         
         <sbe.rest.version>0.5</sbe.rest.version>
+        <contact.app.version>1.1</contact.app.version>
 
         <spring.framework.version>3.2.3.RELEASE</spring.framework.version>
         <spring.amqp.version>1.2.0.RELEASE</spring.amqp.version>
@@ -48,8 +49,6 @@
 
         <junit.version>4.11</junit.version>
         
-        <contact.app.version>1.0</contact.app.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -199,6 +198,11 @@
             <dependency>
                 <groupId>org.springbyexample.app.contact</groupId>
                 <artifactId>contact-services</artifactId>
+                <version>${contact.app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample.app.contact</groupId>
+                <artifactId>contact-rest-services</artifactId>
                 <version>${contact.app.version}</version>
             </dependency>
             <dependency>
