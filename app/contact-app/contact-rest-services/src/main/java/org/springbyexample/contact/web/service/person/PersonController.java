@@ -101,7 +101,7 @@ public class PersonController extends AbstractController<Person, PersonResponse,
     }
 
     @Override
-    @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.PUT)
+    @RequestMapping(value = DELETE_REQUEST, method = RequestMethod.DELETE)
     public PersonResponse delete(@RequestBody Person request) {
         Assert.isTrue((request.getId() > 0), "Delete should have a valid primary key");
 
