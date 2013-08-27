@@ -39,25 +39,6 @@
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <!-- 
-                <configuration>
-                    <episodes>
-                        <episode>
-                            <groupId>org.springbyexample</groupId>
-                            <artifactId>sbe-rest-ws-beans</artifactId>
-                        </episode>
-                    </episodes>
-                    <catalogs>
-                        <catalog>
-                            <dependencyResource>
-                                <groupId>org.springbyexample</groupId>
-                                <artifactId>sbe-rest-ws-beans</artifactId>
-                                <resource>catalog.cat</resource>
-                            </dependencyResource>
-                        </catalog>
-                    </catalogs>
-                </configuration>
-                -->
             </plugin>     
         </plugins>
         <pluginManagement>
