@@ -36,7 +36,7 @@
 
         <aspectj.version>1.7.2</aspectj.version>
         <hibernate.version>4.2.3.Final</hibernate.version>
-        <jackson.mapper.version>1.9.13</jackson.mapper.version>
+        <jackson.mapper.version>2.2.3</jackson.mapper.version>
         <jackrabbit.version>1.3.3</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
@@ -404,6 +404,21 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.mapper.version}</version>
+            </dependency>            
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.mapper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-joda</artifactId>
+                <version>${jackson.mapper.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.8.3</version>
@@ -508,16 +523,6 @@
                 <artifactId>xbean-spring</artifactId>
                 <version>3.6</version>
             </dependency>   
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-core-asl</artifactId>
-                <version>${jackson.mapper.version}</version>
-            </dependency>            
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>${jackson.mapper.version}</version>
-            </dependency>
             <!-- used for JPA custom type registration of joda-time -->
             <dependency>
                 <groupId>org.jadira.usertype</groupId>

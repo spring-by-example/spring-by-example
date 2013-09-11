@@ -11,26 +11,29 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util.xsd">
     
-    <bean id="abstractJacksonObjectMapper" 
-          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-          abstract="true"
-          p:targetMethod="disable">
+    <bean id="abstractJacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+        p:targetMethod="registerModule">
         <property name="targetObject">
-            <bean class="org.codehaus.jackson.map.ObjectMapper" />
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+                  p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
+                <property name="featuresToDisable">
+                    <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />
+                </property>
+            </bean>
         </property>
         <property name="arguments">
             <list>
-                <util:constant static-field="org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
             </list>
         </property>
     </bean>    
           
     <bean id="abstractMappingJacksonHttpMessageConverter" 
-          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
           abstract="true"/>          
           
     <bean id="abstractMappingJacksonJsonView" 
-          class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
           abstract="true"
           p:extractValueFromSingleKeyModel="true"/>
 
