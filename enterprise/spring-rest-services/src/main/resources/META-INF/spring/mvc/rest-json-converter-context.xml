@@ -14,20 +14,20 @@
      <bean id="jacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
            p:targetMethod="disable">
         <property name="targetObject">
-            <bean class="org.codehaus.jackson.map.ObjectMapper"/>
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
         </property>
         <property name="arguments">
             <list>
-                <util:constant static-field="org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+                <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
             </list>
         </property>
     </bean>    
           
-    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
           p:supportedMediaTypes="application/json" 
           p:objectMapper-ref="jacksonObjectMapper"/>          
           
-    <bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+    <bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
           p:extractValueFromSingleKeyModel="true" 
           p:objectMapper-ref="jacksonObjectMapper"/>
     
