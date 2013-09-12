@@ -11,11 +11,13 @@
                            http://www.springframework.org/schema/util
                            http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="abstractJacksonObjectMapper" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
-        p:targetMethod="registerModule">
+    <bean id="abstractJacksonObjectMapper" 
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+          p:targetMethod="registerModule">
         <property name="targetObject">
             <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
-                  p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
+                  p:indentOutput="true" 
+                  p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
                 <property name="featuresToDisable">
                     <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />
                 </property>
@@ -26,7 +28,7 @@
                 <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
             </list>
         </property>
-    </bean>
+    </bean>    
           
     <bean id="abstractMappingJacksonHttpMessageConverter" 
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"

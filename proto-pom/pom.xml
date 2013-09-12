@@ -17,7 +17,7 @@
         <!-- 
             can't use dot notation because this is used for site generation 
         -->
-        <sbe-site-version>1.2</sbe-site-version>
+        <sbe-site-version>1.3</sbe-site-version>
         
         <java.version>1.6</java.version>
         
@@ -26,16 +26,16 @@
 
         <spring.framework.version>3.2.3.RELEASE</spring.framework.version>
         <spring.amqp.version>1.2.0.RELEASE</spring.amqp.version>
-        <spring.data.jpa.version>1.3.4.RELEASE</spring.data.jpa.version>
+        <spring.data.jpa.version>1.4.1.RELEASE</spring.data.jpa.version>
         <spring.data.rest.version>1.0.0.RELEASE</spring.data.rest.version>
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
-        <spring.integration.version>2.2.4.RELEASE</spring.integration.version>
+        <spring.integration.version>2.2.5.RELEASE</spring.integration.version>
         <spring.security.version>3.1.4.RELEASE</spring.security.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
         <spring.ws.version>2.1.2.RELEASE</spring.ws.version>
 
-        <aspectj.version>1.7.2</aspectj.version>
-        <hibernate.version>4.2.3.Final</hibernate.version>
+        <aspectj.version>1.7.3</aspectj.version>
+        <hibernate.version>4.2.5.Final</hibernate.version>
         <jackson.mapper.version>2.2.3</jackson.mapper.version>
         <jackrabbit.version>1.3.3</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
