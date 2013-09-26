@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.springbyexample.contact.web.client;
 
 import java.util.Map;
 
+import org.springbyexample.mvc.rest.client.RestClient;
 import org.springbyexample.mvc.rest.service.PersistenceMarshallingService;
 import org.springbyexample.schema.beans.entity.PkEntityBase;
 import org.springbyexample.schema.beans.response.EntityFindResponseResult;

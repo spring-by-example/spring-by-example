@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 package org.springbyexample.contact.web.client.person;
 
 import org.springbyexample.contact.web.client.AbstractPersistenceClient;
-import org.springbyexample.contact.web.client.RestClient;
 import org.springbyexample.contact.web.service.person.ProfessionalMarshallingService;
+import org.springbyexample.mvc.rest.client.RestClient;
 import org.springbyexample.schema.beans.person.Professional;
 import org.springbyexample.schema.beans.person.ProfessionalFindResponse;
 import org.springbyexample.schema.beans.person.ProfessionalResponse;
@@ -27,16 +27,16 @@ import org.springframework.stereotype.Component;
 
 /**
  * Professional client.
- * 
+ *
  * @author David Winterfeldt
  */
 @Component
-public class ProfessionalClient extends AbstractPersistenceClient<ProfessionalResponse, ProfessionalFindResponse, Professional> 
+public class ProfessionalClient extends AbstractPersistenceClient<ProfessionalResponse, ProfessionalFindResponse, Professional>
         implements ProfessionalMarshallingService {
 
     @Autowired
     public ProfessionalClient(RestClient client) {
-        super(client, 
+        super(client,
               FIND_BY_ID_REQUEST, FIND_PAGINATED_REQUEST, FIND_REQUEST,
               SAVE_REQUEST, UPDATE_REQUEST, DELETE_PK_REQUEST, DELETE_REQUEST,
               ProfessionalResponse.class, ProfessionalFindResponse.class);

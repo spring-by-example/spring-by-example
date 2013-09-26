@@ -13,7 +13,7 @@
 
     <import resource="classpath:/META-INF/spring/marshaller/jaxb2-marshaller-context.xml"/>
     
-    <context:component-scan base-package="org.springbyexample.contact.web.client" />
+    <context:component-scan base-package="org.springbyexample.mvc.rest.client,org.springbyexample.contact.web.client" />
     
     <bean id="httpClient" class="org.apache.http.impl.client.DefaultHttpClient">
         <constructor-arg>

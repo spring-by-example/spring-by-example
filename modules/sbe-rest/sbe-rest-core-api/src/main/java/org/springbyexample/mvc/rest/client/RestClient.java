@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * REST client.
- * 
+ *
  * @author David Winterfeldt
  */
 @Component
 public class RestClient {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     private final RestTemplate template;
     private final RestClientProperties clientProperties;
     private final DefaultHttpClient httpClient;
@@ -70,20 +70,20 @@ public class RestClient {
         sb.append(clientProperties.getUrl());
         sb.append(clientProperties.getApiPath());
         sb.append(uri);
-        
+
         logger.debug("URL is '{}'.", sb.toString());
-        
+
         return sb.toString();
     }
-    
+
     /**
      * Set default credentials on HTTP client.
      */
     public void setCredentials(String userName, String password) {
-        UsernamePasswordCredentials creds = 
+        UsernamePasswordCredentials creds =
                 new UsernamePasswordCredentials(clientProperties.getUsername(), clientProperties.getPassword());
         AuthScope authScope = new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
-        
+
         httpClient.getCredentialsProvider().setCredentials(authScope, creds);
     }
 
