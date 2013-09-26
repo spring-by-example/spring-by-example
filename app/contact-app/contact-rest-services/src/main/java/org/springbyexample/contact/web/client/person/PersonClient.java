@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 package org.springbyexample.contact.web.client.person;
 
 import org.springbyexample.contact.web.client.AbstractPersistenceClient;
-import org.springbyexample.contact.web.client.RestClient;
 import org.springbyexample.contact.web.service.person.PersonMarshallingService;
+import org.springbyexample.mvc.rest.client.RestClient;
 import org.springbyexample.schema.beans.person.Person;
 import org.springbyexample.schema.beans.person.PersonFindResponse;
 import org.springbyexample.schema.beans.person.PersonResponse;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Person client.
- * 
+ *
  * @author David Winterfeldt
  */
 @Component
@@ -36,7 +36,7 @@ public class PersonClient extends AbstractPersistenceClient<PersonResponse, Pers
 
     @Autowired
     public PersonClient(RestClient client) {
-        super(client, 
+        super(client,
               FIND_BY_ID_REQUEST, FIND_PAGINATED_REQUEST, FIND_REQUEST,
               SAVE_REQUEST, UPDATE_REQUEST, DELETE_PK_REQUEST, DELETE_REQUEST,
               PersonResponse.class, PersonFindResponse.class);

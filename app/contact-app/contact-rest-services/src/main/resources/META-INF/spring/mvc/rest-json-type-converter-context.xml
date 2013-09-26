@@ -13,9 +13,9 @@
     
     <bean id="jacksonObjectMapperWithType" parent="abstractJacksonObjectMapper">
         <property name="targetObject">
-            <bean class="org.springbyexample.web.servlet.mvc.json.RestObjectMapper">
+            <bean class="org.springbyexample.mvc.json.RestObjectMapper">
                 <property name="defaultTyping">
-                    <bean class="org.springbyexample.web.servlet.mvc.json.ClassTypeResolverBuilder" />
+                    <bean class="org.springbyexample.mvc.json.ClassTypeResolverBuilder" />
                 </property>
             </bean>
         </property>
