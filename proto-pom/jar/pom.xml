@@ -152,11 +152,11 @@
                                     <links>
                                         <!-- Has JPA 2.0 API -->
                                         <link>http://download.oracle.com/javaee/6/api/</link>
-                                        <link>http://static.springsource.org/spring/docs/3.1.x/javadoc-api/</link>
-                                        <link>http://static.springsource.org/spring-data/data-jpa/docs/1.1.x/api/</link>
+                                        <link>http://static.springsource.org/spring/docs/3.2.x/javadoc-api/</link>
+                                        <link>http://static.springsource.org/spring-data/data-jpa/docs/1.4.x/api/</link>
                                         <link>http://static.springframework.org/spring-integration/api/</link>
                                         <link>http://static.springsource.org/spring-security/site/docs/3.1.x/apidocs/</link>
-                                        <link>http://commons.apache.org/io/api-1.4/</link>
+                                        <link>http://commons.apache.org/proper/commons-io/javadocs/api-2.4/</link>
                                         <link>http://commons.apache.org/lang/api-2.6/</link>
                 
                                         <link>http://www.slf4j.org/apidocs/</link>
