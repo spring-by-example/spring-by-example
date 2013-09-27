@@ -87,5 +87,4 @@ public class RestClient {
         httpClient.getCredentialsProvider().setCredentials(authScope, creds);
     }
 
-
 }

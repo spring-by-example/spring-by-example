@@ -13,14 +13,17 @@
 
     <bean id="dataSource"
           class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver.class}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-        <property name="maxActive" value="150" />
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-    </bean>
+          destroy-method="close"
+          p:driverClassName="${jdbc.driver.class}" p:url="${jdbc.url}"
+          p:username="${jdbc.username}" p:password="${jdbc.password}"
+          p:initialSize="${jdbc.initial.size}" 
+          p:minIdle="${jdbc.min.idle}" p:maxIdle="${jdbc.max.idle}" 
+          p:maxActive="${jdbc.max.active}"
+          p:timeBetweenEvictionRunsMillis="${jdbc.time.between.eviction}" 
+          p:minEvictableIdleTimeMillis="${jdbc.min.evictable.idle}" 
+          p:testOnBorrow="true" 
+          p:validationQueryTimeout="${jdbc.validation.query.timeout}"
+          p:validationQuery="${jdbc.validation.query}" />
 
     <beans profile="hsql">
         <context:property-placeholder location="classpath:/sql/hsql.properties,classpath*:META-INF/config/**/*.properties" />
