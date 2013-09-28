@@ -14,7 +14,7 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-ws-beans</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>REST Web Service Beans</name>
+    <name>SBE REST Web Service Beans</name>
     <description>REST JAXB beans (web service beans).</description>
 
     <dependencies>

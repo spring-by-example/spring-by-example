@@ -14,7 +14,7 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-core-test</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>Spring by Example REST Core Test</name>
+    <name>SBE REST Core Test</name>
     <description>REST Framework core test base.</description>
 
     <dependencies>
