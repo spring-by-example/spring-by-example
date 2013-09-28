@@ -6,9 +6,9 @@
     
     <parent>
         <groupId>org.springbyexample</groupId>
-        <artifactId>proto-pom-example</artifactId>
+        <artifactId>proto-pom-jar</artifactId>
         <version>2.1</version>
-        <relativePath>../../../proto-pom/example</relativePath>
+        <relativePath>../../../proto-pom/jar</relativePath>
     </parent>
     
     <groupId>org.springbyexample</groupId>
@@ -30,6 +30,11 @@
             <groupId>org.springbyexample</groupId>
             <artifactId>sbe-rest-test</artifactId>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
         </dependency>
 
         <dependency>
