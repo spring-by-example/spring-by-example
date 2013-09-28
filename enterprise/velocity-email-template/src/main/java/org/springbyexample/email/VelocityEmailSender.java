@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springbyexample.email;
 
 import java.util.Map;
@@ -33,11 +32,11 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
  * Sends an e-mail message.
- * 
+ *
  * @author David Winterfeldt
  */
 @Component
-public class VelocityEmailSender implements Sender { 
+public class VelocityEmailSender implements Sender {
 
     private static final Logger logger = LoggerFactory.getLogger(VelocityEmailSender.class);
 
@@ -48,22 +47,24 @@ public class VelocityEmailSender implements Sender {
      * Constructor
      */
     @Autowired
-    public VelocityEmailSender(VelocityEngine velocityEngine, 
+    public VelocityEmailSender(VelocityEngine velocityEngine,
                                JavaMailSender mailSender) {
         this.velocityEngine = velocityEngine;
         this.mailSender = mailSender;
     }
 
     /**
-     * Sends e-mail using Velocity template for the body and 
+     * Sends e-mail using Velocity template for the body and
      * the properties passed in as Velocity variables.
-     * 
+     *
      * @param   msg                 The e-mail message to be sent, except for the body.
-     * @param   hTemplateVariables  Variables to use when processing the template. 
+     * @param   hTemplateVariables  Variables to use when processing the template.
      */
-    public void send(final SimpleMailMessage msg, 
+    @Override
+    public void send(final SimpleMailMessage msg,
                      final Map<String, Object> hTemplateVariables) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                message.setTo(msg.getTo());
@@ -71,16 +72,16 @@ public class VelocityEmailSender implements Sender {
                message.setSubject(msg.getSubject());
 
                String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/emailBody.vm", hTemplateVariables);
-               
+
                logger.info("body={}", body);
 
                message.setText(body, true);
             }
          };
-         
+
          mailSender.send(preparator);
-        
+
         logger.info("Sent e-mail to '{}'.", msg.getTo());
     }
-    
+
 }
