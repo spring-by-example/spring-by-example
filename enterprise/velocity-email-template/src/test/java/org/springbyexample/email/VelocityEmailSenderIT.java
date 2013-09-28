@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springbyexample.email;
 
 import static org.junit.Assert.assertNotNull;
@@ -32,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Tests that the generated messages were all processed by the JMS listener.
- * 
+ *
  * @author David Winterfeldt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,11 +41,11 @@ public class VelocityEmailSenderIT {
     final Logger logger = LoggerFactory.getLogger(VelocityEmailSenderIT.class);
 
     @Autowired
-    private Sender sender = null;
-    
+    private final Sender sender = null;
+
     @Autowired
-    private SimpleMailMessage msg = null;
-    
+    private final SimpleMailMessage msg = null;
+
     @Test
     public void testMessage() {
         assertNotNull("VelocityEmailSender is null.", sender);
@@ -55,8 +54,8 @@ public class VelocityEmailSenderIT {
         Map<String, Object> props = new HashMap<String, Object>();
         props.put("firstName", "Joe");
         props.put("lastName", "Smith");
-        
+
         sender.send(msg, props);
     }
-    
+
 }
