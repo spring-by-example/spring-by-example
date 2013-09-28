@@ -11,7 +11,7 @@
 
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-servlet-context-scope</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>Custom ServletContext Scope</name>
     <description>
         Custom ServletContext scope for defining Spring beans.  Can be used to share a bean 

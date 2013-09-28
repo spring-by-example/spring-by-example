@@ -11,7 +11,7 @@
     
 	<groupId>org.springbyexample</groupId>
 	<artifactId>sbe-validation</artifactId>
-	<version>0.95</version>
+	<version>0.96</version>
     <name>Spring by Example Validation</name>
     <description>
 	    Based on 0.9 Spring Modules release of Valang.

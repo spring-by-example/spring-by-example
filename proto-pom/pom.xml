@@ -21,7 +21,9 @@
         
         <java.version>1.6</java.version>
         
+        <sbe.dynamic.tiles2.version>1.2.2</sbe.dynamic.tiles2.version>
         <sbe.rest.version>0.5</sbe.rest.version>
+        <sbe.util.version>1.2.4</sbe.util.version>
         <contact.app.version>1.1</contact.app.version>
 
         <spring.framework.version>3.2.3.RELEASE</spring.framework.version>
@@ -151,6 +153,17 @@
     
     <dependencyManagement>
         <dependencies>        
+            <dependency>
+            	<groupId>org.springbyexample</groupId>
+            	<artifactId>sbe-dynamic-tiles2</artifactId>
+                <version>${sbe.dynamic.tiles2.version}</version>        
+            </dependency>
+            <dependency>
+                <groupId>org.springbyexample</groupId>
+                <artifactId>sbe-util</artifactId>
+                <version>${sbe.util.version}</version>
+            </dependency>
+            <!-- SBE REST -->
             <dependency>
                 <groupId>org.springbyexample</groupId>
                 <artifactId>sbe-rest-ws-beans</artifactId>
