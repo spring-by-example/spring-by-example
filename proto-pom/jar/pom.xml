@@ -157,7 +157,7 @@
                                         <link>http://static.springframework.org/spring-integration/api/</link>
                                         <link>http://static.springsource.org/spring-security/site/docs/3.1.x/apidocs/</link>
                                         <link>http://commons.apache.org/proper/commons-io/javadocs/api-2.4/</link>
-                                        <link>http://commons.apache.org/lang/api-2.6/</link>
+                                        <link>http://commons.apache.org/proper/commons-lang/javadocs/api-2.6/</link>
                 
                                         <link>http://www.slf4j.org/apidocs/</link>
                                         <link>http://logback.qos.ch/apidocs/</link>

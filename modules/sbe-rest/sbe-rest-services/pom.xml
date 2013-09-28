@@ -12,7 +12,7 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-services</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>REST Services</name>
+    <name>SBE REST Services</name>
     <description>
         REST services layer.
     </description>

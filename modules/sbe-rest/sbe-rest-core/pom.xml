@@ -14,7 +14,7 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-core</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>Spring by Example REST Core</name>
+    <name>SBE REST Core</name>
     <description>REST Framework core for generating Spring MVC handlers based on an annotated interface that delegate to a service method.</description>
 
     <dependencies>

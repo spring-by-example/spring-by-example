@@ -14,7 +14,7 @@
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-rest-core-api</artifactId>
     <version>${sbe.rest.version}</version>
-    <name>Spring by Example REST Core API</name>
+    <name>SBE REST Core API</name>
     <description>REST Framework core API for shared interfaces.</description>
 
     <dependencies>
