@@ -6,9 +6,9 @@
     
     <parent>
         <groupId>org.springbyexample</groupId>
-        <artifactId>proto-pom</artifactId>
+        <artifactId>proto-pom-jar</artifactId>
         <version>2.1</version>
-        <relativePath>../../../proto-pom</relativePath>
+        <relativePath>../../../proto-pom/jar</relativePath>
     </parent>
     
     <groupId>org.springbyexample</groupId>
