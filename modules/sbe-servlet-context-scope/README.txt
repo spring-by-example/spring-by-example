@@ -10,7 +10,9 @@ the classpath.
 
 Release Notes
 --------------
-1.0.2 - Upgraded to Spring 3.2 & Servlet 3.0.
+1.0.3 - Upgraded to Spring 3.2.
+
+1.0.2 - Upgraded to Spring 3.1 & Servlet 3.0.
 
 1.0.1 - Upgraded to Spring 3.0.
 

@@ -13,7 +13,7 @@
     
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-util</artifactId>
-    <version>1.2.3</version>
+    <version>${sbe.util.version}</version>
     <name>Spring by Example Utils</name>
     <description>Spring by Example Utils.</description>
 

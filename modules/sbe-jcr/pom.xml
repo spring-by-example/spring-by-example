@@ -11,7 +11,7 @@
     
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-jcr</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>JCR Utils</name>
     <description>
         JCR Utils are made using Spring Modules JCR (Java Content Repository) module. 

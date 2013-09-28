@@ -44,7 +44,6 @@
         <dependency>
         	<groupId>org.springbyexample</groupId>
         	<artifactId>sbe-dynamic-tiles2</artifactId>
-        	<version>1.2.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.webflow</groupId>

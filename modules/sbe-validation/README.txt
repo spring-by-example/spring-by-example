@@ -6,7 +6,9 @@ Spring Modules project once enhancements are complete.
 
 Release Notes
 --------------
-0.95 -  Upgraded to Spring 3.2.
+0.96 -  Upgraded to Spring 3.2.
+
+0.95 -  Upgraded to Spring 3.1.
 
 0.94 -  Upgraded to Spring 3.0.
 

@@ -9,7 +9,9 @@ the classpath.
 
 Release Notes
 --------------
-1.2.1 - Upgraded to Spring 3.2.
+1.2.2 - Upgraded to Spring 3.2.
+
+1.2.1 - Upgraded to Spring 3.1.
  
 1.2 -   Upgraded to Spring 3.0 and Spring JS 2.0.8.RELEASE.  The latter has a patch to make it easier to override 
         AjaxTilesView for Dynamic Tiles rendering.

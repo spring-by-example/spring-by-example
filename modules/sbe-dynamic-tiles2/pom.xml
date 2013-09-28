@@ -13,7 +13,7 @@
     
 	<groupId>org.springbyexample</groupId>
 	<artifactId>sbe-dynamic-tiles2</artifactId>
-	<version>1.2.1</version>
+	<version>${sbe.dynamic.tiles2.version}</version>
 	<packaging>jar</packaging>
 	<name>Dynamic Tiles 2 Spring View Resolvers</name>
 	<description>

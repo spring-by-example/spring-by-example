@@ -10,7 +10,9 @@ the classpath.
 
 Release Notes
 --------------
-1.1.3 - Upgraded to Spring 3.2.
+1.1.4 - Upgraded to Spring 3.2.
+
+1.1.3 - Upgraded to Spring 3.1.
 
 1.1.2 - Upgraded to Spring 3.0 and removed GenericHtmlController since it can be handled by configuration.
 
