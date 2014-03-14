@@ -28,8 +28,8 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.servlet.mvc.BaseCommandController;
 import org.springmodules.validation.valang.ValangValidator;
+import org.springmodules.validation.web.servlet.mvc.BaseCommandController;
 
 /**
  * Spring MVC interceptor implementation that will automatically export Valang

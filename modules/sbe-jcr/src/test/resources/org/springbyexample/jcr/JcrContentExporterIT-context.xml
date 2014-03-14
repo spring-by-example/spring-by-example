@@ -18,7 +18,14 @@
 
     <bean id="sessionFactory"
           class="org.springmodules.jcr.jackrabbit.JackrabbitSessionFactory"
-          p:repository-ref="repository" />
+          p:repository-ref="repository">
+        <property name="credentials">
+            <bean class="javax.jcr.SimpleCredentials">
+                <constructor-arg value="superuser"/>
+                <constructor-arg value=""/>
+            </bean>
+        </property>
+    </bean>
 
     <bean id="jcrTemplate" 
           class="org.springmodules.jcr.JcrTemplate"

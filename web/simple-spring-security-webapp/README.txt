@@ -9,6 +9,8 @@ It can also be run from the command line with 'mvn jetty:run'.
 
 Release Notes
 --------------
+1.1.3 - Upgraded to Spring 4.0.2.
+
 1.1.2 - Upgraded to have a service layer and use Spring Data JPA.
 
 1.1.1 - Upgraded to Spring 3.2.

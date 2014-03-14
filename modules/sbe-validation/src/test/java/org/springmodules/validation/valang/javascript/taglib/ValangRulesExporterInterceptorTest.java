@@ -30,8 +30,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springmodules.validation.valang.ValangValidator;
+import org.springmodules.validation.valang.web.servlet.mvc.SimpleFormController;
 
 /**
  * Unit test for the ValangRulesExporterInterceptorTests.

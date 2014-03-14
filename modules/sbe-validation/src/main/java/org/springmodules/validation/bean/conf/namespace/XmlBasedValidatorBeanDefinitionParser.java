@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the original author or authors.
+ * Copyright 2004-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springmodules.validation.bean.conf.namespace;
 
 import java.io.File;
@@ -72,6 +71,7 @@ public class XmlBasedValidatorBeanDefinitionParser extends AbstractBeanDefinitio
 
     private static final String CONFIGURATION_LOADER_PREFIX = "__configuration_loader_";
 
+    @Override
     protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
 
         BeanDefinitionBuilder registryBuilder = BeanDefinitionBuilder.rootBeanDefinition(DefaultValidationRuleElementHandlerRegistry.class);
@@ -133,6 +133,7 @@ public class XmlBasedValidatorBeanDefinitionParser extends AbstractBeanDefinitio
         final String pattern = resourcesDefinition.getAttribute(PATTERN_ATTR);
         final AntPathMatcher matcher = new AntPathMatcher();
         FileFilter filter = new FileFilter() {
+            @Override
             public boolean accept(File file) {
                 return matcher.match(pattern, file.getName());
             }
@@ -184,9 +185,9 @@ public class XmlBasedValidatorBeanDefinitionParser extends AbstractBeanDefinitio
      * @param className The name of the given class.
      */
     protected Object loadAndInstantiate(String className) {
-        Class clazz;
+        Class<?> clazz;
         try {
-            clazz = ClassUtils.forName(className);
+            clazz = ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
             return clazz.newInstance();
         } catch (ClassNotFoundException cnfe) {
             throw new ValidationConfigurationException("Could not load class '" + className + "'", cnfe);

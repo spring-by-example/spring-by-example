@@ -7,4 +7,6 @@ the classpath.
 
 Release Notes
 --------------
+0.51 - Upgraded to Spring 4.0.2.
+
 0.5 -	Initial release.

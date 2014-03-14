@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 import org.springframework.util.Assert;
 import org.springframework.validation.Validator;
-import org.springframework.web.servlet.mvc.BaseCommandController;
 import org.springmodules.validation.valang.ValangValidator;
+import org.springmodules.validation.web.servlet.mvc.BaseCommandController;
 
 /**
  * Static helper methods that place a <code>ValangValidator</code> into a model so
