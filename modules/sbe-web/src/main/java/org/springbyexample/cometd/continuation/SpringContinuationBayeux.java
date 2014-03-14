@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springbyexample.cometd.continuation;
 
 import java.io.IOException;
@@ -32,21 +31,22 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ServletContextAware;
 
 /**
- * A subclass of {@link ContinuationBayeux} that allows 
+ * A subclass of {@link ContinuationBayeux} that allows
  * full initialization of bayeux outside the {@link ContinuationCometdServlet}.
- * 
+ *
  * @author David Winterfeldt
  */
 public class SpringContinuationBayeux extends ContinuationBayeux implements ServletContextAware {
 
     protected ServletContext servletContext = null;
-    
+
     protected String filters = null;
     protected long maxInterval  = 10000;
 
     /**
      * Implementation of <code>ServletContextAware</code>.
      */
+    @Override
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
@@ -67,7 +67,7 @@ public class SpringContinuationBayeux extends ContinuationBayeux implements Serv
 
     /**
      * <p>Sets max interval.</p>
-     * 
+     *
      * <p><strong>Note</strong>: Overriding parent because it sets value on
      * internal instance before initialization.</p>
      */
@@ -83,19 +83,19 @@ public class SpringContinuationBayeux extends ContinuationBayeux implements Serv
     @PostConstruct
     public void init() {
         this.initialize(servletContext);
-        
+
         super.setMaxInterval(maxInterval);
-        
+
         // based on AbstractCometdServlet.init()
         if (filters != null) {
             try {
                 Object[] objects = (Object[]) JSON.parse(new StringReader(filters));
-                
+
                 for (int i = 0; objects != null && i < objects.length; i++) {
                     Map<?, ?> filter_def = (Map<?, ?>) objects[i];
 
                     String className = (String) filter_def.get("filter");
-                    DataFilter filter = (DataFilter) ClassUtils.forName(className).newInstance();
+                    DataFilter filter = (DataFilter) ClassUtils.forName(className, ClassUtils.getDefaultClassLoader()).newInstance();
 
                     if (filter instanceof JSONDataFilter)
                         ((JSONDataFilter) filter).init(filter_def.get("init"));
@@ -115,5 +115,5 @@ public class SpringContinuationBayeux extends ContinuationBayeux implements Serv
             }
         }
     }
-    
+
 }

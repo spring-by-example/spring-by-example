@@ -6,7 +6,7 @@
 
 	<groupId>org.springbyexample</groupId>
 	<artifactId>proto-pom</artifactId>
-	<version>2.1</version>
+	<version>2.2</version>
 	<packaging>pom</packaging>
 	<name>proto-pom</name>
     <description>
@@ -17,37 +17,37 @@
         <!-- 
             can't use dot notation because this is used for site generation 
         -->
-        <sbe-site-version>1.3</sbe-site-version>
+        <sbe-site-version>1.4</sbe-site-version>
         
         <java.version>1.6</java.version>
         
-        <sbe.dynamic.tiles2.version>1.2.2</sbe.dynamic.tiles2.version>
-        <sbe.rest.version>0.5</sbe.rest.version>
-        <sbe.util.version>1.2.4</sbe.util.version>
-        <contact.app.version>1.1</contact.app.version>
+        <sbe.dynamic.tiles2.version>1.2.3</sbe.dynamic.tiles2.version>
+        <sbe.rest.version>0.51</sbe.rest.version>
+        <sbe.util.version>1.2.5</sbe.util.version>
+        <contact.app.version>1.1.1</contact.app.version>
 
-        <spring.framework.version>3.2.3.RELEASE</spring.framework.version>
-        <spring.amqp.version>1.2.0.RELEASE</spring.amqp.version>
-        <spring.data.jpa.version>1.4.1.RELEASE</spring.data.jpa.version>
+        <spring.framework.version>4.0.2.RELEASE</spring.framework.version>
+        <spring.amqp.version>1.2.1.RELEASE</spring.amqp.version>
+        <spring.data.jpa.version>1.5.0.RELEASE</spring.data.jpa.version>
         <spring.data.rest.version>1.0.0.RELEASE</spring.data.rest.version>
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
-        <spring.integration.version>2.2.5.RELEASE</spring.integration.version>
-        <spring.security.version>3.1.4.RELEASE</spring.security.version>
-        <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
+        <spring.integration.version>3.0.1.RELEASE</spring.integration.version>
+        <spring.security.version>3.2.2.RELEASE</spring.security.version>
+        <spring.webflow.version>2.3.3.RELEASE</spring.webflow.version>
         <spring.ws.version>2.1.2.RELEASE</spring.ws.version>
 
-        <aspectj.version>1.7.3</aspectj.version>
+        <aspectj.version>1.7.4</aspectj.version>
         <hibernate.version>4.2.5.Final</hibernate.version>
-        <jackson.mapper.version>2.2.3</jackson.mapper.version>
-        <jackrabbit.version>1.3.3</jackrabbit.version>
+        <jackson.mapper.version>2.3.2</jackson.mapper.version>
+        <jackrabbit.version>2.7.4</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
         <jstl.version>1.1.2</jstl.version>        
-        <logback.version>1.0.13</logback.version>
+        <logback.version>1.1.1</logback.version>
         <postgresql.jdbc.version>9.0-801.jdbc4</postgresql.jdbc.version>
-        <slf4j.version>1.7.5</slf4j.version>
+        <slf4j.version>1.7.6</slf4j.version>
         <spring.modules.version>0.8a</spring.modules.version>
-		<tiles.version>2.1.3</tiles.version>
+		<tiles.version>2.2.2</tiles.version>
 
         <junit.version>4.11</junit.version>
         
@@ -434,7 +434,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.8.3</version>
+                <version>1.9.1</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -509,7 +509,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.1</version>
+                <version>2.3</version>
             </dependency>
             <dependency>
                 <groupId>postgresql</groupId>
@@ -524,7 +524,7 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>4.2.1</version>
+                <version>4.3.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
@@ -571,7 +571,7 @@
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>2.2.4</version>
+                <version>2.3.2</version>
             </dependency>
             
             <!-- Web Dependencies -->
@@ -626,7 +626,12 @@
             <dependency>
                 <groupId>javax.jcr</groupId>
                 <artifactId>jcr</artifactId>
-                <version>1.0</version>
+                <version>2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>3.6.0</version>
             </dependency>
         
             <dependency>
@@ -947,7 +952,7 @@
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
             <comments>
-Copyright 2007-2012 the original author or authors.
+Copyright 2007-2014 the original author or authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom-example</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
         <relativePath>../../proto-pom/example</relativePath>
     </parent>
 
     <groupId>org.springbyexample</groupId>
     <artifactId>simple-jpa</artifactId>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <name>Simple JPA Example</name>
     <description>
         Simple JPA example.

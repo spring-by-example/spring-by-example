@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom-jar</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
         <relativePath>../../proto-pom/jar</relativePath>
     </parent>
 
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-web</artifactId>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <name>Spring by Example Web</name>
     <description>Spring by Example Web.</description>
 
@@ -77,7 +77,7 @@
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
             <comments>
-                Copyright 2007-2012 the original author or authors.
+                Copyright 2007-2014 the original author or authors.
 
                 Licensed under the Apache License, Version 2.0 (the
                 "License"); you may not use this file except in

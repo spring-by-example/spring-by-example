@@ -24,8 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.util.Assert;
-import org.springframework.util.CachingMapDecorator;
 import org.springframework.util.ReflectionUtils;
+import org.springmodules.validation.util.CachingMapDecorator;
 
 /**
  * Helper implementation for a reflective visitor.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the original author or authors.
+ * Copyright 2004-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springmodules.validation.valang;
 
 import java.util.Collection;
@@ -73,7 +72,7 @@ import org.springmodules.validation.valang.predicates.ValidationRule;
  *      &lt;/bean&gt;
  * </p>
  * </pre>
- * <p>Enums can be dynamically resolved either based on comparing an enum type to a literal delimitted by 
+ * <p>Enums can be dynamically resolved either based on comparing an enum type to a literal delimitted by
  * "['" + &lt;enum&gt; + "']" or it will be directly resovled if the complete path is specified.</p>
  * <pre>
  * <p>
@@ -86,8 +85,8 @@ import org.springmodules.validation.valang.predicates.ValidationRule;
  *      &lt;/bean&gt;
  * </p>
  * </pre>
- * <p>Where clauses are very similar to a SQL WHERE clause.  It lets you short circuit the validation in 
- * case there are some rules that should only be applied after other criteria have been satisfied.  A where 
+ * <p>Where clauses are very similar to a SQL WHERE clause.  It lets you short circuit the validation in
+ * case there are some rules that should only be applied after other criteria have been satisfied.  A where
  * clause doesn't generate any errors, and a where clause is optional.</p>
  * <pre>
  * <p>
@@ -103,11 +102,11 @@ import org.springmodules.validation.valang.predicates.ValidationRule;
  * org.springmodules.validation.valang.CustomPropertyEditor.
  * <p>A custom visitor can be registered to use custom functions in the Valang
  * syntax.</p>
- * 
- * <p>If the class name is set it will be be used for bytecode generation 
+ *
+ * <p>If the class name is set it will be be used for bytecode generation
  * to avoid reflection.</p>
- * 
- * <p><strong>Note</strong>: By specifying the class name the <code>Validator</code> 
+ *
+ * <p><strong>Note</strong>: By specifying the class name the <code>Validator</code>
  * will only be able to validate the class specified</p>
  *
  * @author Steven Devijver
@@ -140,10 +139,10 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
     }
 
     /**
-     * <p>Sets the class name to be used for bytecode generation 
+     * <p>Sets the class name to be used for bytecode generation
      * to avoid reflection.</p>
-     * 
-     * <p><strong>Note</strong>: By specifying this <code>Validator</code> 
+     *
+     * <p><strong>Note</strong>: By specifying this <code>Validator</code>
      * will only be able to validate the class specified</p>
      *
      * @param   className       The fully qualified class name to perform validation on.
@@ -189,21 +188,22 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
     /**
      * Implementation of <code>InitializingBean</code>.
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         Assert.hasLength(getValang(), "'valang' property must be set!");
 
         ValangParser parser = null;
-        
+
         if (!StringUtils.hasText(className)) {
             parser = createValangParser(valang);
         } else {
             parser = createValangParser(valang, className);
 
-            // if className is set, this is the only supported class 
+            // if className is set, this is the only supported class
             // for this validator
-            supportClass = ClassUtils.forName(className);
+            supportClass = ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
         }
-        
+
         rules = parser.parseValidation();
     }
 
@@ -211,13 +211,14 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
      * What validation class is supported.
      * Implementation of <code>Validator</code>.
      */
+    @Override
     public boolean supports(Class clazz) {
         boolean result = true;
-        
+
         if (supportClass != null) {
             result = supportClass.isAssignableFrom(clazz);
         }
-        
+
         return result;
     }
 
@@ -225,13 +226,14 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
      * <p>Validate the supplied <code>target</code> object, which must be
      * of a {@link Class} for which the {@link #supports(Class)} method
      * typically has (or would) return <code>true</code>.</p>
-     * 
+     *
      * <p>Implementation of <code>Validator</code>.</p>
      */
+    @Override
     public void validate(Object target, Errors errors) {
         Object bean = null;
         BeanWrapper beanWrapper = null;
-        
+
         if (!StringUtils.hasText(className)) {
             beanWrapper = (target instanceof BeanWrapper) ? (BeanWrapper) target : new BeanWrapperImpl(target);
 
@@ -242,7 +244,7 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
                     } else if (customPropertyEditor.getPropertyEditor() == null) {
                         throw new IllegalArgumentException("[propertyEditor] is required on CustomPropertyEditor instances!");
                     }
-    
+
                     if (StringUtils.hasLength(customPropertyEditor.getPropertyPath())) {
                         beanWrapper.registerCustomEditor(customPropertyEditor.getRequiredType(),
                             customPropertyEditor.getPropertyPath(), customPropertyEditor.getPropertyEditor());
@@ -252,15 +254,15 @@ public class ValangValidator extends SimpleValangBased implements Validator, Ini
                     }
                 }
             }
-            
+
             bean = beanWrapper;
         } else {
             bean = target;
         }
-        
+
         for (ValidationRule rule : rules) {
             rule.validate(bean, errors);
         }
     }
-    
+
 }

@@ -615,7 +615,7 @@ Function literal() :
                                 String className = enumName.substring(0, lastIndex);
                                 String value  = enumName.substring((lastIndex + 1), enumName.length());
                                 
-                                Class<?> enumClass = ClassUtils.forName(className);
+                                Class<?> enumClass = ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
                                 Enum<?> convertedEnumValue = (Enum<?>) enumClass.getField(value).get(null);
     
                                 result = new LiteralFunction(convertedEnumValue);

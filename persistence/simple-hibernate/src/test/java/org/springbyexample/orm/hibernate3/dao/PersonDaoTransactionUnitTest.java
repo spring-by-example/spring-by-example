@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springbyexample.orm.hibernate3.dao;
 
 import static org.junit.Assert.assertEquals;
@@ -39,11 +38,11 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Tests transactions using Spring's transaction unit test 
- * framework.  The spring configuration doesn't use 
- * &lt;tx:annotation-driven/&gt; so the <code>@Transactional</code> 
+ * Tests transactions using Spring's transaction unit test
+ * framework.  The spring configuration doesn't use
+ * &lt;tx:annotation-driven/&gt; so the <code>@Transactional</code>
  * annotation in the <code>PersonDaoImpl</code> class isn't used.
- * 
+ *
  * @author David Winterfeldt
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PersonDaoTransactionUnitTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     final Logger logger = LoggerFactory.getLogger(PersonDaoTransactionUnitTest.class);
-    
+
     protected static int SIZE = 2;
     protected static Integer ID = new Integer(1);
     protected static String FIRST_NAME = "Joe";
@@ -62,9 +61,9 @@ public class PersonDaoTransactionUnitTest extends AbstractTransactionalJUnit4Spr
 
     @Autowired
     protected PersonDao personDao = null;
-    
+
     /**
-     * Tests that the size and first record match what is expected 
+     * Tests that the size and first record match what is expected
      * before the transaction.
      */
     @BeforeTransaction
@@ -78,28 +77,28 @@ public class PersonDaoTransactionUnitTest extends AbstractTransactionalJUnit4Spr
     @Test
     public void testHibernateTemplate() throws SQLException {
         assertNotNull("Person DAO is null.", personDao);
-        
+
         Collection<Person> lPersons = personDao.findPersons();
-        
+
         assertNotNull("Person list is null.", lPersons);
         assertEquals("Number of persons should be " + SIZE + ".", SIZE, lPersons.size());
-        
+
         for (Person person : lPersons) {
             assertNotNull("Person is null.", person);
-                        
-            if (ID.equals(person.getId())) {                
+
+            if (ID.equals(person.getId())) {
                 assertEquals("Person first name should be " + FIRST_NAME + ".", FIRST_NAME, person.getFirstName());
                 assertEquals("Person last name should be " + LAST_NAME + ".", LAST_NAME, person.getLastName());
-                
+
                 person.setLastName(CHANGED_LAST_NAME);
-                
+
                 personDao.save(person);
             }
         }
     }
 
     /**
-     * Tests that the size and first record match what is expected 
+     * Tests that the size and first record match what is expected
      * after the transaction.
      */
     @AfterTransaction
@@ -111,7 +110,7 @@ public class PersonDaoTransactionUnitTest extends AbstractTransactionalJUnit4Spr
      * Tests person table.
      */
     protected void testPerson(boolean beforeTransaction, String matchLastName) {
-        List<Map<String, Object>> lPersonMaps = simpleJdbcTemplate.queryForList("SELECT * FROM PERSON");
+        List<Map<String, Object>> lPersonMaps = jdbcTemplate.queryForList("SELECT * FROM PERSON");
 
         assertNotNull("Person list is null.", lPersonMaps);
         assertEquals("Number of persons should be " + SIZE + ".", SIZE, lPersonMaps.size());
@@ -119,15 +118,15 @@ public class PersonDaoTransactionUnitTest extends AbstractTransactionalJUnit4Spr
         Map<String, Object> hPerson = lPersonMaps.get(0);
 
         logger.debug((beforeTransaction ? "Before" : "After") + " transaction.  " + hPerson.toString());
-            
+
         Integer id = (Integer)hPerson.get("ID");
         String firstName = (String)hPerson.get("FIRST_NAME");
         String lastName = (String)hPerson.get("LAST_NAME");
-        
-        if (ID.equals(id)) {                
+
+        if (ID.equals(id)) {
             assertEquals("Person first name should be " + FIRST_NAME + ".", FIRST_NAME, firstName);
             assertEquals("Person last name should be " + matchLastName + ".", matchLastName, lastName);
         }
     }
-    
+
 }

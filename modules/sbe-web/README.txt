@@ -10,6 +10,8 @@ the classpath.
 
 Release Notes
 --------------
+1.1.5 - Upgraded to Spring 4.0.2.
+
 1.1.4 - Upgraded to Spring 3.2.
 
 1.1.3 - Upgraded to Spring 3.1.

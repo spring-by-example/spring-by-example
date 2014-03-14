@@ -1,5 +1,5 @@
 /*
- * Copyright 2007-2012 the original author or authors.
+ * Copyright 2007-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springbyexample.orm.hibernate3.annotation.dao;
 
 
@@ -30,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Person DAO implementation.
- * 
+ *
  * @author David Winterfeldt
  */
 @Repository
@@ -45,26 +44,29 @@ public class PersonDaoImpl implements PersonDao {
     public void setSessionFactory(SessionFactory sessionFactory) {
         template = new HibernateTemplate(sessionFactory);
     }
-    
+
     /**
      * Find persons.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Collection<Person> findPersons() throws DataAccessException {
-        return template.find("from Person");
+        return (Collection<Person>) template.find("from Person");
     }
-    
+
     /**
      * Find persons by last name.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Collection<Person> findPersonsByLastName(String lastName) throws DataAccessException {
-        return template.find("from Person p where p.lastName = ?", lastName);
+        return (Collection<Person>) template.find("from Person p where p.lastName = ?", lastName);
     }
-    
+
     /**
      * Saves person.
      */
+    @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void save(Person person) {
         template.saveOrUpdate(person);

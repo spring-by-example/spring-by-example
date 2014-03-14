@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the original author or authors.
+ * Copyright 2004-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.springmodules.validation.bean.conf.loader.xml;
 
 import java.beans.PropertyDescriptor;
@@ -199,6 +198,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
      *
      * @see AbstractXmlBeanValidationConfigurationLoader#loadConfigurations(org.w3c.dom.Document, String)
      */
+    @Override
     protected Map loadConfigurations(Document document, String resourceName) {
         Map configurations = new HashMap();
         Element validationDefinition = document.getDocumentElement();
@@ -210,7 +210,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
             className = (StringUtils.hasLength(packageName)) ? packageName + "." + className : className;
             Class clazz;
             try {
-                clazz = ClassUtils.forName(className);
+                clazz = ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
             } catch (ClassNotFoundException cnfe) {
                 logger.error("Could not load class '" + className + "' as defined in '" + resourceName + "'", cnfe);
                 continue;
@@ -223,6 +223,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
     /**
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         initContext(handlerRegistry);
         super.afterPropertiesSet();
@@ -256,6 +257,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
     /**
      * @see ConditionExpressionBased#setConditionExpressionParser(org.springmodules.validation.util.cel.ConditionExpressionParser)
      */
+    @Override
     public void setConditionExpressionParser(ConditionExpressionParser conditionExpressionParser) {
         this.conditionParserExplicitlySet = true;
         this.conditionExpressionParser = conditionExpressionParser;
@@ -264,6 +266,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
     /**
      * @see FunctionExpressionBased#setFunctionExpressionParser(org.springmodules.validation.util.fel.FunctionExpressionParser)
      */
+    @Override
     public void setFunctionExpressionParser(FunctionExpressionParser functionExpressionParser) {
         this.functionParserExplicitlySet = true;
         this.functionExpressionParser = functionExpressionParser;
@@ -272,6 +275,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
     /**
      * @see ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
      */
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
@@ -343,7 +347,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
                 "this configuration loader was not deployed in an application context");
         }
         String beanName = definition.getAttribute(NAME_ATTR);
-        Validator validator = (Validator)applicationContext.getBean(beanName, Validator.class);
+        Validator validator = applicationContext.getBean(beanName, Validator.class);
         configuration.addCustomValidator(validator);
     }
 
@@ -508,7 +512,7 @@ public class DefaultXmlBeanValidationConfigurationLoader extends AbstractXmlBean
 
     protected Validator constructValidator(String className) {
         try {
-            Class clazz = ClassUtils.forName(className);
+            Class<?> clazz = ClassUtils.forName(className, ClassUtils.getDefaultClassLoader());
             if (!Validator.class.isAssignableFrom(clazz)) {
                 throw new ValidationConfigurationException("class '" + className + "' is not a Validator implementation");
             }

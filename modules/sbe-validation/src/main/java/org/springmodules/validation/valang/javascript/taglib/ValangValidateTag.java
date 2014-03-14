@@ -27,12 +27,12 @@ import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTag;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.Assert;
-import org.springframework.web.servlet.mvc.BaseCommandController;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 import org.springmodules.validation.valang.ValangValidator;
 import org.springmodules.validation.valang.javascript.ValangJavaScriptTranslator;
 import org.springmodules.validation.valang.parser.ParseException;
 import org.springmodules.validation.valang.parser.ValangParser;
+import org.springmodules.validation.web.servlet.mvc.BaseCommandController;
 
 /**
  * Generates JavaScript validation code from a set valang validation

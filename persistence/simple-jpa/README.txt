@@ -7,6 +7,8 @@ the classpath.
 
 Release Notes
 --------------
+1.1.5 - Upgraded to Spring 4.0.2.
+
 1.1.4 - Updated persistence.xml to version 2.0.
 
 1.1.3 - Upgraded to Spring 3.2.

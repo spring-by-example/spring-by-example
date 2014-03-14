@@ -12,6 +12,8 @@ It can also be run from the command line with 'mvn jetty:run' and accessed at th
 
 Release Notes
 --------------
+1.2.2 - Upgraded to Spring 4.0.2.
+
 1.2.1 - Upgraded to Spring 3.2.
 
 1.2 -   ?

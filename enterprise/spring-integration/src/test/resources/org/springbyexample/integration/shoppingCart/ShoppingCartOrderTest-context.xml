@@ -9,9 +9,9 @@
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context.xsd
                         http://www.springframework.org/schema/integration
-                        http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+                        http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
                         http://www.springframework.org/schema/integration/stream
-                        http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.2.xsd">
+                        http://www.springframework.org/schema/integration/stream/spring-integration-stream-3.0.xsd">
 
 <!-- 
        shoppingCartOrder
