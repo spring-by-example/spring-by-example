@@ -18,6 +18,7 @@ package org.springbyexample.contact.service.person;
 import java.util.List;
 
 import org.springbyexample.contact.converter.person.ContactConverter;
+import org.springbyexample.contact.converter.person.PersonStudentConverter;
 import org.springbyexample.contact.converter.person.ProfessionalConverter;
 import org.springbyexample.contact.converter.person.StudentConverter;
 import org.springbyexample.contact.orm.repository.PersonRepository;
@@ -46,16 +47,18 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
 
     private static final String SAVE_MSG = "contact.save.msg";
 
+    private final PersonStudentConverter personStudentConverter;
     private final StudentConverter studentConverter;
     private final ProfessionalConverter professionalConverter;
 
     @Autowired
     public ContactServiceImpl(PersonRepository repository,
-                              ContactConverter converter,
+                              ContactConverter converter, PersonStudentConverter personStudentConverter,
                               StudentConverter studentConverter, ProfessionalConverter professionalConverter,
                               MessageHelper messageHelper) {
         super(repository, converter, messageHelper);
 
+        this.personStudentConverter = personStudentConverter;
         this.studentConverter = studentConverter;
         this.professionalConverter = professionalConverter;
     }
@@ -69,7 +72,7 @@ public class ContactServiceImpl extends AbstractPersistenceService<org.springbye
         } else if (request instanceof Professional) {
             bean = professionalConverter.convertFrom((Professional) request);
         } else {
-            bean = converter.convertFrom(request);
+            bean = studentConverter.convertFrom(personStudentConverter.convertTo(request));
         }
 
         Person result = converter.convertTo(repository.saveAndFlush(bean));

@@ -37,7 +37,7 @@
         <spring.ws.version>2.1.2.RELEASE</spring.ws.version>
 
         <aspectj.version>1.7.4</aspectj.version>
-        <hibernate.version>4.2.5.Final</hibernate.version>
+        <hibernate.version>4.3.4.Final</hibernate.version>
         <jackson.mapper.version>2.3.2</jackson.mapper.version>
         <jackrabbit.version>2.7.4</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
@@ -565,8 +565,8 @@
             </dependency>
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
-                <artifactId>hibernate-jpa-2.0-api</artifactId>
-                <version>1.0.1.Final</version>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>1.0.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
