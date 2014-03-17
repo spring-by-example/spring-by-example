@@ -195,7 +195,7 @@
         <repository>
             <id>SpringFlex</id>
             <name>SpringFlex Source Repo</name>
-            <url>http://s3browse.springsource.com/browse/maven.springframework.org/external/com/adobe/blazeds/</url>
+            <url>https://src.springsource.org/svn/spring-flex/tags/spring-flex-1.5.2.RELEASE/local-repo/</url>
         </repository>
 	</repositories>
 	
