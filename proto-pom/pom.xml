@@ -19,7 +19,7 @@
         -->
         <sbe-site-version>1.4</sbe-site-version>
         
-        <java.version>1.6</java.version>
+        <java.version>1.7</java.version>
         
         <sbe.dynamic.tiles2.version>1.2.3</sbe.dynamic.tiles2.version>
         <sbe.rest.version>0.51</sbe.rest.version>
@@ -34,7 +34,7 @@
         <spring.integration.version>3.0.1.RELEASE</spring.integration.version>
         <spring.security.version>3.2.2.RELEASE</spring.security.version>
         <spring.webflow.version>2.3.3.RELEASE</spring.webflow.version>
-        <spring.ws.version>2.1.2.RELEASE</spring.ws.version>
+        <spring.ws.version>2.1.4.RELEASE</spring.ws.version>
 
         <aspectj.version>1.7.4</aspectj.version>
         <hibernate.version>4.3.4.Final</hibernate.version>

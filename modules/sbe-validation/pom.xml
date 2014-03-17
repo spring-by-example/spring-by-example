@@ -23,9 +23,6 @@
             <name>Uri Boness</name>
             <email>hueboness at java.net</email>
             <organization>Spring Modules Validation</organization>
-            <organizationUrl>
-                http://www.springsource.org/spring-modules
-            </organizationUrl>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -35,9 +32,6 @@
             <id>sdevijver</id>
             <name>Steven Devijver</name>
             <organization>Spring Modules Validation</organization>
-            <organizationUrl>
-                http://www.springsource.org/spring-modules
-            </organizationUrl>
             <roles>
                 <role>Developer</role>
             </roles>
@@ -47,9 +41,6 @@
             <id>rharrop</id>
             <name>Rob Harrop</name>
             <organization>Spring Modules Validation</organization>
-            <organizationUrl>
-                http://www.springsource.org/spring-modules
-            </organizationUrl>
             <roles>
                 <role>Developer</role>
             </roles>
