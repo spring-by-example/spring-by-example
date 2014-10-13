@@ -14,6 +14,7 @@
     </description>
 
     <modules>
+        <module>bean-validation</module>
         <module>simple-spring-jms</module>
         <module>simple-spring-web-services</module>
         <module>spring-jmx</module>
