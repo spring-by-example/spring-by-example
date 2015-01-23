@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom-example</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <relativePath>../../proto-pom/example</relativePath>
     </parent>
     
     <groupId>org.springbyexample</groupId>
     <artifactId>spring-rest-services</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>Spring REST Services</name>
     <description>Spring REST Service example using JAXB and JSON for serialization.</description>
 

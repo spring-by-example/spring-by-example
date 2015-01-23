@@ -6,7 +6,7 @@
 
 	<groupId>org.springbyexample</groupId>
 	<artifactId>proto-pom</artifactId>
-	<version>2.2</version>
+	<version>2.3</version>
 	<packaging>pom</packaging>
 	<name>proto-pom</name>
     <description>
@@ -17,39 +17,40 @@
         <!-- 
             can't use dot notation because this is used for site generation 
         -->
-        <sbe-site-version>1.4</sbe-site-version>
+        <sbe-site-version>1.5</sbe-site-version>
         
-        <java.version>1.6</java.version>
+        <java.version>1.7</java.version>
         
-        <sbe.dynamic.tiles2.version>1.2.3</sbe.dynamic.tiles2.version>
-        <sbe.rest.version>0.51</sbe.rest.version>
-        <sbe.util.version>1.2.5</sbe.util.version>
-        <contact.app.version>1.1.1</contact.app.version>
+        <sbe.dynamic.tiles2.version>1.2.4</sbe.dynamic.tiles2.version>
+        <sbe.rest.version>0.52</sbe.rest.version>
+        <sbe.util.version>1.2.6</sbe.util.version>
+        <contact.app.version>1.1.2</contact.app.version>
 
-        <spring.framework.version>4.0.2.RELEASE</spring.framework.version>
-        <spring.amqp.version>1.2.1.RELEASE</spring.amqp.version>
-        <spring.data.jpa.version>1.5.0.RELEASE</spring.data.jpa.version>
-        <spring.data.rest.version>1.0.0.RELEASE</spring.data.rest.version>
+        <spring.framework.version>4.1.4.RELEASE</spring.framework.version>
+        <spring.amqp.version>1.4.2.RELEASE</spring.amqp.version>
+        <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
+        <spring.data.rest.version>2.2.1.RELEASE</spring.data.rest.version>
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
-        <spring.integration.version>3.0.1.RELEASE</spring.integration.version>
-        <spring.security.version>3.2.2.RELEASE</spring.security.version>
+        <spring.integration.version>4.1.2.RELEASE</spring.integration.version>
+        <spring.security.version>3.2.5.RELEASE</spring.security.version>
         <spring.webflow.version>2.3.3.RELEASE</spring.webflow.version>
         <spring.ws.version>2.1.4.RELEASE</spring.ws.version>
 
-        <aspectj.version>1.7.4</aspectj.version>
-        <hibernate.version>4.3.4.Final</hibernate.version>
-        <jackson.mapper.version>2.3.2</jackson.mapper.version>
-        <jackrabbit.version>2.7.4</jackrabbit.version>
+        <aspectj.version>1.8.4</aspectj.version>
+        <dozer.version>5.5.1</dozer.version>
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <jackson.mapper.version>2.5.0</jackson.mapper.version>
+        <jackrabbit.version>2.9.0</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
         <jstl.version>1.1.2</jstl.version>        
-        <logback.version>1.1.1</logback.version>
+        <logback.version>1.1.2</logback.version>
         <postgresql.jdbc.version>9.3-1100-jdbc4</postgresql.jdbc.version>
-        <slf4j.version>1.7.6</slf4j.version>
+        <slf4j.version>1.7.10</slf4j.version>
         <spring.modules.version>0.8a</spring.modules.version>
 		<tiles.version>2.2.2</tiles.version>
 
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -434,7 +435,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.1</version>
+                <version>1.9.2</version>
             </dependency>
             <dependency>
                 <groupId>commons-collections</groupId>
@@ -464,7 +465,7 @@
             <dependency>
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
-                <version>1.3.1</version>
+                <version>1.4.1</version>
             </dependency>        
             <dependency>
                 <groupId>dom4j</groupId>
@@ -474,7 +475,12 @@
             <dependency>
                 <groupId>net.sf.dozer</groupId>
                 <artifactId>dozer</artifactId>
-                <version>5.3.2</version>
+                <version>${dozer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer-spring</artifactId>
+                <version>${dozer.version}</version>
             </dependency>
             <dependency>
                 <groupId>javassist</groupId>
@@ -514,7 +520,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.3</version>
+                <version>2.7</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -524,7 +530,7 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-core</artifactId>
-                <version>5.3.0</version>
+                <version>5.7.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -539,13 +545,13 @@
             <dependency>
                 <groupId>org.apache.xbean</groupId>
                 <artifactId>xbean-spring</artifactId>
-                <version>3.6</version>
+                <version>4.1</version>
             </dependency>   
             <!-- used for JPA custom type registration of joda-time -->
             <dependency>
                 <groupId>org.jadira.usertype</groupId>
                 <artifactId>usertype.core</artifactId>
-                <version>3.0.0.CR3</version>
+                <version>3.2.0.GA</version>
             </dependency>
             <dependency>
                 <groupId>org.jvnet.opendmk</groupId>
@@ -593,12 +599,12 @@
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>javax.el-api</artifactId>
-                <version>2.2.4</version>
+                <version>2.2.5</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.web</groupId>
                 <artifactId>javax.el</artifactId>
-                <version>2.2.4</version>
+                <version>2.2.5</version>
             </dependency>            
 
             <!-- Web Dependencies -->

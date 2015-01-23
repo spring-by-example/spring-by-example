@@ -6,13 +6,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <relativePath>../../proto-pom</relativePath>
     </parent>
     
     <groupId>org.springbyexample.core</groupId>
     <artifactId>basic-dependency-injection</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>Basic Dependency Injection</name>
     <description> 
         Basic Dependency Injection with the Spring Framework.

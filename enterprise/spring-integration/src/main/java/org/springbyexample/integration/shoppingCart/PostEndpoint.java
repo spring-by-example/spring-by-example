@@ -19,27 +19,27 @@ package org.springbyexample.integration.shoppingCart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springbyexample.integration.book.OnlineBookOrder;
-import org.springframework.integration.Message;
 import org.springframework.integration.annotation.MessageEndpoint;
+import org.springframework.messaging.Message;
 
 /**
  * The endpoint for a delivery order.
- * 
+ *
  * @author David Winterfeldt
  */
 @MessageEndpoint
 public class PostEndpoint {
 
     final Logger logger = LoggerFactory.getLogger(PostEndpoint.class);
-    
+
     /**
      * Process a delivery order for sending by mail.
      */
 	public void processMessage(Message<OnlineBookOrder> message) {
 		OnlineBookOrder order =  message.getPayload();
-		
-        logger.debug("In PostEndpoint.  title='{}'  quantity={}  orderType={}  address='{}'", 
-                new Object[] { order.getTitle(), 
+
+        logger.debug("In PostEndpoint.  title='{}'  quantity={}  orderType={}  address='{}'",
+                new Object[] { order.getTitle(),
                                order.getQuantity(),
                                order.getOrderType(),
                                order.getAddress() });
