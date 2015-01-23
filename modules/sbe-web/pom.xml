@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.springbyexample</groupId>
         <artifactId>proto-pom-jar</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <relativePath>../../proto-pom/jar</relativePath>
     </parent>
 
     <groupId>org.springbyexample</groupId>
     <artifactId>sbe-web</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <name>Spring by Example Web</name>
     <description>Spring by Example Web.</description>
 

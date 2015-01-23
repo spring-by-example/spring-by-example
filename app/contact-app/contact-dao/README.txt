@@ -7,6 +7,8 @@ the classpath.
 
 Release Notes
 --------------
+1.1.2 - Upgraded to Spring 4.1.4.
+
 1.1.1 - Upgraded to Spring 4.0.2.
 
 1.1 -   Updated to use shared Spring by Example REST libraries.
