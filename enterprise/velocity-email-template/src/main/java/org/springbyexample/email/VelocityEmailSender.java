@@ -66,12 +66,12 @@ public class VelocityEmailSender implements Sender {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
-               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+               MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
                message.setTo(msg.getTo());
                message.setFrom(msg.getFrom());
                message.setSubject(msg.getSubject());
 
-               String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/emailBody.vm", hTemplateVariables);
+               String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/emailBody.vm", "UTF-8", hTemplateVariables);
 
                logger.info("body={}", body);
 
