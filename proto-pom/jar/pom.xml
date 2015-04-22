@@ -149,6 +149,7 @@
                                     <breakiterator>true</breakiterator>
                                     <!-- Exclude precompiled JSPs -->
                                     <excludePackageNames>jsp</excludePackageNames>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
                                     <links>
                                         <!-- Has JPA 2.0 API -->
                                         <link>http://docs.oracle.com/javaee/7/api/</link>
@@ -186,6 +187,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
