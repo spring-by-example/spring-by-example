@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Iterator;
 
-import org.apache.commons.collections.iterators.ArrayIterator;
+import org.apache.commons.collections4.iterators.ArrayIterator;
 import org.springframework.util.Assert;
 import org.springmodules.validation.util.collection.ReadOnlyIterator;
 

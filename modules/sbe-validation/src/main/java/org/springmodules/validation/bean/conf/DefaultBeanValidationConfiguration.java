@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.validation.Validator;
 import org.springmodules.validation.bean.rule.ValidationRule;
 import org.springmodules.validation.validator.CompoundValidator;

@@ -30,10 +30,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.io.StringReader;
 
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.functors.AndPredicate;
-import org.apache.commons.collections.functors.NotPredicate;
-import org.apache.commons.collections.functors.OrPredicate;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.AndPredicate;
+import org.apache.commons.collections4.functors.NotPredicate;
+import org.apache.commons.collections4.functors.OrPredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -364,7 +364,7 @@ Predicate not(Function fieldFunction) :
 	Predicate predicate = null;
 }
 {
-	<NOT> predicate = expression(fieldFunction) { return NotPredicate.getInstance(predicate); }
+	<NOT> predicate = expression(fieldFunction) { return NotPredicate.notPredicate(predicate); }
 }
 
 Predicate predicates(Function fieldFunction) :
@@ -385,10 +385,10 @@ Predicate predicates(Function fieldFunction) :
 			predicate2 = expression(fieldFunction)
 			{
 				if (andTest) {
-					predicate1 = AndPredicate.getInstance(predicate1, predicate2);
+					predicate1 = AndPredicate.andPredicate(predicate1, predicate2);
 					andTest = false;
 				} else if (orTest) {
-					predicate1 = OrPredicate.getInstance(predicate1, predicate2);
+					predicate1 = OrPredicate.orPredicate(predicate1, predicate2);
 					orTest = false;
 				}
 			}
