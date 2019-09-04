@@ -16,7 +16,7 @@
 
 package org.springmodules.validation.util.condition.adapter;
 
-import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections4.Predicate;
 import org.springframework.util.Assert;
 import org.springmodules.validation.util.condition.AbstractCondition;
 

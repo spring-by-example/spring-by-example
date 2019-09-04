@@ -22,9 +22,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.functors.AnyPredicate;
-import org.apache.commons.collections.functors.FalsePredicate;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.AnyPredicate;
+import org.apache.commons.collections4.functors.FalsePredicate;
 import org.springmodules.validation.valang.functions.Function;
 import org.springmodules.validation.valang.functions.LiteralFunction;
 
@@ -84,10 +84,10 @@ public class InTestPredicate extends AbstractPropertyPredicate {
             if (predicates.isEmpty()) {
                 throw new IllegalStateException("IN expression contains no elements!");
             } else if (predicates.size() == 1) {
-                predicates.add(FalsePredicate.getInstance());
+                predicates.add(FalsePredicate.falsePredicate());
             }
 
-            return AnyPredicate.getInstance(predicates).evaluate(target);
+            return AnyPredicate.anyPredicate(predicates.toArray(new Predicate[0])).evaluate(target);
         }
     }
 

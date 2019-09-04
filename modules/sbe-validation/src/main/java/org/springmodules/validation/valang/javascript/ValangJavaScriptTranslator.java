@@ -25,10 +25,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.functors.AndPredicate;
-import org.apache.commons.collections.functors.NotPredicate;
-import org.apache.commons.collections.functors.OrPredicate;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.AndPredicate;
+import org.apache.commons.collections4.functors.NotPredicate;
+import org.apache.commons.collections4.functors.OrPredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.MessageSourceAccessor;

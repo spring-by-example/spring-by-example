@@ -16,8 +16,8 @@
 
 package org.springmodules.validation.valang.predicates;
 
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.functors.AndPredicate;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.AndPredicate;
 import org.springmodules.validation.valang.functions.Function;
 import org.springmodules.validation.valang.functions.LiteralFunction;
 
@@ -55,7 +55,7 @@ public class BetweenTestPredicate extends AbstractPropertyPredicate {
         Predicate predicate1 = new GreaterThanOrEqualTestPredicate(new LiteralFunction(leftValue), Operator.GREATER_THAN_OR_EQUAL, (Function) array[0], getLine(), getColumn());
         Predicate predicate2 = new LessThanOrEqualTestPredicate(new LiteralFunction(leftValue), Operator.LESS_THAN_OR_EQUAL, (Function) array[1], getLine(), getColumn());
 
-        return AndPredicate.getInstance(predicate1, predicate2).evaluate(target);
+        return AndPredicate.andPredicate(predicate1, predicate2).evaluate(target);
     }
 
 }
