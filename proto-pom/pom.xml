@@ -1018,18 +1018,18 @@ limitations under the License.
         <repository>
             <id>springbyexample.org</id>
             <name>Spring by Example</name>
-            <url>http://www.springbyexample.org/maven/repo</url>
+            <url>https://www.springbyexample.org/maven/repo</url>
         </repository>
 
         <repository>
             <id>repository.springframework.milestone</id>
             <name>Spring Framework Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
+            <url>https://maven.springframework.org/milestone</url>
         </repository>
         <repository>
             <id>repository.springframework.snapshot</id>
             <name>Spring Framework Maven Snapshot Repository</name>
-            <url>http://maven.springframework.org/snapshot</url>
+            <url>https://maven.springframework.org/snapshot</url>
         </repository>
     </repositories>
 
