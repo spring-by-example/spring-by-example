@@ -44,7 +44,7 @@
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
         <jstl.version>1.1.2</jstl.version>        
-        <logback.version>1.1.2</logback.version>
+        <logback.version>1.2.0</logback.version>
         <postgresql.jdbc.version>9.3-1100-jdbc4</postgresql.jdbc.version>
         <slf4j.version>1.7.10</slf4j.version>
         <spring.modules.version>0.8a</spring.modules.version>
