@@ -39,7 +39,7 @@
         <aspectj.version>1.8.4</aspectj.version>
         <dozer.version>5.5.1</dozer.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
-        <jackson.mapper.version>2.5.0</jackson.mapper.version>
+        <jackson.mapper.version>2.9.10.8</jackson.mapper.version>
         <jackrabbit.version>2.9.0</jackrabbit.version>
         <jasper.el.version>6.0.35</jasper.el.version>
         <jetty.version>6.1.26</jetty.version>
