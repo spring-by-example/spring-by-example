@@ -19,7 +19,7 @@
 
 	<properties>
         <gwt.version>1.5.3</gwt.version>        
-        <jetty.version>6.1.12rc1</jetty.version>
+        <jetty.version>6.1.23</jetty.version>
         <cometd.version>1.0.beta1</cometd.version>
 	</properties>
 
