@@ -33,7 +33,7 @@
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
         <spring.integration.version>4.1.2.RELEASE</spring.integration.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
-        <spring.webflow.version>2.3.3.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.4.6.RELEASE</spring.webflow.version>
         <spring.ws.version>2.1.4.RELEASE</spring.ws.version>
 
         <aspectj.version>1.8.4</aspectj.version>
