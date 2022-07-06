@@ -28,7 +28,7 @@
 
         <spring.framework.version>4.1.4.RELEASE</spring.framework.version>
         <spring.amqp.version>1.4.2.RELEASE</spring.amqp.version>
-        <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
+        <spring.data.jpa.version>1.11.23.RELEASE</spring.data.jpa.version>
         <spring.data.rest.version>2.2.1.RELEASE</spring.data.rest.version>
         <spring.flex.version>1.5.2.RELEASE</spring.flex.version>
         <spring.integration.version>4.1.2.RELEASE</spring.integration.version>
